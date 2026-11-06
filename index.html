@@ -1,0 +1,752 @@
+<title>Tónsögusmiðjan</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: sama fjölskylda og Tónlistarsmiðjan/Tónfræðismiðjan — bleikur pappír, Fredoka, hvít pillukort; tveir aðskildir flipar: lóðrétt saga með miðum á miðlínu (litir eftir tímabilum) og giskleikur; #hash-síður */
+:root{
+  --bg:#FFF8FB; --surface:#FFFFFF; --ink:#27306B; --muted:#5A6190; --line:rgba(39,48,107,.14); --tint:#FCEAF3;
+  --accent:#D62E86; --accent-ink:#FFFFFF; --accent-soft:#FFE1EF;
+  --barokk:#0078BF; --klassik:#00A95C; --romantik:#D62E86; --nutimi:#FF6C2F;
+  --barokk-soft:#DCEFFB; --klassik-soft:#DDF5E8; --romantik-soft:#FFE1EF; --nutimi-soft:#FFE6DA;
+  --mark:#F2B705; --mark-soft:#FFF3C4; --bar-ink:#FFFFFF; --shade:rgba(20,24,52,.55);
+  --f-display:"Fredoka","Baloo 2",ui-rounded,"Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif;
+  --f-body:"Fredoka","Baloo 2",ui-rounded,"Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1E2238; --surface:#272C47; --ink:#F3EEE4; --muted:#B9B6C9; --line:rgba(243,238,228,.18); --tint:#33304F;
+  --accent:#FF6EC0; --accent-ink:#1E2238; --accent-soft:#4A2A4B;
+  --barokk:#4FB6F0; --klassik:#3CCB8A; --romantik:#FF6EC0; --nutimi:#FF8A5C;
+  --barokk-soft:#1F3550; --klassik-soft:#1D3B30; --romantik-soft:#4A2A4B; --nutimi-soft:#4A3026;
+  --mark:#FFD21F; --mark-soft:#4A4224; --bar-ink:#1E2238; --shade:rgba(0,0,0,.6); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1E2238; --surface:#272C47; --ink:#F3EEE4; --muted:#B9B6C9; --line:rgba(243,238,228,.18); --tint:#33304F;
+  --accent:#FF6EC0; --accent-ink:#1E2238; --accent-soft:#4A2A4B;
+  --barokk:#4FB6F0; --klassik:#3CCB8A; --romantik:#FF6EC0; --nutimi:#FF8A5C;
+  --barokk-soft:#1F3550; --klassik-soft:#1D3B30; --romantik-soft:#4A2A4B; --nutimi-soft:#4A3026;
+  --mark:#FFD21F; --mark-soft:#4A4224; --bar-ink:#1E2238; --shade:rgba(0,0,0,.6); color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.6;margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(1.7rem,4vw,2.4rem);font-weight:600}
+h2{font-size:1.55rem;font-weight:600}
+h3{font-size:1.12rem;font-weight:600}
+p{margin:0}
+.muted{color:var(--muted)}
+.eyebrow{font-size:.78rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.stack{display:flex;flex-direction:column;gap:14px}
+.stack-lg{display:flex;flex-direction:column;gap:24px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--bg);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:18px;padding-block:10px;flex-wrap:wrap}
+.brand{font-family:var(--f-display);font-weight:600;font-size:1.1rem;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:10px}
+.brand-mark{display:flex;gap:4px;align-items:center}
+.brand-mark b{width:14px;height:14px;display:block}
+.brand-mark b:nth-child(1){background:var(--barokk);border-radius:50%}
+.brand-mark b:nth-child(2){background:var(--klassik);border-radius:3px;transform:rotate(45deg) scale(.85)}
+.brand-mark b:nth-child(3){background:var(--romantik);border-radius:42% 58% 63% 37%/45% 40% 60% 55%}
+nav.tabs{display:flex;gap:4px;margin-left:auto;background:var(--surface);border-radius:999px;padding:4px;box-shadow:0 2px 0 var(--line)}
+nav.tabs a{text-decoration:none;color:var(--muted);padding:8px 18px;border-radius:999px;font-size:.98rem;font-weight:500;white-space:nowrap}
+nav.tabs a[aria-current="page"]{background:var(--accent);color:var(--accent-ink);font-weight:600}
+@media (max-width:560px){nav.tabs{margin-left:0;width:100%}nav.tabs a{flex:1;text-align:center;padding:8px 10px}}
+main{padding-block:24px 90px}
+.view.enter{animation:viewIn .35s cubic-bezier(.2,.7,.2,1)}
+@keyframes viewIn{from{opacity:.3;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.view.enter{animation:none}}
+
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Leitarborðinn */
+.namebar{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--hh,60px));z-index:8;background:var(--bg);border-bottom:1px solid var(--line)}
+.namebar .wrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding-block:10px}
+.namebar[hidden]{display:none}
+.pick,.search input{font:inherit;font-size:.95rem;color:var(--ink);background:var(--surface);border:2px solid var(--line);border-radius:999px;padding:8px 16px;min-height:42px}
+.pick{cursor:pointer;max-width:100%;padding-right:12px}
+.search{position:relative;flex:1;min-width:200px;max-width:420px}
+.search input{width:100%;padding-left:40px}
+.search svg{position:absolute;left:14px;top:50%;margin-top:-9px;color:var(--muted);pointer-events:none}
+.results{position:absolute;left:0;right:0;top:calc(100% + 6px);background:var(--surface);border-radius:18px;box-shadow:0 12px 30px -10px rgba(39,48,107,.4),0 0 0 1px var(--line);padding:6px;max-height:min(60vh,420px);overflow-y:auto;z-index:20;list-style:none;margin:0}
+.results li button{width:100%;font:inherit;text-align:left;border:0;background:none;color:var(--ink);border-radius:12px;padding:8px 10px;display:flex;gap:10px;align-items:center;cursor:pointer}
+.results li button:hover,.results li button.on{background:var(--tint)}
+.results .dot{width:10px;height:10px;border-radius:50%;flex:none}
+.results small{display:block;color:var(--muted);font-size:.8rem}
+.results .none{padding:10px;color:var(--muted)}
+.eras-jump{display:flex;gap:6px;flex-wrap:wrap}
+.eras-jump a{text-decoration:none;font-size:.85rem;font-weight:600;color:var(--ink);background:var(--chip-soft);border-radius:999px;padding:6px 12px;display:inline-flex;align-items:center;gap:6px}
+.eras-jump a .dot{width:9px;height:9px;border-radius:50%;background:var(--chip)}
+.eras-jump a.active{background:var(--chip);color:var(--bar-ink)}
+.eras-jump a.active .dot{background:var(--bar-ink)}
+@media (max-width:700px){.eras-jump{width:100%;order:3}.search{min-width:0;flex:1 1 160px}.pick{flex:1 1 160px}}
+
+/* Sagan */
+.intro{display:flex;flex-direction:column;gap:10px;max-width:62ch}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.88rem;color:var(--muted);align-items:center}
+.star{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--mark);color:#27306B;font-size:.72rem;flex:none}
+.story{position:relative;display:flex;flex-direction:column;gap:18px}
+.era-sec{position:relative;display:flex;flex-direction:column;gap:34px;padding-bottom:80px}
+.era-sec::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:4px;margin-left:-2px;border-radius:4px;background:var(--chip);opacity:.35}
+.chapter{position:relative;display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center;padding-block:26px 8px;scroll-margin-top:130px}
+.chapter .badge{display:inline-flex;align-items:center;gap:10px;background:var(--chip);color:var(--bar-ink);font-family:var(--f-display);font-weight:600;font-size:1.5rem;border-radius:999px;padding:8px 22px;box-shadow:0 3px 0 var(--line)}
+.chapter .badge small{font-weight:400;font-size:.95rem;opacity:.9;font-variant-numeric:tabular-nums}
+.chapter p{max-width:46ch;color:var(--muted);background:var(--bg);padding:4px 10px;border-radius:12px}
+.cols2{--g:130px;display:grid;grid-template-columns:1fr 1fr;column-gap:var(--g);align-items:start}
+.cols2>.col{display:flex;flex-direction:column;gap:90px;min-width:0}
+.cols2>.col.l{align-items:flex-end}
+.cols2>.col.r{align-items:flex-start}
+.cols2>.col.r{padding-top:170px}
+@media (max-width:700px){
+  .era-sec::before{left:16px}
+  .chapter{align-items:flex-start;text-align:left;padding-left:30px}
+  .cols2{grid-template-columns:1fr}
+  .cols2>.col.r{padding-top:0}
+  .cols2>.col{gap:38px}
+}
+
+/* Miðarnir */
+.note{position:relative;border:0;font:inherit;color:var(--ink);text-align:left;cursor:pointer;width:100%;max-width:370px;aspect-ratio:4/3;
+  background:var(--soft);border-radius:6px 6px 6px 26px;padding:30px 20px 18px;
+  box-shadow:0 1px 0 var(--line),0 10px 22px -12px rgba(39,48,107,.35);
+  transform:rotate(var(--rot,0deg));transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s;
+  display:flex;flex-direction:column;gap:10px;scroll-margin-top:150px}
+.note:hover,.note:focus-visible{transform:rotate(0deg) translateY(-4px);box-shadow:0 1px 0 var(--line),0 18px 30px -14px rgba(39,48,107,.45)}
+.note::before{content:"";position:absolute;top:-11px;left:50%;width:96px;height:24px;margin-left:-48px;background:var(--col);opacity:.55;border-radius:3px;transform:rotate(-3deg)}
+.note .yr{position:absolute;top:18px;z-index:2;font-family:var(--f-display);font-weight:600;font-size:1rem;color:var(--bar-ink);background:var(--col);font-variant-numeric:tabular-nums;white-space:nowrap;border-radius:999px;padding:4px 12px;box-shadow:0 0 0 5px var(--bg)}
+.col.l .note .yr{right:calc(var(--g) / -2);transform:translateX(50%) rotate(calc(var(--rot) * -1))}
+.col.r .note .yr{left:calc(var(--g) / -2);transform:translateX(-50%) rotate(calc(var(--rot) * -1))}
+.note .yr::before{content:"";position:absolute;top:50%;height:3px;width:calc(var(--g) / 2 - 30px);background:var(--col);opacity:.5;margin-top:-1.5px}
+.col.l .note .yr::before{right:100%}
+.col.r .note .yr::before{left:100%}
+.note.hit{animation:hit 1.4s ease-out}
+@keyframes hit{0%,40%{box-shadow:0 0 0 6px var(--col),0 10px 22px -12px rgba(39,48,107,.35)}100%{box-shadow:0 1px 0 var(--line),0 10px 22px -12px rgba(39,48,107,.35)}}
+@media (max-width:700px){
+  .story .note{margin-left:56px;width:calc(100% - 56px)}
+  .col.l .note .yr,.col.r .note .yr{left:-38px;right:auto;transform:translateX(-50%) rotate(calc(var(--rot) * -1));font-size:.78rem;padding:3px 8px}
+  .note .yr::before{display:none}
+  .story .note{aspect-ratio:auto;max-width:none}
+}
+.note .top{display:flex;gap:14px;align-items:center}
+.note .top>div{min-width:0}
+.note h3{font-size:1.4rem}
+.note .meta{font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.note .tease{font-size:.98rem;line-height:1.5;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.note .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font-size:.88rem}
+.note .work{display:inline-flex;align-items:center;gap:6px;font-weight:500}
+.note .more{font-weight:600;color:var(--col)}
+.note .face{width:64px;height:64px;font-size:1.35rem;box-shadow:0 0 0 3px var(--surface)}
+.note.fx{animation:settle .6s cubic-bezier(.2,.7,.2,1) both}
+@keyframes settle{from{transform:rotate(calc(var(--rot,0deg) * -2)) translateY(16px)}to{transform:rotate(var(--rot,0deg))}}
+@media (prefers-reduced-motion:reduce){.note,.note.fx{animation:none;transition:none}}
+
+/* Andlitsmerki (upphafsstafir, eða mynd ef c.img er sett) */
+.face{width:76px;height:76px;border-radius:50%;flex:none;display:grid;place-items:center;font-family:var(--f-display);font-weight:600;font-size:1.6rem;color:var(--bar-ink);overflow:hidden;box-shadow:0 0 0 4px var(--surface)}
+.face img{width:100%;height:100%;object-fit:cover}
+
+/* Myndbönd með smámynd */
+.vid{position:relative;display:block;width:100%;aspect-ratio:16/9;max-width:100%;border-radius:18px;overflow:hidden;background:var(--vcol,var(--ink));color:var(--bar-ink);text-decoration:none;border:0;padding:0;cursor:pointer;font:inherit}
+.vid img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .3s, filter .3s}
+.vid:hover img{transform:scale(1.03)}
+.vid .shade{position:absolute;inset:auto 0 0 0;padding:28px 14px 12px;background:linear-gradient(transparent,var(--shade));display:flex;align-items:center;gap:12px;text-align:left}
+.vid .play{width:48px;height:48px;border-radius:50%;background:var(--accent);display:grid;place-items:center;flex:none;box-shadow:0 3px 0 rgba(0,0,0,.2)}
+.vid .play::after{content:"";border-left:15px solid var(--accent-ink);border-top:9px solid transparent;border-bottom:9px solid transparent;margin-left:4px}
+.vid .t{font-weight:600;line-height:1.25;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.4)}
+.vid .t small{display:block;font-weight:400;opacity:.9;font-size:.8rem}
+.vid.noimg .shade{inset:0;background:none;justify-content:center;flex-direction:column;text-align:center}
+.vid.noimg .t{color:var(--bar-ink);text-shadow:none}
+.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vid.small .play{width:36px;height:36px}
+.vid.small .play::after{border-left-width:11px;border-top-width:7px;border-bottom-width:7px}
+.vid.small .t{font-size:.88rem}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+
+/* Kort fyrir "Þekkir þú lagið?" */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.vcard{background:var(--surface);border-radius:22px;box-shadow:0 2px 0 var(--line);overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.vcard .vid{border-radius:0}
+.vcard .vid img{filter:blur(14px) saturate(1.2);transform:scale(1.15)}
+.vcard.shown .vid img{filter:none;transform:none}
+.vcard .body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:10px;flex:1}
+.vcard h3{font-size:1.05rem}
+.vcard .who{font-size:.95rem;font-weight:600;border-radius:12px;padding:8px 12px;display:flex;gap:8px;align-items:center}
+.vcard .who .dot{width:10px;height:10px;border-radius:50%;flex:none}
+.vcard .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
+.btn{font:inherit;font-weight:600;font-size:.92rem;border-radius:999px;padding:8px 16px;border:0;cursor:pointer;background:var(--accent);color:var(--accent-ink);text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.btn.ghost{background:var(--accent-soft);color:var(--ink)}
+.btn.small{padding:6px 12px;font-size:.85rem}
+
+/* Glugginn */
+dialog{border:0;padding:0;border-radius:26px;background:var(--bg);color:var(--ink);width:min(760px,calc(100vw - 24px));max-height:calc(100dvh - 24px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));box-shadow:0 20px 60px rgba(0,0,0,.25)}
+dialog::backdrop{background:rgba(30,34,56,.55)}
+.dlg-head{padding:22px 22px 18px;display:flex;flex-direction:column;gap:12px;position:relative;border-radius:26px 26px 0 0}
+.dlg-head .who{display:flex;gap:16px;align-items:center}
+.dlg-head .who>div{min-width:0}
+.dlg-head .close{position:absolute;top:14px;right:14px;width:40px;height:40px;border-radius:50%;border:0;background:var(--surface);color:var(--ink);font-size:1.4rem;cursor:pointer;line-height:1}
+.dlg-head h2{font-size:clamp(1.5rem,4vw,2.1rem);padding-right:44px}
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;font-weight:600;border-radius:999px;padding:3px 10px;background:var(--surface)}
+.dlg-body{padding:18px 22px 26px;display:flex;flex-direction:column;gap:22px}
+.dlg-body section{display:flex;flex-direction:column;gap:10px}
+.facts{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+.facts li{background:var(--surface);border-radius:16px;padding:10px 14px 10px 44px;position:relative;box-shadow:0 2px 0 var(--line)}
+.facts li::before{content:"";position:absolute;left:16px;top:17px;width:12px;height:12px;border-radius:50%;background:var(--era,var(--accent))}
+.facts li:nth-child(3n+2)::before{border-radius:3px;transform:rotate(45deg) scale(.9)}
+.facts li:nth-child(3n)::before{border-radius:42% 58% 63% 37%/45% 40% 60% 55%}
+.pop{background:var(--mark-soft);border-radius:18px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.pop ul{margin:0;padding-left:1.1em}
+.ask{background:var(--surface);border-radius:18px;padding:14px 16px;box-shadow:0 2px 0 var(--line)}
+.ask ol{margin:6px 0 0;padding-left:1.2em}
+.links-list{display:flex;flex-wrap:wrap;gap:8px}
+.peers{display:flex;flex-wrap:wrap;gap:6px}
+.peer{font:inherit;font-size:.85rem;font-weight:500;border:0;border-radius:999px;padding:4px 10px;cursor:pointer;color:var(--ink)}
+.dlg-nav{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+</style>
+
+<header class="top"><div class="wrap">
+  <a class="brand" href="#timalina"><span class="brand-mark" aria-hidden="true"><b></b><b></b><b></b></span>Tónsögusmiðjan</a>
+  <nav class="tabs" aria-label="Flipar">
+    <a href="#timalina" data-nav="timalina">Tímalínan</a>
+    <a href="#thekkir" data-nav="thekkir">Þekkir þú lagið?</a>
+  </nav>
+</div></header>
+<nav class="namebar" id="namebar" aria-label="Fara í tónskáld"><div class="wrap">
+  <label for="pick" class="sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Veldu tónskáld</label>
+  <select id="pick" class="pick"></select>
+  <div class="search" role="search">
+    <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+    <input id="q" type="search" placeholder="Leita að tónskáldi, verki eða landi…" autocomplete="off" aria-label="Leita" aria-controls="results" aria-expanded="false">
+    <ul class="results" id="results" hidden></ul>
+  </div>
+  <div class="eras-jump" id="erasJump"></div>
+</div></nav>
+
+<main class="wrap">
+
+<section class="view stack-lg" data-view="timalina">
+  <div class="intro">
+    <h1>Saga tónskáldanna</h1>
+    <p class="muted">Skrollaðu í gegnum söguna, frá barokki til nútímans. Smelltu á miða til að heyra lagið og lesa meira.</p>
+  </div>
+  <div class="story" id="story"></div>
+</section>
+
+<section class="view stack-lg" data-view="thekkir" hidden>
+  <div class="stack">
+    <h1>Þekkir þú lagið?</h1>
+    <p class="muted" style="max-width:60ch">Hlustaðu og giskaðu. Hver samdi lagið, og hvar hefur þú heyrt það áður? Ýttu svo á „Sýna tónskáldið“.</p>
+    <div class="row">
+      <button class="btn ghost small" id="revealAll" type="button">Sýna öll tónskáldin</button>
+      <button class="btn ghost small" id="hideAll" type="button">Fela aftur</button>
+    </div>
+  </div>
+  <div class="cards" id="cards"></div>
+</section>
+</main>
+
+<dialog id="dlg" aria-labelledby="dlgTitle"><div id="dlgContent"></div></dialog>
+
+<script>
+const ERAS = {
+  barokk:  {name:"Barokk", years:"1600–1750", from:1600, to:1750, text:"Skraut, orgel, sembal og fúgur. Margar raddir sem fléttast saman."},
+  klassik: {name:"Klassík", years:"1750–1820", from:1750, to:1820, text:"Skýrar laglínur og jafnvægi. Sinfóníuhljómsveitin, strengjakvartettinn og píanóið verða til."},
+  romantik:{name:"Rómantík", years:"1820–1910", from:1820, to:1910, text:"Stórar tilfinningar, náttúra, þjóðsögur og risastórar hljómsveitir."},
+  nutimi:  {name:"Nútími", years:"frá 1900", from:1900, to:1990, text:"Nýir hljómar, ójafnir taktar og tónlist sem hneykslaði fólk."}
+};
+const yt = q => "https://www.youtube.com/results?search_query=" + encodeURIComponent(q);
+const wiki = q => "https://is.wikipedia.org/w/index.php?search=" + encodeURIComponent(q);
+
+/* Til að setja inn mynd af tónskáldi: bættu img:"myndir/bach.jpg" við færsluna (slóð á mynd í sömu möppu á GitHub). */
+const COMPOSERS = [
+ {id:"vivaldi", name:"Antonio Vivaldi", short:"Vivaldi", b:1678, d:1741, country:"Ítalía", era:"barokk", main:true,
+  intro:"Ítalskur barokksnillingur sem samdi yfir 500 konserta. Þekktur sem „rauði presturinn“ og frægastur fyrir tónverk sem sýnir náttúruna í tónlist.",
+  facts:["Vivaldi var vígður prestur og var kallaður „rauði presturinn“ af því að hann var rauðhærður","Vivaldi kenndi tónlist á heimili fyrir stúlkur sem höfðu misst foreldra sína. Margar þeirra urðu frábærar tónlistarkonur og spiluðu í hljómsveit sem var þekkt um alla Evrópu","Tónlist hans fékk ekki nægilega athygli á meðan hann var á lífi. Hún gleymdist í næstum 200 ár"],
+  videos:[{id:"KtMi66anolg", title:"Árstíðirnar"}],
+  pop:["Vorið úr Árstíðunum heyrist í auglýsingum, kvikmyndum og þegar maður bíður í símanum"],
+  ask:["Árstíðirnar eru fjórir konsertar. Heyrir þú hvaða árstíð er í gangi?","Hvaða hljóðfæri leikur aðalhlutverkið?"]},
+ {id:"bach", name:"Johann Sebastian Bach", short:"Bach", b:1685, d:1750, country:"Þýskaland", era:"barokk", main:true,
+  intro:"Þýskt barokktónskáld sem samdi flókin, falleg orgelverk, kórverk og hljómsveitartónlist. Hann hefur verið kallaður faðir tónlistarinnar.",
+  facts:["Kom úr mikilli tónlistarfjölskyldu. Faðir hans, bróðir og frændur voru allir tónlistarmenn","Hann átti 20 börn og 4 þeirra urðu einnig þekkt tónskáld","Bach samdi yfir 1000 tónverk!","Sem ungur maður gekk hann um 400 km til að hlusta á frægan organista spila","Hann varð ekki heimsþekktur fyrir snilli sína fyrr en um 100 árum eftir að hann lést"],
+  videos:[{id:"x-zXfkV90fM", title:"Toccata og fúga í d-moll"},{id:"5zz9pyaKc7k", title:"Annað myndband úr Tónlistarmanni vikunnar"}],
+  pop:["Toccata og fúga er „illmennatónlistin“ sem heyrist í hrollvekjum, á hrekkjavöku og í teiknimyndum"],
+  ask:["Hvaða hljóðfæri heyrir þú? Hvernig er hljómurinn í því?","Af hverju ætli þetta lag sé svona oft notað fyrir vonda kallinn?"],
+  connect:["mendelssohn"]},
+ {id:"handel", name:"Georg Friedrich Händel", short:"Händel", b:1685, d:1759, country:"Þýskaland og England", era:"barokk", main:true,
+  intro:"Þýskt barokktónskáld sem varð stórstjarna í London. Frægastur fyrir óratoríuna Messías og Hallelújakórinn.",
+  facts:["Händel fæddist sama ár og Bach og ekki langt frá honum, en þeir hittust aldrei","Faðir hans vildi að hann yrði lögfræðingur, svo hann æfði sig í laumi á hljóðfæri uppi á háalofti","Hann samdi Vatnatónlistina fyrir Georg I konung, og hún var leikin á pramma á ánni Thames","Hann samdi allan Messías á um þremur vikum"],
+  videos:[{id:"weFJHtcxJt0", title:"Hallelújakórinn úr Messíasi"}],
+  pop:["Hallelújakórinn heyrist í jólaauglýsingum, bíómyndum og teiknimyndum þegar eitthvað frábært gerist"],
+  ask:["Kórinn syngur sama orðið aftur og aftur. Hvaða áhrif hefur það?","Hvernig myndir þú lýsa stemningunni með einu orði?"]},
+ {id:"gluck", name:"Christoph Willibald Gluck", short:"Gluck", b:1714, d:1787, country:"Þýskaland og Austurríki", era:"klassik", main:true,
+  intro:"Óperutónskáld sem vildi gera óperur einfaldari og sannari. Hann sagði að tónlistin ætti að þjóna sögunni, ekki að monta sig.",
+  facts:["Gluck strauk að heiman sem unglingur af því að faðir hans vildi að hann yrði skógarvörður eins og hann sjálfur","Hann kenndi ungri prinsessu í Vín á hljóðfæri. Hún hét María Antoinetta og varð síðar drottning Frakklands","Í óperunni Orfeus og Evridís fer söngvari niður í undirheima til að sækja konuna sína aftur"],
+  videos:[{id:"x-OrXOOeA0I", title:"Dans hinna sælu anda"}],
+  pop:["Dans hinna sælu anda er eitt vinsælasta lag allra flautuleikara"],
+  ask:["Lagið á að lýsa sælum öndum í paradís. Passar flautan við það?"]},
+ {id:"cpebach", name:"Carl Philipp Emanuel Bach", short:"C.P.E. Bach", b:1714, d:1788, country:"Þýskaland", era:"klassik", main:true,
+  intro:"Sonur Johanns Sebastians Bach. Á sínum tíma var hann frægari en pabbi hans og brúaði bilið milli barokks og klassíkur.",
+  facts:["Þegar fólk sagði „Bach“ á 18. öld átti það oftast við hann, ekki föður hans","Hann var hirðsembalisti hjá Friðriki mikla Prússakonungi í nærri 30 ár. Konungurinn spilaði sjálfur á flautu","Sagt er að Mozart hafi sagt um hann: „Hann er faðirinn, við erum börnin“","Hann skrifaði frægustu kennslubók síns tíma um hvernig ætti að spila á hljómborð"],
+  videos:[{id:"Jk6m1AC0L-k", title:"Solfeggietto"}],
+  pop:["Solfeggietto er spilað af píanónemendum um allan heim"],
+  ask:["Hlustaðu á Toccötu pabba hans og svo á Solfeggietto. Heyrir þú fjölskyldusvipinn?"],
+  connect:["bach"]},
+ {id:"haydn", name:"Joseph Haydn", short:"Haydn", b:1732, d:1809, country:"Austurríki", era:"klassik", main:true,
+  intro:"Austurrískt tónskáld kallað „faðir sinfóníunnar“ og „faðir strengjakvartettsins“. Hann var vinur Mozarts og kennari Beethovens.",
+  facts:["Haydn samdi 104 sinfóníur!","Í Óvæntu sinfóníunni er rólegt lag sem allt í einu fær risastóran, háværan hljóm. Sagan segir að hann hafi viljað vekja áheyrendur sem sofnuðu á tónleikum","Hljóðfæraleikararnir hans vildu komast heim í frí. Hann samdi Kveðjusinfóníuna þar sem þeir hætta einn af öðrum, slökkva á kertinu sínu og ganga út. Prinsinn skildi skilaboðin","Laglína eftir Haydn er í dag þjóðsöngur Þýskalands","Eftir að hann dó var höfuðkúpunni hans stolið. Hún fannst ekki aftur fyrr en 145 árum seinna"],
+  videos:[{id:"VOLy6JxEDLw", title:"Óvænta sinfónían, 2. þáttur"}],
+  pop:["Óvænta sinfónían er notuð í tónmennt um allan heim til að kenna styrkleikabreytingar"],
+  works:["Óvænta sinfónían","Kveðjusinfónían","Trompetkonsert"],
+  ask:["Hlustaðu vel á Óvæntu sinfóníuna. Hvenær kemur „óvænti“ hljómurinn? Brá þér?"],
+  connect:["mozart","beethoven"]},
+ {id:"boccherini", name:"Luigi Boccherini", short:"Boccherini", b:1743, d:1805, country:"Ítalía og Spánn", era:"klassik", main:true,
+  intro:"Ítalskur sellósnillingur sem bjó lengst af á Spáni. Hann samdi yfir 100 strengjakvintetta.",
+  facts:["Hann var undrabarn á selló og hélt fyrstu tónleikana sína 13 ára","Hann bætti öðru sellói við strengjakvartettinn og bjó þannig til strengjakvintett","Menúettinn hans er orðinn svo frægur að margir þekkja lagið án þess að vita hver samdi það"],
+  videos:[{id:"5fLPBIBOE5U", title:"Menúett úr strengjakvintett"}],
+  pop:["Menúettinn heyrist í gömlum bíómyndum, auglýsingum og þegar einhver á að vera mjög fínn og kurteis"],
+  ask:["Menúett er dans í þrískiptum takti. Getur þú talið 1-2-3 með?"]},
+ {id:"saintgeorges", name:"Joseph Bologne de Saint-Georges", short:"Saint-Georges", b:1745, d:1799, country:"Gvadelúpeyjar og Frakkland", era:"klassik", main:true,
+  intro:"Fiðlusnillingur, tónskáld, hljómsveitarstjóri og besti skylmingamaður Frakklands. Saga hans var gleymd í 200 ár.",
+  facts:["Hann fæddist á Gvadelúpeyjum í Karíbahafi. Faðir hans var franskur plantekrueigandi og móðir hans var afrísk kona sem var hneppt í þrældóm","Hann var talinn besti skylmingamaður Evrópu","Hann stjórnaði einni bestu hljómsveit Parísar, og hún pantaði sex sinfóníur hjá Haydn","Vegna kynþáttafordóma var honum meinað að verða stjórnandi Parísaróperunnar","Hann barðist í frönsku byltingunni og stjórnaði herdeild"],
+  videos:[{id:"eQ1unCtX6K0", title:"Fiðlukonsert í A-dúr"}],
+  pop:["Árið 2022 kom út kvikmynd um ævi hans"],
+  ask:["Af hverju heldur þú að tónlist hans hafi gleymst í svona langan tíma?"],
+  connect:["haydn","mozart"]},
+ {id:"salieri", name:"Antonio Salieri", short:"Salieri", b:1750, d:1825, country:"Ítalía og Austurríki", era:"klassik", main:true,
+  intro:"Ítalskt tónskáld sem var eitt valdamesta og virtasta tónskáld Vínarborgar á sama tíma og Mozart.",
+  facts:["Salieri var kennari Beethovens, Schuberts og Liszts!","Til er gömul sögusögn um að hann hafi eitrað fyrir Mozart. Það er ekki satt. Þeir sömdu meira að segja saman lag","Fræg kvikmynd um Mozart sýnir hann sem afbrýðisaman óvin, sem gerði hann frægan á ný, en ekki á réttan hátt","Hann kenndi mörgum nemendum ókeypis"],
+  videos:[{id:"U-_gsSbuyV0", title:"Píanókonsert í C-dúr"}],
+  pop:["Nafnið hans er orðið að hugtaki: að vera „Salieri“ einhvers þýðir að vera næstbestur við hliðina á snillingi"],
+  ask:["Er sanngjarnt að fólk muni bara eftir Salieri sem óvini Mozarts?"],
+  connect:["mozart","beethoven","schubert","liszt"]},
+ {id:"clementi", name:"Muzio Clementi", short:"Clementi", b:1752, d:1832, country:"Ítalía og England", era:"klassik", main:true,
+  intro:"Ítalskur píanóleikari sem bjó í London og er oft kallaður „faðir píanósins“.",
+  facts:["Árið 1781 keppti hann við Mozart í píanóeinvígi fyrir keisarann í Vín. Úrslitin voru talin jafntefli","Hann smíðaði líka píanó og gaf út nótur, meðal annars eftir Beethoven","Sónatínurnar hans eru meðal fyrstu verka sem píanónemendur læra"],
+  videos:[{id:"Ryq0nX1_Jds", title:"Sónatína í C-dúr, op. 36 nr. 1"}],
+  pop:["Ef þú lærir á píanó eru miklar líkur á að þú spilir Clementi einhvern tímann"],
+  ask:["Hlustaðu á sónatínuna. Hvernig er A-kaflinn ólíkur B-kaflanum?"],
+  connect:["mozart"]},
+ {id:"paradis", name:"Maria Theresia von Paradis", short:"Paradis", b:1759, d:1824, country:"Austurríki", era:"klassik", main:true,
+  intro:"Austurrískur píanóleikari, söngkona og tónskáld sem missti sjónina ung en ferðaðist um Evrópu og hélt tónleika.",
+  facts:["Hún varð blind þriggja ára gömul en lærði yfir 60 píanókonserta utanbókar","Talið er að Mozart hafi samið einn píanókonserta sinna handa henni","Hún notaði sérstakt borð með pinnum til að skrifa niður tónlistina sína","Hún stofnaði tónlistarskóla í Vín, sérstaklega fyrir stúlkur"],
+  videos:[{id:"1egii6SWNVM", title:"Sicilienne"}],
+  pop:["Sicilienne er kennd við hana og er vinsælt verk fyrir fiðlu og selló. Sumir telja þó að fiðluleikari á 20. öld hafi í raun samið það"],
+  ask:["Hvernig heldur þú að hún hafi lært tónlist án þess að geta lesið nótur af blaði?"],
+  connect:["mozart","salieri"]},
+ {id:"mozart", name:"Wolfgang Amadeus Mozart", short:"Mozart", b:1756, d:1791, country:"Austurríki", era:"klassik", main:true,
+  intro:"Austurrískt undrabarn sem samdi yfir 600 verk, þar á meðal óperur, sinfóníur og kammerverk. Tónlist hans er skýr, glæsileg og létt.",
+  facts:["Við sex ára aldur var hann byrjaður að ferðast um Evrópu til að spila fyrir konungsfólk með systur sinni Maríu Önnu","Gat hlustað á mjög flókna tónlist og spilað hana eftir minni","Hann samdi fyrstu verkin sín aðeins fimm ára gamall","Hann lést 35 ára og náði ekki að klára Sálumessuna (Requiem). Lacrimosa er úr henni"],
+  videos:[{id:"czBSj6_6rkE", title:"Eine kleine Nachtmusik"},{id:"SWv8OKXwVRM", title:"Lacrimosa úr Requiem"},{id:"A_THdzBnHy0", title:"Rondo alla turca"}],
+  pop:["Lacrimosa er mikið notað í kvikmyndum, stiklum og á TikTok","Tyrkneski marsinn (Rondo alla turca) og Eine kleine Nachtmusik heyrast í teiknimyndum og auglýsingum"],
+  works:["Eine kleine Nachtmusik","Rondo alla turca","Lacrimosa úr Requiem","Töfraflautan"],
+  ask:["Eine kleine Nachtmusik þýðir „lítil næturtónlist“. Passar nafnið við lagið?","Berðu saman Eine kleine Nachtmusik og Lacrimosa. Hvað er ólíkt?"]},
+ {id:"beethoven", name:"Ludwig van Beethoven", short:"Beethoven", b:1770, d:1827, country:"Þýskaland", era:"klassik", main:true,
+  intro:"Þýskur meistari sem braut blað í tónlistarsögunni. Þrátt fyrir að missa heyrn samdi hann stórkostlegar sinfóníur sem lýsa baráttu og von.",
+  facts:["Beethoven byrjaði að missa heyrnina á þrítugsaldri og varð að lokum alveg heyrnarlaus. Samt samdi hann sum af sínum frægustu verkum eftir að hann missti heyrnina","Hann var mikill kaffidrykkjumaður og taldi nákvæmlega 60 kaffibaunir í hvern bolla","Hann var mikið náttúrubarn","Fólk sagði að Beethoven hefði verið erfiður í samskiptum, þrjóskur og orðið auðveldlega reiður 😝","Óðurinn til gleðinnar úr 9. sinfóníunni er í dag þjóðsöngur Evrópusambandsins"],
+  videos:[{id:"DuY6dsPjUV4", title:"Óðurinn til gleðinnar"},{id:"kfSnDd5mTsQ", title:"Tunglskinssónatan, 1. þáttur"}],
+  pop:["Tunglskinssónatan og Für Elise eru meðal þekktustu píanólaga heims","„Ta-ta-ta-taaaa“ upphafið á 5. sinfóníunni er notað í óteljandi bíómyndum og auglýsingum"],
+  works:["Tunglskinssónatan","Für Elise","5. sinfónían","Óðurinn til gleðinnar"],
+  ask:["Hvernig heldur þú að Beethoven hafi farið að því að semja tónlist þegar hann heyrði ekkert?","Prófaðu að syngja eða spila Óðinn til gleðinnar. Laglínan fer mest skref fyrir skref!"],
+  connect:["schubert"]},
+ {id:"rossini", name:"Gioachino Rossini", short:"Rossini", b:1792, d:1868, country:"Ítalía", era:"romantik", main:true,
+  intro:"Ítalskt óperutónskáld sem var eitt það vinsælasta í heiminum á sínum tíma.",
+  facts:["Hann samdi Rakarann frá Sevilla á innan við þremur vikum","Hann hætti að semja óperur 37 ára og helgaði sig mat. Steikarréttur er nefndur eftir honum","Hann fæddist 29. febrúar, á hlaupársdegi"],
+  videos:[{id:"xlmg_hY9SSE", title:"Vilhjálmur Tell, lokakafli forleiksins"}],
+  pop:["Lokakaflinn úr forleiknum að Vilhjálmi Tell er hestareiðarlagið í ótal teiknimyndum og kúrekamyndum"],
+  ask:["Hvernig lætur tónlistin hljóma eins og hestar á stökki?"]},
+ {id:"schubert", name:"Franz Schubert", short:"Schubert", b:1797, d:1828, country:"Austurríki", era:"romantik", main:true,
+  intro:"Austurrískt tónskáld sem samdi hundruð sönglaga þar sem tónlist og ljóð mynda eina heild. Hann lést ungur en eftir hann liggur gríðarlegt magn tónlistar.",
+  facts:["Schubert lifði aðeins til 31 árs en samdi samt yfir 600 sönglög","Schubert blandaði saman ljóðum og tónlist á einstakan hátt","Schubert dáði Beethoven og gekk með nótur eftir hann í vasanum. Þegar hann dó var hann grafinn rétt hjá Beethoven","Tónlist hans fékk ekki verðskuldaða virðingu fyrr en mörgum árum eftir dauða hans"],
+  videos:[{id:"XpYGgtrMTYs", title:"Ave Maria"}],
+  pop:["Ave Maria er sungið í brúðkaupum, jarðarförum og jólamessum um allan heim"],
+  works:["Ave Maria","Álfakóngurinn (Erlkönig)","Ófullgerða sinfónían"],
+  ask:["Í Álfakónginum syngur einn söngvari fjórar persónur. Hvernig getur hann látið þær hljóma ólíkt?"],
+  connect:["beethoven"]},
+ {id:"mendelssohn", name:"Felix Mendelssohn", short:"Mendelssohn", b:1809, d:1847, country:"Þýskaland", era:"romantik", main:true,
+  intro:"Þýskt tónskáld, píanisti og undrabarn. Fjölskylda hans var vel efnuð sem gaf honum frelsi í eigin tónsmíðum. Hann var aðeins 15 ára þegar hann samdi sína fyrstu sinfóníu. Hann var líka fær myndlistarmaður og ljóðskáld.",
+  facts:["Mendelssohn var mjög fær stjórnandi og einn þeirra fyrstu sem notuðu tónsprota til að stjórna hljómsveit","Hann er gjarnan talinn maðurinn sem kynnti heiminum aftur fyrir tónlist Bachs","Hann samdi forleikinn að Draumi á Jónsmessunótt aðeins 17 ára","Hann lést aðeins 38 ára, stuttu eftir að hann frétti af andláti systur sinnar Fanny, sem var líka tónskáld"],
+  videos:[{id:"0Oo4z37OUEI", title:"Myndband úr Tónlistarmanni vikunnar"}],
+  pop:["Brúðarmarsinn úr Draumi á Jónsmessunótt er leikinn þegar brúðhjón ganga út úr kirkjunni"],
+  works:["Brúðarmarsinn","Fiðlukonsert í e-moll","Hebrides-forleikurinn"],
+  ask:["Af hverju ætli brúðarmarsinn hljómi svona glaður og hátíðlegur?"],
+  connect:["bach"]},
+ {id:"chopin", name:"Frédéric Chopin", short:"Chopin", b:1810, d:1849, country:"Pólland og Frakkland", era:"romantik", main:true,
+  intro:"Pólskur píanósnillingur sem samdi nánast eingöngu fyrir píanó. Tónlist hans er rómantísk og tilfinningaþrungin.",
+  facts:["Chopin samdi nær einungis fyrir píanó","Chopin fæddist í Varsjá en flutti til Parísar ungur að árum. Hann saknaði ættlands síns alla tíð og samdi mörg verk sem byggð eru á pólskum dönsum","Þegar hann lést í París árið 1849 bað hann um að hjarta sitt yrði flutt aftur til Póllands. Það er nú varðveitt í kirkju í Varsjá"],
+  videos:[{id:"QR10Od1cLaM", title:"Næturljóð í Es-dúr, op. 9 nr. 2"}],
+  pop:["Næturljóðið op. 9 nr. 2 er eitt mest spilaða píanólag á netinu og heyrist oft í kvikmyndum"],
+  ask:["Næturljóð er róleg tónlist fyrir kvöldið. Hvað sérðu fyrir þér þegar þú hlustar?"]},
+ {id:"liszt", name:"Franz Liszt", short:"Liszt", b:1811, d:1886, country:"Ungverjaland", era:"romantik", main:true,
+  intro:"Ungverskur píanóleikari sem var fyrsta „rokkstjarna“ tónlistarsögunnar. Hann var talinn besti píanóleikari heims.",
+  facts:["Aðdáendurnir urðu svo æstir á tónleikunum hans að fyrirbærið fékk nafn: „Lisztomania“","Fólk slóst um hanskana hans og vasaklútana","Hann var einn þeirra fyrstu sem héldu einleikstónleika og sneri píanóinu á hlið svo áhorfendur sæju andlitið hans","Hann kenndi mörgum nemendum ókeypis"],
+  videos:[{id:"LdH1hSWGFGU", title:"Ungversk rapsódía nr. 2"}],
+  pop:["Ungverska rapsódían nr. 2 er í frægum teiknimyndum þar sem Tommi köttur og Kalli kanína spila á píanó"],
+  ask:["Lagið byrjar hægt og endar hratt. Hvernig breytist stemningin?"]},
+ {id:"wagner", name:"Richard Wagner", short:"Wagner", b:1813, d:1883, country:"Þýskaland", era:"romantik", main:true,
+  intro:"Þýskt óperutónskáld sem hugsaði allt risastórt: sögurnar, hljómsveitina og jafnvel óperuhúsið.",
+  facts:["Óperuröðin Niflungahringurinn tekur um 15 klukkustundir í flutningi og er sýnd á fjórum kvöldum","Niflungahringurinn byggir á norrænum goðsögum og Völsunga sögu, sem við þekkjum úr íslenskum handritum","Hann lét byggja sitt eigið óperuhús í Bayreuth sem eingöngu sýnir verkin hans","Hann var mjög umdeildur maður og skuldaði peninga út um allt"],
+  videos:[{id:"3JeuQ-CA67w", title:"Valkyrjureiðin"}],
+  pop:["Valkyrjureiðin heyrist í stríðsmyndum, teiknimyndum og þegar eitthvað stórt er að fara að gerast","Brúðarkórinn úr Lohengrin er lagið sem oft er leikið þegar brúðurin gengur inn kirkjugólfið"],
+  ask:["Valkyrjur eru úr norrænni goðafræði. Hvernig heyrist að þær séu á flugi?"]},
+ {id:"verdi", name:"Giuseppe Verdi", short:"Verdi", b:1813, d:1901, country:"Ítalía", era:"romantik", main:true,
+  intro:"Frægasta óperutónskáld Ítalíu. Óperurnar hans eru enn þær sem oftast eru sýndar í heiminum.",
+  facts:["Verdi var hafnað þegar hann sótti um í tónlistarháskólann í Mílanó. Í dag ber skólinn nafnið hans!","Þegar hann dó söng mannfjöldinn á götunum kórinn „Va, pensiero“ úr óperunni Nabucco","Hann fæddist sama ár og Wagner, 1813"],
+  videos:[{id:"60mRj_9Rybc", title:"Dies irae úr Sálumessunni"}],
+  pop:["Dies irae úr Sálumessunni er mikið notað í kvikmyndastiklum og tölvuleikjum þegar allt er að springa","Aría hertogans „La donna è mobile“ úr Rigoletto heyrist í auglýsingum og teiknimyndum"],
+  ask:["Hvað gera slagverkið og kórinn til að láta Dies irae hljóma svona ógnvekjandi?"]},
+ {id:"offenbach", name:"Jacques Offenbach", short:"Offenbach", b:1819, d:1880, country:"Frakkland", era:"romantik", main:true,
+  intro:"Þýskfætt tónskáld sem bjó í París og samdi um 100 fyndnar óperettur.",
+  facts:["Hann var líka frábær sellóleikari","Galop infernal úr Orfeusi í undirheimum varð lagið við Can-can dansinn"],
+  videos:[{id:"VfFh06EZ5gk", title:"Galop infernal (Can-can)"}],
+  pop:["Can-can lagið heyrist í teiknimyndum, auglýsingum og þegar einhver dansar fáránlega"],
+  ask:["Hvernig dans myndir þú dansa við þetta lag?"]},
+ {id:"strauss2", name:"Johann Strauss yngri", short:"Strauss", b:1825, d:1899, country:"Austurríki", era:"romantik", main:true,
+  intro:"Austurrískt tónskáld kallað „valsakóngurinn“. Hann samdi um 500 dansa, valsa og polka.",
+  facts:["Faðir hans hét líka Johann Strauss og var líka frægt tónskáld. Hann vildi ekki að sonurinn yrði tónlistarmaður","Strauss æfði sig í laumi á fiðlu","Valsinn Dóná svo blá er nánast óopinber þjóðsöngur Austurríkis og spilaður á hverju nýársdegi í Vín","Ekki rugla honum saman við Richard Strauss, sem var allt annar maður!"],
+  videos:[{id:"fHzhDKwYP2s", title:"Dóná svo blá"}],
+  pop:["Dóná svo blá er notuð í frægri geimmynd þar sem geimskip dansa um geiminn"],
+  ask:["Valsar eru í þrískiptum takti. Getur þú talið 1-2-3, 1-2-3 með laginu?"],
+  connect:["rstrauss"]},
+ {id:"brahms", name:"Johannes Brahms", short:"Brahms", b:1833, d:1897, country:"Þýskaland", era:"romantik", main:true,
+  intro:"Þýskur rómantíkus sem skrifaði kraftmiklar sinfóníur og viðkvæm lög. Hann var bæði hefðbundinn og nýskapandi á sama tíma.",
+  facts:["Honum var lýst sem alvarlegum manni, en þeir sem þekktu hann vel sögðu hann hafa verið hlýlegan, fyndinn og glaðan","Brahms var mjög gagnrýninn á sjálfan sig og henti mörgum verkum. Hann vildi aðeins gefa út það sem hann taldi fullkomið","Brahms var undrabarn á píanó sem hjálpaði fjölskyldu sinni fjárhagslega"],
+  videos:[{id:"T6nb35I9w-8", title:"Vögguvísa"},{id:"Nzo3atXtm54", title:"Ungverskur dans nr. 5"}],
+  pop:["Vögguvísan er í ótal spiladósum og leikföngum fyrir ungbörn","Ungverskur dans nr. 5 er í frægri gamanmynd þar sem rakari rakar mann í takt við tónlistina"],
+  works:["Vögguvísa","Ungverskur dans nr. 5"],
+  ask:["Ungverskur dans nr. 5 hraðar á sér og hægir á sér. Getur þú klappað með?"]},
+ {id:"saintsaens", name:"Camille Saint-Saëns", short:"Saint-Saëns", b:1835, d:1921, country:"Frakkland", era:"romantik", main:true,
+  intro:"Franskt undrabarn og tónskáld sem samdi Karnival dýranna.",
+  facts:["Hann lærði að lesa nótur áður en hann lærði að lesa bækur","Hann samdi Karnival dýranna sem grín og bannaði að það yrði gefið út á meðan hann lifði, nema Svaninn","Hann hafði líka mikinn áhuga á stjörnufræði og fornleifafræði"],
+  videos:[{id:"I0KT4iXmeUs", title:"Karnival dýranna"}],
+  pop:["Fílarnir, kengúrurnar og svanurinn úr Karnivali dýranna heyrast í teiknimyndum og barnaefni"],
+  ask:["Hvaða dýr heldur þú að sé verið að leika? Hvernig heyrir þú það?"]},
+ {id:"mussorgsky", name:"Modest Mussorgsky", short:"Mussorgsky", b:1839, d:1881, country:"Rússland", era:"romantik", main:true,
+  intro:"Rússneskt tónskáld sem vildi búa til tónlist sem hljómaði rússnesk, ekki eins og þýsk tónlist.",
+  facts:["Hann var hermaður og opinber starfsmaður og samdi tónlistina í frítímanum","Hann samdi líka Myndir á sýningu, tónverk um myndlistarsýningu vinar síns"],
+  videos:[{id:"j9R7k3M-wM4", title:"Nótt á Nornafelli"}],
+  pop:["Nótt á Nornafelli er í frægri teiknimynd frá 1940 þar sem tónlistin og myndirnar fara saman"],
+  ask:["Hvernig lýsir tónlistin nornum og draugum?"]},
+ {id:"tchaikovsky", name:"Pjotr Tsjajkovskíj", short:"Tsjajkovskíj", b:1840, d:1893, country:"Rússland", era:"romantik", main:true,
+  intro:"Rússneskt tónskáld sem blandaði saman þjóðlegum áhrifum og vestrænni tónlist. Frægur fyrir ballettana sína sem eru dansaðir víða í dag.",
+  facts:["Tsjajkovskíj er þekktastur fyrir ballettana Hnotubrjótinn, Svanavatnið og Þyrnirós","Hann var einn af fyrstu rússnesku tónskáldunum sem urðu heimsfræg","Áður en hann fór í tónlistarnám starfaði hann sem lögfræðingur","Nadezhda von Meck var mikill aðdáandi hans, svo mikið að hún styrkti hann fjárhagslega í 13 ár. Þau höfðu samkomulag um að hittast aldrei"],
+  videos:[{id:"L23XLW8DvXY", title:"Svanavatnið"},{id:"9MfmLyvPMlI", title:"Dans sykurplómudísarinnar"}],
+  pop:["Dans sykurplómudísarinnar úr Hnotubrjótnum heyrist í nánast öllum jólaauglýsingum","Svanavatnið er notað í kvikmyndum og teiknimyndum um ballett"],
+  works:["Dans sykurplómudísarinnar","Svanavatnið","Hnotubrjóturinn"],
+  ask:["Dans sykurplómudísarinnar notar hljóðfæri sem heitir selesta. Hvernig hljómar það?"]},
+ {id:"dvorak", name:"Antonín Dvořák", short:"Dvořák", b:1841, d:1904, country:"Tékkland", era:"romantik", main:true,
+  intro:"Tékkneskt tónskáld sem byrjaði sem slátraralærlingur og endaði sem heimsfrægt tónskáld.",
+  facts:["Dvořák elskaði lestir og eimreiðar og gat setið tímunum saman á lestarstöðinni","Hann bjó í nokkur ár í Bandaríkjunum og samdi þar sinfóníuna Frá nýja heiminum","Geimfarinn Neil Armstrong tók upptöku af sinfóníunni Frá nýja heiminum með sér í ferðina til tunglsins"],
+  videos:[{id:"89jOPAGJq-M", title:"Frá nýja heiminum, 4. þáttur"}],
+  pop:["Upphaf 4. þáttar sinfóníunnar Frá nýja heiminum er notað í kvikmyndum og auglýsingum þegar eitthvað ógnvekjandi nálgast"],
+  ask:["Lagið fór til tunglsins. Hvaða lag myndir þú taka með þér út í geim?"]},
+ {id:"grieg", name:"Edvard Grieg", short:"Grieg", b:1843, d:1907, country:"Noregur", era:"romantik", main:true,
+  intro:"Norskt tónskáld sem sótti innblástur í náttúruna, landslag og þjóðsögur. Tónlist Griegs fellur undir rómantíska tímabilið í tónlistarsögunni.",
+  facts:["Hann fæddist og bjó lengst af í Björgvin (Bergen)","Þekktasta verk hans er tónlistin við leikritið Pétur Gautur (Peer Gynt) eftir Henrik Ibsen. Þar á meðal „Í höll Dofrakonungs“ og „Morgunstemning“","Grieg kunni betur við að semja styttri verk en langar sinfóníur","Hann var afar lágvaxinn, um 152 cm","Talið er að 30–40 þúsund manns hafi mætt í jarðarför hans","Stóra styttu af Grieg má finna í Seattle í Bandaríkjunum, og gígur á plánetunni Merkúríusi er nefndur eftir honum"],
+  videos:[{id:"OqvHWUZZdP0", title:"Í höll Dofrakonungs"},{id:"7lKo6TYDXCQ", title:"Morgunstemning"},{id:"PdNilhpO0jY", title:"Úr Pétri Gauti (úr Tónlistarmanni vikunnar)"}],
+  pop:["Í höll Dofrakonungs heyrist í auglýsingum, kvikmyndum og tölvuleikjum, oft þegar eitthvað verður hraðara og hraðara","Morgunstemning er klassíska „sólin rís“ lagið í teiknimyndum"],
+  works:["Í höll Dofrakonungs","Morgunstemning","Píanókonsert í a-moll"],
+  ask:["Í höll Dofrakonungs byrjar lágt og hægt. Hvað gerist svo?","Hvað sérðu fyrir þér þegar þú heyrir Morgunstemningu?"]},
+ {id:"rimsky", name:"Nikolaj Rimskíj-Korsakov", short:"Rimskíj-Korsakov", b:1844, d:1908, country:"Rússland", era:"romantik", main:true,
+  intro:"Rússneskt tónskáld og meistari í að láta hljómsveitina hljóma í öllum litum.",
+  facts:["Hann var sjóliðsforingi og sigldi um heiminn áður en hann gerðist tónlistarkennari","Flug býflugunnar er úr óperunni Sagan af Saltan keisara, þar sem prins breytist í býflugu"],
+  videos:[{id:"OAtFmLA1vK0", title:"Flug býflugunnar"}],
+  pop:["Flug býflugunnar er vinsælasta hraðaáskorun á netinu. Fólk reynir að spila það á allt mögulegt"],
+  ask:["Hvernig lætur tónlistin hljóma eins og býfluga sé að suða?"]},
+ {id:"mahler", name:"Gustav Mahler", short:"Mahler", b:1860, d:1911, country:"Austurríki", era:"romantik", main:true,
+  intro:"Austurrískt tónskáld og hljómsveitarstjóri sem samdi risastórar sinfóníur. Hann sagði að sinfónía ætti að vera eins og heimurinn og innihalda allt.",
+  facts:["Í 1. sinfóníunni hans er „Meistari Jakob“ leikinn í moll, hægt og sorglega, eins og jarðarfararmars!","Ein sinfónían hans er kölluð „Sinfónía hinna þúsund“ því það þarf um þúsund flytjendur","Hann var hræddur við að semja 9. sinfóníu, því Beethoven og fleiri dóu eftir sína níundu","Hann var einn frægasti hljómsveitarstjóri síns tíma og stjórnaði í New York"],
+  videos:[{id:"zDoim94Rt-w", title:"1. sinfónía, 3. þáttur (Meistari Jakob)"}],
+  pop:["Nemendur þekkja laglínuna strax: Meistari Jakob, bara í moll"],
+  ask:["Syngið Meistara Jakob í dúr og hlustið svo á útgáfu Mahlers í moll. Hvað breytist?"]},
+ {id:"debussy", name:"Claude Debussy", short:"Debussy", b:1862, d:1918, country:"Frakkland", era:"nutimi", main:true,
+  intro:"Franskt tónskáld sem þekkt er fyrir draumkennda og litríka tónlist. Hann er tengdur impressjónisma, sem þekkist líka í myndlist.",
+  facts:["Heillaðist af myndlist sem barn, sérstaklega impressjónisma þar sem útlínur eru máðar eða hreinlega ekki til staðar","Hóf nám í mjög ströngum tónlistarskóla í París aðeins 10 ára gamall","Clair de lune þýðir „tunglskin“"],
+  videos:[{id:"-Bxpm0EmOMU", title:"Clair de lune"}],
+  pop:["Clair de lune er í mörgum kvikmyndum, til dæmis í lokin á frægri ránsmynd og í vinsælli vampírumynd"],
+  ask:["Clair de lune þýðir tunglskin. Hvernig lætur tónlistin hljóma eins og tunglskin?"],
+  connect:["ravel"]},
+ {id:"rstrauss", name:"Richard Strauss", short:"R. Strauss", b:1864, d:1949, country:"Þýskaland", era:"romantik", main:true,
+  intro:"Þýskt tónskáld og hljómsveitarstjóri. Ekki skylt valsakónginum Johann Strauss!",
+  facts:["Hann samdi fyrsta verkið sitt sex ára","Upphafið á Also sprach Zarathustra er einhver frægasta byrjun tónlistarsögunnar: þrír tónar sem rísa og risastór hljómur"],
+  videos:[{id:"7JgiJaRTocg", title:"Also sprach Zarathustra, sólarupprásin"}],
+  pop:["Upphafið á Also sprach Zarathustra er í frægri geimmynd og heyrist þegar eitthvað stórkostlegt er að gerast"],
+  ask:["Af hverju ætli þetta upphaf sé notað þegar eitthvað stórt og mikilvægt gerist?"],
+  connect:["strauss2"]},
+ {id:"dukas", name:"Paul Dukas", short:"Dukas", b:1865, d:1935, country:"Frakkland", era:"nutimi", main:true,
+  intro:"Franskt tónskáld sem var svo gagnrýninn á sjálfan sig að hann eyðilagði flest verkin sín.",
+  facts:["Lærisveinn galdrameistarans er byggt á ljóði eftir Goethe um lærling sem lætur kúst sækja vatn og ræður svo ekki við galdurinn","Hann var líka virtur kennari í París"],
+  videos:[{id:"O_bdguZEI8Q", title:"Lærisveinn galdrameistarans"}],
+  pop:["Lærisveinn galdrameistarans er í frægri teiknimynd frá 1940 þar sem kústar bera vatn og allt fer úr böndunum"],
+  ask:["Hvernig heyrist að galdurinn fari úr böndunum?"]},
+ {id:"rachmaninoff", name:"Sergej Rakhmanínov", short:"Rakhmanínov", b:1873, d:1943, country:"Rússland og Bandaríkin", era:"romantik", main:true,
+  intro:"Rússneskur píanósnillingur og tónskáld, frægur fyrir stórar, tilfinningaríkar laglínur.",
+  facts:["Hann hafði risastórar hendur og gat teygt sig yfir 12–13 hvítar nótur á píanóinu","Fyrsta sinfónían hans fékk svo slæma dóma að hann gat ekki samið í þrjú ár. Svo samdi hann píanókonsert nr. 2, sem sló í gegn","Hann flúði Rússland 1917 og bjó síðustu árin í Bandaríkjunum"],
+  videos:[{id:"HfPE3cgYyco", title:"Píanókonsert nr. 2, 2. þáttur"}],
+  pop:["Frægt popplag frá 1975 byggir á laglínu úr píanókonsert nr. 2","18. tilbrigðið úr Rapsódíu um stef eftir Paganini heyrist í mörgum bíómyndum"],
+  ask:["Settu hönd á píanó. Hvað nærðu yfir margar nótur? En Rakhmanínov?"]},
+ {id:"holst", name:"Gustav Holst", short:"Holst", b:1874, d:1934, country:"England", era:"nutimi", main:true,
+  intro:"Enskt tónskáld og tónlistarkennari sem samdi Pláneturnar.",
+  facts:["Pláneturnar hafa sjö þætti, einn fyrir hverja plánetu. Jörðin er ekki með","Mars er í 5/4 takti, sem gerir hann óstöðugan og ógnandi","Holst kenndi tónlist í stúlknaskóla í London í næstum 30 ár"],
+  videos:[{id:"xZfIUz1S97U", title:"Pláneturnar: Mars, stríðsboðinn"}],
+  pop:["Mars, stríðsboðinn hefur haft áhrif á mörg kvikmyndatónskáld. Margir heyra geimstríðsmyndatónlist í honum"],
+  ask:["Teljið 1-2-3-4-5 með laginu. Hvernig er að ganga í 5/4 takti?"]},
+ {id:"ravel", name:"Maurice Ravel", short:"Ravel", b:1875, d:1937, country:"Frakkland", era:"nutimi", main:true,
+  intro:"Franskt tónskáld sem var meistari hljómsveitarinnar. Tónlist hans er nákvæm eins og svissneskt úr.",
+  facts:["Í Boléro endurtekur sneriltromman sama taktinn yfir 150 sinnum, og laglínan er spiluð aftur og aftur á meðan hljómsveitin stækkar","Ravel reyndi fimm sinnum að vinna virtustu tónlistarverðlaun Frakklands og tókst það aldrei","Hann elskaði djass og bandaríska tónlist","Ravel sjálfur kallaði Boléro „tilraun“ og var hissa á hvað verkið varð vinsælt"],
+  videos:[{id:"4LLylhgR3uM", title:"Boléro"}],
+  pop:["Boléro er notað í kvikmyndum, íþróttum og auglýsingum. Listdansparið Torvill og Dean vann Ólympíugull við það 1984"],
+  ask:["Boléro verður hægt og rólega háværara. Hvaða hljóðfæri bætast við?","Getur þú klappað sneriltrommutaktinn?"],
+  connect:["debussy"]},
+ {id:"stravinsky", name:"Igor Stravinskíj", short:"Stravinskíj", b:1882, d:1971, country:"Rússland, Frakkland og Bandaríkin", era:"nutimi", main:true,
+  intro:"Rússneskt tónskáld sem skapaði nýja strauma með rytmískri, kröftugri tónlist. Frægur fyrir að hneyksla áheyrendur með frumlegum hljóðum.",
+  facts:["Frumsýningin á ballettinum Vorblótinu árið 1913 var ansi skrautleg. Áhorfendur rifust, öskruðu og sumir yfirgáfu salinn, því tónlistin og dansinn þóttu svo nýstárleg að fólk vissi ekki hvernig það átti að bregðast við","Hann breytti stöðugt um stíl","Stravinskíj var mikill heimsborgari og talaði mörg tungumál. Hann fæddist í Rússlandi, bjó síðar í Frakklandi og að lokum í Bandaríkjunum"],
+  videos:[{id:"5UJOaGIhG7A", title:"Myndband úr Tónlistarmanni vikunnar"}],
+  pop:["Vorblótið er í frægri teiknimynd frá 1940 þar sem risaeðlur birtast"],
+  ask:["Af hverju heldur þú að fólk hafi orðið svona reitt árið 1913?"]},
+ {id:"orff", name:"Carl Orff", short:"Orff", b:1895, d:1982, country:"Þýskaland", era:"nutimi", main:true,
+  intro:"Þýskt tónskáld og tónlistarkennari. Hann er ástæðan fyrir því að tónmenntastofur eru fullar af xýlófónum!",
+  facts:["Orff bjó til kennsluaðferð, Orff-Schulwerk, þar sem börn læra tónlist með því að syngja, dansa og spila á einföld hljóðfæri","Xýlófónarnir, metallófónarnir og klukkuspilin í tónmenntastofunni eru oft kölluð Orff-hljóðfæri","O Fortuna er úr Carmina Burana, sem byggir á gömlum miðaldaljóðum"],
+  videos:[{id:"bnr7teAg5DU", title:"O Fortuna úr Carmina Burana"}],
+  pop:["O Fortuna er í ótal kvikmyndastiklum, auglýsingum og gríni á netinu þegar eitthvað dramatískt gerist"],
+  ask:["Kíktu á hljóðfærin í tónmenntastofunni. Hver þeirra eru Orff-hljóðfæri?"]},
+ {id:"shostakovich", name:"Dmítríj Shostakovitsj", short:"Shostakovitsj", b:1906, d:1975, country:"Rússland (Sovétríkin)", era:"nutimi", main:true,
+  intro:"Rússneskt tónskáld sem samdi undir eftirliti stjórnvalda í Sovétríkjunum. Tónlist hans er ýmist fyndin, myrk eða hetjuleg.",
+  facts:["Í seinni heimsstyrjöldinni var hann sjálfboðaliði í slökkviliðinu í Leníngrad, og mynd af honum með slökkviliðshjálm fór á forsíðu bandarísks tímarits","Hann elskaði fótbolta og var með dómararéttindi","Stjórnvöld gagnrýndu tónlistina hans harðlega og hann var lengi hræddur um að vera handtekinn"],
+  videos:[{id:"8rqWbPm9hiU", title:"Vals nr. 2"}],
+  pop:["Vals nr. 2 heyrist í kvikmyndum, auglýsingum og á skautasvellum"],
+  ask:["Valsinn hljómar bæði glaður og dálítið sorglegur. Hvað veldur því?"]}
+];
+
+const VIRAL = [
+ ["Morning Mood (Peer Gynt)","grieg","7lKo6TYDXCQ"],
+ ["In the Hall of the Mountain King (Peer Gynt)","grieg","OqvHWUZZdP0"],
+ ["Dance of the Sugar Plum Fairy","tchaikovsky","9MfmLyvPMlI"],
+ ["Moonlight Sonata (1. þáttur)","beethoven","kfSnDd5mTsQ"],
+ ["Lacrimosa (úr Requiem)","mozart","SWv8OKXwVRM"],
+ ["Flight of the Bumblebee","rimsky","OAtFmLA1vK0"],
+ ["Ride of the Valkyries","wagner","3JeuQ-CA67w"],
+ ["Night on Bald Mountain","mussorgsky","j9R7k3M-wM4"],
+ ["Clair de Lune","debussy","-Bxpm0EmOMU"],
+ ["Galop Infernal (Can-Can)","offenbach","VfFh06EZ5gk"],
+ ["Hungarian Dance No. 5","brahms","Nzo3atXtm54"],
+ ["The Planets: Mars, the Bringer of War","holst","xZfIUz1S97U"],
+ ["Nocturne Op. 9 No. 2","chopin","QR10Od1cLaM"],
+ ["Dies Irae (úr Requiem)","verdi","60mRj_9Rybc"],
+ ["Rondo Alla Turca (úr píanósónötu nr. 11)","mozart","A_THdzBnHy0"],
+ ["O Fortuna (úr Carmina Burana)","orff","bnr7teAg5DU"],
+ ["William Tell Overture – Finale","rossini","xlmg_hY9SSE"],
+ ["Also sprach Zarathustra – upphaf","rstrauss","7JgiJaRTocg"],
+ ["Eine kleine Nachtmusik – 1. þáttur","mozart","czBSj6_6rkE"],
+ ["Hungarian Rhapsody No. 2","liszt","LdH1hSWGFGU"],
+ ["The Sorcerer's Apprentice","dukas","O_bdguZEI8Q"],
+ ["Swan Lake","tchaikovsky","L23XLW8DvXY"],
+ ["Tetris Theme (Korobeiniki)",null,"0LivfeQ6PQQ"]
+];
+
+
+const byId = Object.fromEntries(COMPOSERS.map(c=>[c.id,c]));
+const CAN_EMBED = location.protocol.startsWith("http") && !/claude|anthropic/i.test(location.hostname);
+const esc = s => String(s).replace(/[&<>"]/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+const eraVar = e => `var(--${e})`;
+const initials = c => c.short.replace(/^C\.P\.E\. /,"CPE ").split(/[\s-]+/).map(w=>w[0]).join("").slice(0,3);
+const faceHtml = c => `<span class="face" style="background:${eraVar(c.era)}">${c.img?`<img src="${esc(c.img)}" alt="">`:esc(initials(c))}</span>`;
+
+function vidHtml(v, col, small, extra=""){
+  return `<a class="vid${small?" small":""}" href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener" data-yt="${v.id}" style="--vcol:${col}" ${extra}>
+    <img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('noimg');this.remove()">
+    <span class="shade"><span class="play" aria-hidden="true"></span><span class="t">${esc(v.title)}<small>${CAN_EMBED?"Spila myndband":"Horfa á YouTube"}</small></span></span></a>`;
+}
+/* Á GitHub Pages spilast myndbandið beint í glugganum */
+document.addEventListener("click",ev=>{
+  const a=ev.target.closest(".vid[data-yt]"); if(!a||!CAN_EMBED||a.closest(".vcard")) return;
+  ev.preventDefault();
+  a.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${a.dataset.yt}?autoplay=1" title="Myndband" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+  a.removeAttribute("href");
+});
+
+const hasViral = c => VIRAL.some(v=>v[1]===c.id);
+const ERA_ORDER = Object.keys(ERAS);
+const sorted = () => COMPOSERS.slice().sort((a,b)=>ERA_ORDER.indexOf(a.era)-ERA_ORDER.indexOf(b.era)||a.b-b.b||a.d-b.d);
+const rots=[-2.2,1.6,-1.1,2.4,-1.8,1.1,-2.6,1.9];
+
+function noteHtml(c,i){
+  const col=eraVar(c.era), w=(c.works&&c.works[0])||(c.videos[0]&&c.videos[0].title)||"";
+  return `<button type="button" class="note" id="t-${c.id}" data-id="${c.id}" style="--col:${col};--soft:var(--${c.era}-soft);--rot:${rots[i%rots.length]}deg" aria-label="${esc(c.name)}, ${c.b}–${c.d}">
+    <span class="yr" aria-hidden="true">${c.b}</span>
+    <span class="top">${faceHtml(c)}<div><h3>${esc(c.short)}</h3><p class="meta">${c.b}–${c.d} · ${esc(c.country)}</p></div></span>
+    <p class="tease">${esc(c.facts[0])}</p>
+    <span class="foot"><span class="work">♪ ${esc(w)}</span><span class="more">Lesa meira →</span></span>
+  </button>`;
+}
+function renderStory(){
+  const all=sorted(); let html="", bar=`<option value="">Fara beint í tónskáld…</option>`, jump="";
+  ERA_ORDER.forEach(k=>{
+    const e=ERAS[k], list=all.filter(c=>c.era===k);
+    html+=`<div class="era-sec" style="--chip:${eraVar(k)}"><div class="chapter" id="era-${k}"><span class="badge">${e.name} <small>${e.years}</small></span><p>${e.text}</p></div>`;
+    const L=list.filter((_,i)=>i%2===0), R=list.filter((_,i)=>i%2===1);
+    html+=`<div class="cols2"><div class="col l">${L.map((c,i)=>noteHtml(c,i*2)).join("")}</div><div class="col r">${R.map((c,i)=>noteHtml(c,i*2+1)).join("")}</div></div></div>`;
+    jump+=`<a href="#era-${k}" data-target="era-${k}" style="--chip:${eraVar(k)};--chip-soft:var(--${k}-soft)"><span class="dot"></span>${e.name}</a>`;
+  });
+  document.getElementById("story").innerHTML=html;
+  bar+=COMPOSERS.slice().sort((x,y)=>x.short.localeCompare(y.short,"is")).map(c=>`<option value="${c.id}">${esc(c.short)} · ${c.b}–${c.d}</option>`).join("");
+  document.getElementById("pick").innerHTML=bar; document.getElementById("erasJump").innerHTML=jump;
+}
+renderStory();
+
+/* Hæð hausins fyrir nafnaborðann */
+const setHH=()=>document.documentElement.style.setProperty("--hh",document.querySelector("header.top").offsetHeight+"px");
+setHH(); window.addEventListener("resize",setHH);
+
+/* Fara í tónskáld: fellilisti, leit og tímabilahnappar */
+const reduce=()=>matchMedia("(prefers-reduced-motion: reduce)").matches;
+function goTo(id){
+  const el=document.getElementById(id); if(!el) return;
+  show("timalina");
+  el.scrollIntoView({behavior:reduce()?"auto":"smooth", block:"center"});
+  if(el.classList.contains("note")){ el.classList.remove("hit"); void el.offsetWidth; el.classList.add("hit"); }
+}
+const pick=document.getElementById("pick");
+pick.addEventListener("change",()=>{ if(pick.value) goTo("t-"+pick.value); });
+document.getElementById("erasJump").addEventListener("click",ev=>{const a=ev.target.closest("a[data-target]"); if(!a) return; ev.preventDefault(); goTo(a.dataset.target);});
+
+const norm=s=>String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/ð/g,"d").replace(/þ/g,"th").replace(/æ/g,"ae").replace(/ö/g,"o");
+const INDEX=COMPOSERS.map(c=>({c, hay:norm([c.name,c.short,c.country,ERAS[c.era].name,c.b,(c.works||[]).join(" "),c.videos.map(v=>v.title).join(" "),VIRAL.filter(v=>v[1]===c.id).map(v=>v[0]).join(" ")].join(" "))}));
+const q=document.getElementById("q"), res=document.getElementById("results");
+let hits=[], sel=-1;
+function hitWhy(c,term){
+  const w=[...(c.works||[]),...c.videos.map(v=>v.title),...VIRAL.filter(v=>v[1]===c.id).map(v=>v[0])].find(x=>norm(x).includes(term));
+  return w?`♪ ${esc(w)}`:`${c.b}–${c.d} · ${esc(c.country)}`;
+}
+function renderResults(){
+  const term=norm(q.value.trim());
+  if(!term){ res.hidden=true; q.setAttribute("aria-expanded","false"); return; }
+  hits=INDEX.filter(x=>term.split(/\s+/).every(p=>x.hay.includes(p))).map(x=>x.c).sort((a,b)=>a.b-b.b).slice(0,12);
+  sel=hits.length?0:-1;
+  res.innerHTML = hits.length ? hits.map((c,i)=>`<li><button type="button" data-id="${c.id}" class="${i===sel?"on":""}"><span class="dot" style="background:${eraVar(c.era)}"></span><span><b>${esc(c.name)}</b><small>${hitWhy(c,term)}</small></span></button></li>`).join("")
+    : `<li class="none">Ekkert fannst. Prófaðu annað nafn eða verk.</li>`;
+  res.hidden=false; q.setAttribute("aria-expanded","true");
+}
+function choose(id){ q.value=""; res.hidden=true; q.setAttribute("aria-expanded","false"); q.blur(); goTo("t-"+id); }
+q.addEventListener("input",renderResults);
+q.addEventListener("focus",renderResults);
+q.addEventListener("keydown",ev=>{
+  if(ev.key==="ArrowDown"||ev.key==="ArrowUp"){ if(!hits.length) return; ev.preventDefault(); sel=(sel+(ev.key==="ArrowDown"?1:-1)+hits.length)%hits.length; res.querySelectorAll("button").forEach((b,i)=>b.classList.toggle("on",i===sel)); }
+  else if(ev.key==="Enter"){ if(hits[sel]){ ev.preventDefault(); choose(hits[sel].id); } }
+  else if(ev.key==="Escape"){ res.hidden=true; }
+});
+res.addEventListener("click",ev=>{const b=ev.target.closest("button[data-id]"); if(b) choose(b.dataset.id);});
+document.addEventListener("click",ev=>{ if(!ev.target.closest(".search")) res.hidden=true; });
+
+function setActive(id){
+  const era = id.startsWith("era-") ? id.slice(4) : (byId[id.slice(2)]||{}).era;
+  document.querySelectorAll("#erasJump a").forEach(a=>a.classList.toggle("active",a.dataset.target==="era-"+era));
+  if(id.startsWith("t-") && document.activeElement!==pick) pick.value=id.slice(2);
+}
+if("IntersectionObserver" in window){
+  const seen=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("fx"); seen.unobserve(e.target);} }),{rootMargin:"0px 0px -10% 0px"});
+  const focus=new IntersectionObserver(es=>{
+    const vis=es.filter(e=>e.isIntersecting).sort((a,b)=>a.boundingClientRect.top-b.boundingClientRect.top)[0];
+    if(vis) setActive(vis.target.id);
+  },{rootMargin:"-45% 0px -45% 0px"});
+  document.querySelectorAll(".note").forEach((n,i)=>{ if(i>3) seen.observe(n); focus.observe(n); });
+  document.querySelectorAll(".chapter").forEach(c=>focus.observe(c));
+}
+document.getElementById("story").addEventListener("click",ev=>{const n=ev.target.closest(".note"); if(n) openComposer(n.dataset.id);});
+
+const dlg=document.getElementById("dlg"), dlgC=document.getElementById("dlgContent");
+function openComposer(id){
+  const c=byId[id]; if(!c) return;
+  const all=sorted(), i=all.findIndex(x=>x.id===id), prev=all[i-1], next=all[i+1];
+  const viralHere = VIRAL.filter(v=>v[1]===id);
+  const col = eraVar(c.era);
+  const [v0,...vRest] = c.videos;
+  const peers = all.filter(x=>x.id!==id && x.b<c.d && x.d>c.b);
+  dlgC.style.setProperty("--era", col);
+  dlgC.innerHTML = `
+   <div class="dlg-head" style="background:var(--${c.era}-soft)">
+     <button class="close" type="button" aria-label="Loka">×</button>
+     <div class="who">${faceHtml(c)}<div class="stack" style="gap:6px">
+       <h2 id="dlgTitle">${esc(c.name)}</h2>
+       <div class="row"><span class="tag"><span class="star" style="background:${col}"></span>${ERAS[c.era].name}</span><span class="tag">${esc(c.country)}</span><span class="tag">${c.b}–${c.d} · ${c.d-c.b} ára</span></div>
+     </div></div>
+     <p>${esc(c.intro)}</p>
+   </div>
+   <div class="dlg-body">
+     <section><h3>Hlustaðu</h3>${v0?vidHtml(v0,col,false):""}${vRest.length?`<div class="vgrid">${vRest.map(v=>vidHtml(v,col,true)).join("")}</div>`:""}</section>
+     <section><h3>Nokkrar staðreyndir um ${esc(c.short)}</h3><ul class="facts">${c.facts.map(f=>`<li>${esc(f)}</li>`).join("")}</ul></section>
+     ${c.pop&&c.pop.length?`<section class="pop"><h3>Þú hefur kannski heyrt þetta…</h3><ul>${c.pop.map(p=>`<li>${esc(p)}</li>`).join("")}</ul>
+</section>`:""}
+     ${c.ask&&c.ask.length?`<section class="ask"><h3>Hlustunarspurningar</h3><ol>${c.ask.map(a=>`<li>${esc(a)}</li>`).join("")}</ol></section>`:""}
+     <section><h3>Ítarefni</h3><div class="links-list">
+       <a class="btn ghost small" href="${wiki(c.name)}" target="_blank" rel="noopener">Wikipedia (íslenska)</a>
+       <a class="btn ghost small" href="https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(c.name)}" target="_blank" rel="noopener">Wikipedia (enska)</a>
+       ${(c.works||[]).map(w=>`<a class="btn ghost small" href="${yt(c.name+" "+w)}" target="_blank" rel="noopener">▶ ${esc(w)}</a>`).join("")}
+       <a class="btn ghost small" href="${yt(c.name)}" target="_blank" rel="noopener">Fleiri myndbönd</a>
+     </div></section>
+     ${peers.length?`<section><h3>Á lífi á sama tíma</h3><div class="peers">${peers.map(p=>`<button class="peer" type="button" data-go="${p.id}" style="background:var(--${p.era}-soft)">${esc(p.short)}</button>`).join("")}</div></section>`:""}
+     <div class="dlg-nav">
+       ${prev?`<button class="btn ghost" type="button" data-go="${prev.id}">← ${esc(prev.short)}</button>`:"<span></span>"}
+       ${next?`<button class="btn ghost" type="button" data-go="${next.id}">${esc(next.short)} →</button>`:""}
+     </div>
+   </div>`;
+  if(!dlg.open) dlg.showModal();
+  dlg.scrollTop=0;
+}
+dlg.addEventListener("click",ev=>{
+  if(ev.target===dlg || ev.target.closest(".close")) { dlg.close(); return; }
+  const g=ev.target.closest("[data-go]"); if(g) openComposer(g.dataset.go);
+});
+dlg.addEventListener("close",()=>{ dlgC.innerHTML=""; });
+
+/* Þekkir þú lagið? */
+document.getElementById("cards").innerHTML = VIRAL.map(([work,cid,vid],i)=>{
+  const c=cid?byId[cid]:null, col=c?eraVar(c.era):"var(--mark)";
+  const who = c?`<span class="dot" style="background:${col}"></span>${esc(c.name)} <span class="muted">· ${c.b}–${c.d}</span>`:`<span class="dot" style="background:${col}"></span>Hefðbundið rússneskt þjóðlag`;
+  return `<article class="vcard" id="card${i}">
+    ${vidHtml({id:vid,title:"Lag "+(i+1)},col,false)}
+    <div class="body">
+      <h3>${esc(work)}</h3>
+      <p class="who" hidden style="background:${c?`var(--${c.era}-soft)`:"var(--mark-soft)"}">${who}</p>
+      <p class="muted hint">Hver samdi? Giskaðu fyrst!</p>
+      <div class="acts">
+        <button class="btn small" type="button" data-reveal="${i}">Sýna tónskáldið</button>
+        ${c?`<button class="btn ghost small" type="button" data-open="${c.id}" hidden>Meira um ${esc(c.short)}</button>`:""}
+      </div></div></article>`;
+}).join("");
+function reveal(i,show){
+  const card=document.getElementById("card"+i);
+  card.classList.toggle("shown",show);
+  card.querySelector(".who").hidden=!show; card.querySelector(".hint").hidden=show;
+  const o=card.querySelector("[data-open]"); if(o) o.hidden=!show;
+  card.querySelector("[data-reveal]").textContent = show?"Fela":"Sýna tónskáldið";
+}
+document.getElementById("cards").addEventListener("click",ev=>{
+  const r=ev.target.closest("[data-reveal]"); if(r){ const i=+r.dataset.reveal; reveal(i, !document.getElementById("card"+i).classList.contains("shown")); return; }
+  const o=ev.target.closest("[data-open]"); if(o) openComposer(o.dataset.open);
+});
+document.getElementById("revealAll").onclick=()=>VIRAL.forEach((_,i)=>reveal(i,true));
+document.getElementById("hideAll").onclick=()=>VIRAL.forEach((_,i)=>reveal(i,false));
+
+/* Flipar */
+const VIEWS=["timalina","thekkir"];
+function show(v){
+  document.querySelectorAll(".view").forEach(s=>{const on=s.dataset.view===v; s.hidden=!on; if(on){s.classList.remove("enter");void s.offsetWidth;s.classList.add("enter");}});
+  document.getElementById("namebar").hidden = v!=="timalina"; setHH();
+  document.querySelectorAll("nav.tabs a").forEach(a=>{ if(a.dataset.nav===v) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
+}
+document.querySelectorAll("nav.tabs a, a.brand").forEach(a=>a.addEventListener("click",ev=>{
+  const v=a.getAttribute("href").slice(1); ev.preventDefault(); show(v); window.scrollTo(0,0);
+  try{ history.replaceState(null,"","#"+v); }catch(e){}
+}));
+function route(){
+  const h=location.hash.slice(1);
+  if(byId[h]){ show("timalina"); openComposer(h); return; }
+  show(VIEWS.includes(h)?h:"timalina");
+}
+window.addEventListener("hashchange",route);
+route();
+</script>
