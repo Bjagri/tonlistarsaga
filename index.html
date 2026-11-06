@@ -4,7 +4,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap">
 <style>
-/* Layout: sama fjölskylda og Tónlistarsmiðjan/Tónfræðismiðjan — bleikur pappír, Fredoka, hvít pillukort; tveir aðskildir flipar: lóðrétt saga með miðum á miðlínu (litir eftir tímabilum) og giskleikur; #hash-síður */
+/* Layout: sama fjölskylda og Tónlistarsmiðjan/Tónfræðismiðjan — bleikur pappír, Fredoka, hvít pillukort; tímaferð: skroll niður með leikandi hliðarstöðum og bognum tengingum, nótnastrengir í bakgrunni renna til hliðar; bakgrunnur tekur varlega lit tímabilsins; giskleikur í sér flipa */
 :root{
   --bg:#FFF8FB; --surface:#FFFFFF; --ink:#27306B; --muted:#5A6190; --line:rgba(39,48,107,.14); --tint:#FCEAF3;
   --accent:#D62E86; --accent-ink:#FFFFFF; --accent-soft:#FFE1EF;
@@ -56,9 +56,9 @@ header.top .wrap{display:flex;align-items:center;gap:18px;padding-block:10px;fle
 nav.tabs{display:flex;gap:4px;margin-left:auto;background:var(--surface);border-radius:999px;padding:4px;box-shadow:0 2px 0 var(--line)}
 nav.tabs a{text-decoration:none;color:var(--muted);padding:8px 18px;border-radius:999px;font-size:.98rem;font-weight:500;white-space:nowrap}
 nav.tabs a[aria-current="page"]{background:var(--accent);color:var(--accent-ink);font-weight:600}
-@media (max-width:560px){nav.tabs{margin-left:0;width:100%}nav.tabs a{flex:1;text-align:center;padding:8px 10px}}
-main{padding-block:24px 90px}
-.view.enter{animation:viewIn .35s cubic-bezier(.2,.7,.2,1)}
+@media (max-width:560px){header.top .wrap{flex-wrap:nowrap;gap:10px;padding-block:8px}.brand .bt{display:none}nav.tabs a{padding:6px 12px;font-size:.88rem}}
+main{padding:0}
+.view[data-view="thekkir"].enter{animation:viewIn .35s cubic-bezier(.2,.7,.2,1)}
 @keyframes viewIn{from{opacity:.3;transform:translateY(10px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.view.enter{animation:none}}
 
@@ -85,66 +85,50 @@ html{scroll-behavior:smooth}
 .eras-jump a .dot{width:9px;height:9px;border-radius:50%;background:var(--chip)}
 .eras-jump a.active{background:var(--chip);color:var(--bar-ink)}
 .eras-jump a.active .dot{background:var(--bar-ink)}
-@media (max-width:700px){.eras-jump{width:100%;order:3}.search{min-width:0;flex:1 1 160px}.pick{flex:1 1 160px}}
+@media (max-width:700px){.namebar .wrap{gap:8px;padding-block:8px}.eras-jump{width:100%;order:3;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.eras-jump a{flex:none;padding:4px 10px}.search{min-width:0;flex:1 1 0}.pick{flex:1 1 0;min-width:0;width:0}.pick,.search input{min-height:38px;font-size:.88rem;padding-block:6px}.search input{padding-left:34px}.search svg{left:11px}}
 
-/* Sagan */
-.intro{display:flex;flex-direction:column;gap:10px;max-width:62ch}
-.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.88rem;color:var(--muted);align-items:center}
-.star{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--mark);color:#27306B;font-size:.72rem;flex:none}
-.story{position:relative;display:flex;flex-direction:column;gap:18px}
-.era-sec{position:relative;display:flex;flex-direction:column;gap:34px;padding-bottom:80px}
-.era-sec::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:4px;margin-left:-2px;border-radius:4px;background:var(--chip);opacity:.35}
-.chapter{position:relative;display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center;padding-block:26px 8px;scroll-margin-top:130px}
-.chapter .badge{display:inline-flex;align-items:center;gap:10px;background:var(--chip);color:var(--bar-ink);font-family:var(--f-display);font-weight:600;font-size:1.5rem;border-radius:999px;padding:8px 22px;box-shadow:0 3px 0 var(--line)}
-.chapter .badge small{font-weight:400;font-size:.95rem;opacity:.9;font-variant-numeric:tabular-nums}
-.chapter p{max-width:46ch;color:var(--muted);background:var(--bg);padding:4px 10px;border-radius:12px}
-.cols2{--g:130px;display:grid;grid-template-columns:1fr 1fr;column-gap:var(--g);align-items:start}
-.cols2>.col{display:flex;flex-direction:column;gap:90px;min-width:0}
-.cols2>.col.l{align-items:flex-end}
-.cols2>.col.r{align-items:flex-start}
-.cols2>.col.r{padding-top:170px}
-@media (max-width:700px){
-  .era-sec::before{left:16px}
-  .chapter{align-items:flex-start;text-align:left;padding-left:30px}
-  .cols2{grid-template-columns:1fr}
-  .cols2>.col.r{padding-top:0}
-  .cols2>.col{gap:38px}
-}
+/* Tímaferðin: venjulegt skroll niður; miðarnir raðast leikandi til hliðanna með bognum, misvíðum tengingum; nótnastrengir í bakgrunni renna til vinstri þegar skrollað er og gefa tilfinningu fyrir ferð til hliðar */
+body{transition:background-color 1.2s ease}
+.bgl{position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+.bgl .w{position:absolute;left:0;top:0;will-change:transform}
+.blob{position:absolute;border-radius:50%;background:radial-gradient(circle at 50% 50%, var(--c) 0, transparent 68%);opacity:.2}
+.bit{position:absolute;opacity:.14}
+.bit.c{border-radius:50%}.bit.d{border-radius:16%;transform:rotate(45deg)}.bit.b{border-radius:42% 58% 63% 37%/45% 40% 60% 55%}
+.story{position:relative;z-index:1;overflow-x:clip;padding-block:30px 30vh}
+.links{position:absolute;inset:0;pointer-events:none;overflow:visible}
+.links path{fill:none;stroke-width:3;stroke-linecap:round;stroke-dasharray:2 9;opacity:.6}
+.it{position:relative;display:flex;flex-direction:column;align-items:center;margin-bottom:var(--gap,70px)}
+.mv{display:flex;flex-direction:column;align-items:center;gap:10px;transform:translateX(var(--x,0px))}
+.intro{max-width:34rem;text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center;background:var(--bg);padding:10px 18px;border-radius:24px}
+.chap{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;background:var(--bg);padding:10px 16px;border-radius:24px;scroll-margin-top:160px}
+.chap .badge{display:inline-flex;align-items:baseline;gap:10px;background:var(--col);color:var(--bar-ink);font-family:var(--f-display);font-weight:600;font-size:1.7rem;border-radius:999px;padding:8px 22px;box-shadow:0 4px 0 var(--line)}
+.chap .badge small{font-weight:400;font-size:.95rem;opacity:.9;font-variant-numeric:tabular-nums}
+.chap p{max-width:34ch}
+.chap .n{color:var(--muted);font-size:.9rem}
+.pill{position:relative;z-index:2;font-family:var(--f-display);font-weight:600;font-size:.95rem;color:var(--bar-ink);background:var(--col);border-radius:999px;padding:4px 14px;box-shadow:0 0 0 5px var(--bg);font-variant-numeric:tabular-nums}
 
 /* Miðarnir */
-.note{position:relative;border:0;font:inherit;color:var(--ink);text-align:left;cursor:pointer;width:100%;max-width:370px;aspect-ratio:4/3;
-  background:var(--soft);border-radius:6px 6px 6px 26px;padding:30px 20px 18px;
-  box-shadow:0 1px 0 var(--line),0 10px 22px -12px rgba(39,48,107,.35);
-  transform:rotate(var(--rot,0deg));transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s;
-  display:flex;flex-direction:column;gap:10px;scroll-margin-top:150px}
-.note:hover,.note:focus-visible{transform:rotate(0deg) translateY(-4px);box-shadow:0 1px 0 var(--line),0 18px 30px -14px rgba(39,48,107,.45)}
-.note::before{content:"";position:absolute;top:-11px;left:50%;width:96px;height:24px;margin-left:-48px;background:var(--col);opacity:.55;border-radius:3px;transform:rotate(-3deg)}
-.note .yr{position:absolute;top:18px;z-index:2;font-family:var(--f-display);font-weight:600;font-size:1rem;color:var(--bar-ink);background:var(--col);font-variant-numeric:tabular-nums;white-space:nowrap;border-radius:999px;padding:4px 12px;box-shadow:0 0 0 5px var(--bg)}
-.col.l .note .yr{right:calc(var(--g) / -2);transform:translateX(50%) rotate(calc(var(--rot) * -1))}
-.col.r .note .yr{left:calc(var(--g) / -2);transform:translateX(-50%) rotate(calc(var(--rot) * -1))}
-.note .yr::before{content:"";position:absolute;top:50%;height:3px;width:calc(var(--g) / 2 - 30px);background:var(--col);opacity:.5;margin-top:-1.5px}
-.col.l .note .yr::before{right:100%}
-.col.r .note .yr::before{left:100%}
-.note.hit{animation:hit 1.4s ease-out}
-@keyframes hit{0%,40%{box-shadow:0 0 0 6px var(--col),0 10px 22px -12px rgba(39,48,107,.35)}100%{box-shadow:0 1px 0 var(--line),0 10px 22px -12px rgba(39,48,107,.35)}}
-@media (max-width:700px){
-  .story .note{margin-left:56px;width:calc(100% - 56px)}
-  .col.l .note .yr,.col.r .note .yr{left:-38px;right:auto;transform:translateX(-50%) rotate(calc(var(--rot) * -1));font-size:.78rem;padding:3px 8px}
-  .note .yr::before{display:none}
-  .story .note{aspect-ratio:auto;max-width:none}
-}
-.note .top{display:flex;gap:14px;align-items:center}
+.note{position:relative;border:0;font:inherit;color:var(--ink);text-align:left;cursor:pointer;
+  width:min(var(--nw,390px),calc(100vw - 36px));aspect-ratio:4/3;scroll-margin-top:160px;
+  background:color-mix(in srgb, var(--soft) 72%, var(--surface));border-radius:6px 6px 6px 28px;padding:28px 22px 16px;
+  outline:1px solid var(--line);outline-offset:-1px;
+  box-shadow:0 2px 0 var(--line),0 26px 44px -20px rgba(39,48,107,.5),0 6px 14px -8px rgba(39,48,107,.25);
+  transform:perspective(900px) rotateY(var(--ry,0deg)) scale(var(--s,1)) rotate(var(--rot,0deg));transform-origin:50% 50%;
+  display:flex;flex-direction:column;gap:8px;transition:box-shadow .25s}
+.note:hover,.note:focus-visible{box-shadow:0 1px 0 var(--line),0 22px 34px -14px rgba(39,48,107,.5);--rot:0deg}
+.note::before{content:"";position:absolute;top:-11px;left:50%;width:90px;height:22px;margin-left:-45px;background:var(--col);opacity:.55;border-radius:3px;transform:rotate(-3deg)}
+.note.hit{animation:hit 1.6s ease-out}
+@keyframes hit{0%,45%{box-shadow:0 0 0 6px var(--col),0 16px 26px -14px rgba(39,48,107,.4)}100%{box-shadow:0 1px 0 var(--line),0 16px 26px -14px rgba(39,48,107,.4)}}
+.note .top{display:flex;gap:12px;align-items:center}
 .note .top>div{min-width:0}
-.note h3{font-size:1.4rem}
-.note .meta{font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
-.note .tease{font-size:.98rem;line-height:1.5;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
-.note .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font-size:.88rem}
-.note .work{display:inline-flex;align-items:center;gap:6px;font-weight:500}
-.note .more{font-weight:600;color:var(--col)}
-.note .face{width:78px;height:78px;font-size:1.4rem;box-shadow:0 0 0 3px var(--surface)}
-.note.fx{animation:settle .6s cubic-bezier(.2,.7,.2,1) both}
-@keyframes settle{from{transform:rotate(calc(var(--rot,0deg) * -2)) translateY(16px)}to{transform:rotate(var(--rot,0deg))}}
-@media (prefers-reduced-motion:reduce){.note,.note.fx{animation:none;transition:none}}
+.note h3{font-size:1.5rem}
+.note .meta{font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.note .tease{font-size:1rem;line-height:1.45;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.note .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.84rem}
+.note .work{font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.note .more{font-weight:600;color:var(--col);white-space:nowrap}
+.note .face{width:84px;height:84px;font-size:1.4rem;box-shadow:0 0 0 3px var(--surface)}
+@media (max-height:620px){.note .tease{-webkit-line-clamp:2}.note .face{width:54px;height:54px}}
 
 /* Andlitsmerki (upphafsstafir, eða mynd ef c.img er sett) */
 .face{position:relative;width:96px;height:96px;border-radius:50%;flex:none;display:grid;place-items:center;font-family:var(--f-display);font-weight:600;font-size:1.6rem;color:var(--bar-ink);overflow:hidden;box-shadow:0 0 0 4px var(--surface)}
@@ -211,7 +195,7 @@ dialog::backdrop{background:rgba(30,34,56,.55)}
 </style>
 
 <header class="top"><div class="wrap">
-  <a class="brand" href="#timalina"><span class="brand-mark" aria-hidden="true"><b></b><b></b><b></b></span>Tónsögusmiðjan</a>
+  <a class="brand" href="#timalina"><span class="brand-mark" aria-hidden="true"><b></b><b></b><b></b></span><span class="bt">Tónsögusmiðjan</span></a>
   <nav class="tabs" aria-label="Flipar">
     <a href="#timalina" data-nav="timalina">Tímalínan</a>
     <a href="#thekkir" data-nav="thekkir">Þekkir þú lagið?</a>
@@ -228,17 +212,15 @@ dialog::backdrop{background:rgba(30,34,56,.55)}
   <div class="eras-jump" id="erasJump"></div>
 </div></nav>
 
-<main class="wrap">
+<main>
 
-<section class="view stack-lg" data-view="timalina">
-  <div class="intro">
-    <h1>Saga tónskáldanna</h1>
-    <p class="muted">Skrollaðu í gegnum söguna, frá barokki til nútímans. Smelltu á miða til að heyra lagið og lesa meira.</p>
-  </div>
+<section class="view" data-view="timalina">
+  <div class="bgl" id="bgl" aria-hidden="true"><div class="w" id="bgw"></div></div>
   <div class="story" id="story"></div>
 </section>
 
-<section class="view stack-lg" data-view="thekkir" hidden>
+<div class="wrap">
+<section class="view stack-lg" data-view="thekkir" hidden style="padding-block:24px 90px">
   <div class="stack">
     <h1>Þekkir þú lagið?</h1>
     <p class="muted" style="max-width:60ch">Hlustaðu og giskaðu. Hver samdi lagið, og hvar hefur þú heyrt það áður? Ýttu svo á „Sýna tónskáldið“.</p>
@@ -249,6 +231,7 @@ dialog::backdrop{background:rgba(30,34,56,.55)}
   </div>
   <div class="cards" id="cards"></div>
 </section>
+</div>
 </main>
 
 <dialog id="dlg" aria-labelledby="dlgTitle"><div id="dlgContent"></div></dialog>
@@ -257,8 +240,8 @@ dialog::backdrop{background:rgba(30,34,56,.55)}
 const ERAS = {
   barokk:  {name:"Barokk", years:"1600–1750", from:1600, to:1750, text:"Skraut, orgel, sembal og fúgur. Margar raddir sem fléttast saman."},
   klassik: {name:"Klassík", years:"1750–1820", from:1750, to:1820, text:"Skýrar laglínur og jafnvægi. Sinfóníuhljómsveitin, strengjakvartettinn og píanóið verða til."},
-  romantik:{name:"Rómantík", years:"1820–1910", from:1820, to:1910, text:"Stórar tilfinningar, náttúra, þjóðsögur og risastórar hljómsveitir."},
-  nutimi:  {name:"Nútími", years:"frá 1900", from:1900, to:1990, text:"Nýir hljómar, ójafnir taktar og tónlist sem hneykslaði fólk."}
+  romantik:{name:"Rómantík", years:"1820–1910", from:1820, to:1910, text:"Stórar tilfinningar, náttúra, þjóðsögur og risastórar hljómsveitir. Sum síðrómantísku tónskáldin sömdu langt fram á 20. öld."},
+  nutimi:  {name:"20. öldin", years:"1900–2000", from:1900, to:2000, text:"Draumkenndur impressjónismi, nýir hljómar, ójafnir taktar og tónlist sem hneykslaði fólk."}
 };
 const yt = q => "https://www.youtube.com/results?search_query=" + encodeURIComponent(q);
 
@@ -477,7 +460,7 @@ const COMPOSERS = [
   pop:["Upphafið á Also sprach Zarathustra er í frægri geimmynd og heyrist þegar eitthvað stórkostlegt er að gerast"],
   ask:["Af hverju ætli þetta upphaf sé notað þegar eitthvað stórt og mikilvægt gerist?"],
   connect:["strauss2"]},
- {id:"dukas", name:"Paul Dukas", short:"Dukas", b:1865, d:1935, country:"Frakkland", era:"nutimi", main:true,
+ {id:"dukas", name:"Paul Dukas", short:"Dukas", b:1865, d:1935, country:"Frakkland", era:"romantik", main:true,
   intro:"Franskt tónskáld sem var svo gagnrýninn á sjálfan sig að hann eyðilagði flest verkin sín.",
   facts:["Lærisveinn galdrameistarans er byggt á ljóði eftir Goethe um lærling sem lætur kúst sækja vatn og ræður svo ekki við galdurinn","Hann var líka virtur kennari í París"],
   videos:[{id:"O_bdguZEI8Q", title:"Lærisveinn galdrameistarans"}],
@@ -774,41 +757,128 @@ const ERA_ORDER = Object.keys(ERAS);
 const sorted = () => COMPOSERS.slice().sort((a,b)=>ERA_ORDER.indexOf(a.era)-ERA_ORDER.indexOf(b.era)||a.b-b.b||a.d-b.d);
 const rots=[-2.2,1.6,-1.1,2.4,-1.8,1.1,-2.6,1.9];
 
-function noteHtml(c,i){
+function noteHtml(c,i,pos=""){
   const col=eraVar(c.era), w=(c.works&&c.works[0])||(c.videos[0]&&c.videos[0].title)||"";
-  return `<button type="button" class="note" id="t-${c.id}" data-id="${c.id}" style="--col:${col};--soft:var(--${c.era}-soft);--rot:${rots[i%rots.length]}deg" aria-label="${esc(c.name)}, ${c.b}–${c.d}">
-    <span class="yr" aria-hidden="true">${c.b}</span>
+  return `<button type="button" class="note" id="t-${c.id}" data-id="${c.id}" style="${pos}--col:${col};--soft:var(--${c.era}-soft);--rot:${rots[i%rots.length]}deg" aria-label="${esc(c.name)}, ${c.b}–${c.d}">
     <span class="top">${faceHtml(c)}<div><h3>${esc(c.short)}</h3><p class="meta">${c.b}–${c.d} · ${esc(c.country)}</p></div></span>
     <p class="tease">${esc(c.facts[0])}</p>
     <span class="foot"><span class="work">♪ ${esc(w)}</span><span class="more">Lesa meira →</span></span>
   </button>`;
 }
-function renderStory(){
-  const all=sorted(); let html="", bar=`<option value="">Fara beint í tónskáld…</option>`, jump="";
+
+/* Uppsetning tímaferðarinnar */
+const story=document.getElementById("story"), bgl=document.getElementById("bgl"), bgw=document.getElementById("bgw");
+const DEPTH_Y=0.45, DEPTH_X=0.18;
+let ROWS=[];
+function seeded(n){ let x=Math.sin(n*99.13+3.7)*43758.5453; return x-Math.floor(x); }
+function buildStory(){
+  const all=sorted(); let h="", n=0;
+  h+=`<div class="it" style="--gap:60px"><div class="mv"><div class="intro"><h1>Sígild tónlistarsaga</h1><p class="muted">Skrollaðu í gegnum söguna, frá barokki til nútímans. Smelltu á miða til að hlusta og fræðast.</p></div></div></div>`;
   ERA_ORDER.forEach(k=>{
-    const e=ERAS[k], list=all.filter(c=>c.era===k);
-    html+=`<div class="era-sec" style="--chip:${eraVar(k)}"><div class="chapter" id="era-${k}"><span class="badge">${e.name} <small>${e.years}</small></span><p>${e.text}</p></div>`;
-    const L=list.filter((_,i)=>i%2===0), R=list.filter((_,i)=>i%2===1);
-    html+=`<div class="cols2"><div class="col l">${L.map((c,i)=>noteHtml(c,i*2)).join("")}</div><div class="col r">${R.map((c,i)=>noteHtml(c,i*2+1)).join("")}</div></div></div>`;
-    jump+=`<a href="#era-${k}" data-target="era-${k}" style="--chip:${eraVar(k)};--chip-soft:var(--${k}-soft)"><span class="dot"></span>${e.name}</a>`;
+    const e=ERAS[k], list=all.filter(c=>c.era===k), col=eraVar(k);
+    h+=`<div class="it" data-era="${k}" style="--gap:60px"><div class="mv"><div class="chap" id="era-${k}" style="--col:${col}"><span class="badge">${e.name} <small>${e.years}</small></span><p>${e.text}</p><span class="n">${list.length} tónskáld</span></div></div></div>`;
+    list.forEach(c=>{ n++;
+      h+=`<div class="it" data-era="${k}" data-id="${c.id}" data-n="${n}"><div class="mv" style="--col:${col}"><span class="pill">${c.b}</span>${noteHtml(c,n)}</div></div>`;
+    });
   });
-  document.getElementById("story").innerHTML=html;
+  h+=`<div class="it"><div class="mv"><div class="intro"><h2>Komin í lok 20. aldarinnar!</h2><p class="muted">Næst bætist dægurtónlistin við. Prófaðu flipann „Þekkir þú lagið?“ á meðan.</p></div></div></div>`;
+  story.innerHTML=h+`<svg class="links" id="links" aria-hidden="true"></svg>`;
+  ROWS=[...story.querySelectorAll(".it")].map(el=>({el,mv:el.firstElementChild,era:el.dataset.era,id:el.dataset.id,n:+el.dataset.n||0}));
+  measure();
+}
+/* Leikandi staðsetning: hvert tónskáld fær sína hliðarstöðu og sitt bil, með smá óreglu */
+function measure(){
+  const W=story.clientWidth, narrow=W<700;
+  const span = narrow ? W*0.07 : Math.min(300,W*0.24);
+  let prev=0;
+  ROWS.forEach(r=>{
+    if(!r.n){ r.mv.style.setProperty("--x","0px"); return; }
+    let x=(seeded(r.n)*2-1)*span;
+    if(Math.abs(x-prev)<span*0.35) x = prev>0 ? -Math.abs(x)-span*0.2 : Math.abs(x)+span*0.2;  // forðast að tveir lendi beint undir hvor öðrum
+    x=Math.max(-span,Math.min(span,x)); prev=x;
+    r.mv.style.setProperty("--x",x.toFixed(0)+"px");
+    r.el.style.setProperty("--gap",Math.round((narrow?36:44)+seeded(r.n+50)*(narrow?40:110))+"px");
+  });
+  requestAnimationFrame(()=>{ drawLinks(); buildBg(); });
+}
+/* Bakgrunnslag: mjúkir litablettir og fá form sem liggja dýpra. Þeir færast hægar upp en miðarnir (dýpt) og renna aðeins til vinstri (ferð til hliðar). */
+function buildBg(){
+  const W=window.innerWidth, H=window.innerHeight, docH=story.scrollHeight;
+  const eraAt=y=>{ let e="barokk"; ROWS.forEach(r=>{ if(r.era && r.el.offsetTop<=y) e=r.era; }); return e; };
+  let h="", i=0;
+  for(let y=0; y<docH; y+=Math.max(260,H*0.42)){
+    i++;
+    const era=eraAt(y+H*0.5);
+    const ly=y*DEPTH_Y+H*0.15, lx=y*DEPTH_X;
+    const bs=Math.round(Math.max(W,H)*(0.35+seeded(i)*0.3));
+    const bx=lx+(seeded(i+3)<.5?-bs*0.35:W-bs*0.6)+seeded(i+9)*W*0.15;
+    h+=`<span class="blob" style="--c:var(--${era});left:${bx}px;top:${ly-bs/2}px;width:${bs}px;height:${bs}px"></span>`;
+    if(i%2===0){ const s=Math.round(26+seeded(i+5)*44), k=["c","d","b"][i%3];
+      h+=`<span class="bit ${k}" style="background:var(--${era});left:${lx+seeded(i+7)*W}px;top:${ly+seeded(i+8)*H*0.3}px;width:${s}px;height:${s}px"></span>`; }
+  }
+  bgw.innerHTML=h;
+  onScroll();
+}
+function drawLinks(){
+  const svg=document.getElementById("links"); if(!svg) return;
+  const sb=story.getBoundingClientRect();
+  svg.setAttribute("width",sb.width); svg.setAttribute("height",story.scrollHeight);
+  let d="";
+  const items=ROWS.map(r=>{
+    const pill=r.el.querySelector(".pill"), note=r.el.querySelector(".note")||r.mv.firstElementChild;
+    const top=(pill||note).getBoundingClientRect(), bot=note.getBoundingClientRect();
+    return {era:r.era, tx:top.left+top.width/2-sb.left, ty:top.top-sb.top, bx:bot.left+bot.width/2-sb.left, by:bot.bottom-sb.top};
+  });
+  for(let i=0;i<items.length-1;i++){
+    const a=items[i], b=items[i+1], dy=b.ty-a.by, bend=(seeded(i+20)-.5)*120;
+    const col=eraVar(b.era||a.era||"barokk");
+    d+=`<path stroke="${col}" d="M${a.bx.toFixed(1)},${a.by.toFixed(1)} C${(a.bx+bend).toFixed(1)},${(a.by+dy*0.55).toFixed(1)} ${(b.tx-bend).toFixed(1)},${(b.ty-dy*0.55).toFixed(1)} ${b.tx.toFixed(1)},${(b.ty-4).toFixed(1)}"/>`;
+  }
+  svg.innerHTML=d;
+}
+let ticking=false, lastActive="", lastEra="";
+function onScroll(){
+  if(document.querySelector('[data-view="timalina"]').hidden) return;
+  const y=window.scrollY, st=stickPx(), cy=st+(window.innerHeight-st)/2;
+  const ky=reduce()?0:DEPTH_Y, kx=reduce()?0:DEPTH_X;
+  bgw.style.transform=`translate3d(${(-y*kx).toFixed(1)}px,${(-y*ky).toFixed(1)}px,0)`;
+  let best=null, bd=1e9;
+  ROWS.forEach(r=>{ const b=r.el.getBoundingClientRect(); const dy=Math.abs(b.top+b.height/2-cy); if(dy<bd){ bd=dy; best=r; } });
+  if(!best) return;
+  const era=best.era||ERA_ORDER[0];
+  if(era!==lastEra){ lastEra=era;
+    document.body.style.backgroundColor=`color-mix(in srgb, var(--${era}-soft) 40%, var(--bg))`;
+  }
+  const act = best.id ? "t-"+best.id : (best.era?"era-"+best.era:"");
+  if(act && act!==lastActive){ lastActive=act; setActive(act); }
+}
+const stickPx=()=>parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--stick"))||0;
+window.addEventListener("scroll",()=>{ if(!ticking){ ticking=true; requestAnimationFrame(()=>{ ticking=false; onScroll(); }); } },{passive:true});
+function layout(){ measure(); onScroll(); }
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>requestAnimationFrame(drawLinks));
+
+function renderStory(){
+  let bar=`<option value="">Fara beint í tónskáld…</option>`, jump="";
+  ERA_ORDER.forEach(k=>{ const e=ERAS[k]; jump+=`<a href="#era-${k}" data-target="era-${k}" style="--chip:${eraVar(k)};--chip-soft:var(--${k}-soft)"><span class="dot"></span>${e.name}</a>`; });
   bar+=COMPOSERS.slice().sort((x,y)=>x.short.localeCompare(y.short,"is")).map(c=>`<option value="${c.id}">${esc(c.short)} · ${c.b}–${c.d}</option>`).join("");
   document.getElementById("pick").innerHTML=bar; document.getElementById("erasJump").innerHTML=jump;
 }
 renderStory();
 
 /* Hæð hausins fyrir nafnaborðann */
-const setHH=()=>document.documentElement.style.setProperty("--hh",document.querySelector("header.top").offsetHeight+"px");
-setHH(); window.addEventListener("resize",setHH);
+const setHH=()=>{ const h=document.querySelector("header.top").offsetHeight, nb=document.getElementById("namebar");
+  document.documentElement.style.setProperty("--hh",h+"px");
+  document.documentElement.style.setProperty("--stick",(h+(nb.hidden?0:nb.offsetHeight))+"px"); };
+setHH();
+let rz; window.addEventListener("resize",()=>{ clearTimeout(rz); rz=setTimeout(()=>{ setHH(); layout(); },120); });
 
 /* Fara í tónskáld: fellilisti, leit og tímabilahnappar */
 const reduce=()=>matchMedia("(prefers-reduced-motion: reduce)").matches;
 function goTo(id){
-  const el=document.getElementById(id); if(!el) return;
   show("timalina");
+  const el=document.getElementById(id); if(!el) return;
   el.scrollIntoView({behavior:reduce()?"auto":"smooth", block:"center"});
-  if(el.classList.contains("note")){ el.classList.remove("hit"); void el.offsetWidth; el.classList.add("hit"); }
+  if(el.classList.contains("note")) setTimeout(()=>{ el.classList.remove("hit"); void el.offsetWidth; el.classList.add("hit"); }, reduce()?0:600);
 }
 const pick=document.getElementById("pick");
 pick.addEventListener("change",()=>{ if(pick.value) goTo("t-"+pick.value); });
@@ -847,16 +917,7 @@ function setActive(id){
   document.querySelectorAll("#erasJump a").forEach(a=>a.classList.toggle("active",a.dataset.target==="era-"+era));
   if(id.startsWith("t-") && document.activeElement!==pick) pick.value=id.slice(2);
 }
-if("IntersectionObserver" in window){
-  const seen=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("fx"); seen.unobserve(e.target);} }),{rootMargin:"0px 0px -10% 0px"});
-  const focus=new IntersectionObserver(es=>{
-    const vis=es.filter(e=>e.isIntersecting).sort((a,b)=>a.boundingClientRect.top-b.boundingClientRect.top)[0];
-    if(vis) setActive(vis.target.id);
-  },{rootMargin:"-45% 0px -45% 0px"});
-  document.querySelectorAll(".note").forEach((n,i)=>{ if(i>3) seen.observe(n); focus.observe(n); });
-  document.querySelectorAll(".chapter").forEach(c=>focus.observe(c));
-}
-document.getElementById("story").addEventListener("click",ev=>{const n=ev.target.closest(".note"); if(n) openComposer(n.dataset.id);});
+story.addEventListener("click",ev=>{const n=ev.target.closest(".note"); if(n) openComposer(n.dataset.id);});
 
 const dlg=document.getElementById("dlg"), dlgC=document.getElementById("dlgContent");
 /* Íslenska Wikipedia: síðan athugar sjálf hvort grein sé til og sýnir aðeins hlekk ef svo er */
@@ -979,10 +1040,12 @@ const VIEWS=["timalina","thekkir"];
 function show(v){
   document.querySelectorAll(".view").forEach(s=>{const on=s.dataset.view===v; s.hidden=!on; if(on){s.classList.remove("enter");void s.offsetWidth;s.classList.add("enter");}});
   document.getElementById("namebar").hidden = v!=="timalina"; setHH();
+  bgl.hidden = v!=="timalina";
+  if(v==="timalina"){ lastEra=""; layout(); } else document.body.style.backgroundColor="";
   document.querySelectorAll("nav.tabs a").forEach(a=>{ if(a.dataset.nav===v) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
 }
 document.querySelectorAll("nav.tabs a, a.brand").forEach(a=>a.addEventListener("click",ev=>{
-  const v=a.getAttribute("href").slice(1); ev.preventDefault(); show(v); window.scrollTo(0,0);
+  const v=a.getAttribute("href").slice(1); ev.preventDefault(); show(v); window.scrollTo({top:0,behavior:"auto"});
   try{ history.replaceState(null,"","#"+v); }catch(e){}
 }));
 function route(){
@@ -991,5 +1054,6 @@ function route(){
   show(VIEWS.includes(h)?h:"timalina");
 }
 window.addEventListener("hashchange",route);
+buildStory();
 route();
 </script>
