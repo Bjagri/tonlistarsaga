@@ -141,14 +141,16 @@ html{scroll-behavior:smooth}
 .note .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font-size:.88rem}
 .note .work{display:inline-flex;align-items:center;gap:6px;font-weight:500}
 .note .more{font-weight:600;color:var(--col)}
-.note .face{width:64px;height:64px;font-size:1.35rem;box-shadow:0 0 0 3px var(--surface)}
+.note .face{width:78px;height:78px;font-size:1.4rem;box-shadow:0 0 0 3px var(--surface)}
 .note.fx{animation:settle .6s cubic-bezier(.2,.7,.2,1) both}
 @keyframes settle{from{transform:rotate(calc(var(--rot,0deg) * -2)) translateY(16px)}to{transform:rotate(var(--rot,0deg))}}
 @media (prefers-reduced-motion:reduce){.note,.note.fx{animation:none;transition:none}}
 
 /* Andlitsmerki (upphafsstafir, eða mynd ef c.img er sett) */
-.face{width:76px;height:76px;border-radius:50%;flex:none;display:grid;place-items:center;font-family:var(--f-display);font-weight:600;font-size:1.6rem;color:var(--bar-ink);overflow:hidden;box-shadow:0 0 0 4px var(--surface)}
-.face img{width:100%;height:100%;object-fit:cover}
+.face{position:relative;width:96px;height:96px;border-radius:50%;flex:none;display:grid;place-items:center;font-family:var(--f-display);font-weight:600;font-size:1.6rem;color:var(--bar-ink);overflow:hidden;box-shadow:0 0 0 4px var(--surface)}
+.face img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 18%}
+.credit{font-size:.75rem;color:var(--muted)}
+.credit a{color:inherit}
 
 /* Myndbönd með smámynd */
 .vid{position:relative;display:block;width:100%;aspect-ratio:16/9;max-width:100%;border-radius:18px;overflow:hidden;background:var(--vcol,var(--ink));color:var(--bar-ink);text-decoration:none;border:0;padding:0;cursor:pointer;font:inherit}
@@ -259,7 +261,6 @@ const ERAS = {
   nutimi:  {name:"Nútími", years:"frá 1900", from:1900, to:1990, text:"Nýir hljómar, ójafnir taktar og tónlist sem hneykslaði fólk."}
 };
 const yt = q => "https://www.youtube.com/results?search_query=" + encodeURIComponent(q);
-const wiki = q => "https://is.wikipedia.org/w/index.php?search=" + encodeURIComponent(q);
 
 /* Til að setja inn mynd af tónskáldi: bættu img:"myndir/bach.jpg" við færsluna (slóð á mynd í sömu möppu á GitHub). */
 const COMPOSERS = [
@@ -548,12 +549,212 @@ const VIRAL = [
 ];
 
 
+/* Myndir úr Excel-skjali kennara (Wikimedia Commons) */
+const IMAGES = {
+"bach": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5e/Johann_Sebastian_Bach.png/250px-Johann_Sebastian_Bach.png",
+"credit": "Elias Gottlob Haussmann, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Johann_Sebastian_Bach.png"
+},
+"beethoven": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6f/Beethoven.jpg/250px-Beethoven.jpg",
+"credit": "Joseph Karl Stieler, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Beethoven.jpg"
+},
+"boccherini": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fb/LBoccherini.jpg/250px-LBoccherini.jpg",
+"credit": "Pompeo Batoni, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:LBoccherini.jpg"
+},
+"brahms": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/15/JohannesBrahms.jpg/250px-JohannesBrahms.jpg",
+"credit": "C. Brasch, Berlin (biography), Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:JohannesBrahms.jpg"
+},
+"chopin": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e8/Frederic_Chopin_photo.jpeg/250px-Frederic_Chopin_photo.jpeg",
+"credit": "Louis-Auguste Bisson, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Frederic_Chopin_photo.jpeg"
+},
+"clementi": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c9/Muzio_Clementi.jpeg/250px-Muzio_Clementi.jpeg",
+"credit": "Thomas Hardy, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Muzio_Clementi.jpeg"
+},
+"cpebach": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/96/Carl_Philipp_Emanuel_Bach.jpg/250px-Carl_Philipp_Emanuel_Bach.jpg",
+"credit": "After Johann Philipp Bach, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Carl_Philipp_Emanuel_Bach.jpg"
+},
+"debussy": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c3/Claude_Debussy_by_Atelier_Nadar.jpg/250px-Claude_Debussy_by_Atelier_Nadar.jpg",
+"credit": "Adam Cuerden, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Claude_Debussy_by_Atelier_Nadar.jpg"
+},
+"dukas": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2a/Paul_Dukas_01.jpg/250px-Paul_Dukas_01.jpg",
+"credit": "See page for author, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Paul_Dukas_01.jpg"
+},
+"dvorak": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/12/Dvorak.jpg/250px-Dvorak.jpg",
+"credit": "See page for author, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Dvorak.jpg"
+},
+"gluck": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/Christoph_Willibald_Gluck.png/250px-Christoph_Willibald_Gluck.png",
+"credit": "Étienne Aubry, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Christoph_Willibald_Gluck.png"
+},
+"grieg": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e9/%28Edvard_Grieg_portrait%29_%283470673354%29.jpg/250px-%28Edvard_Grieg_portrait%29_%283470673354%29.jpg",
+"credit": "Bergen Public Library Norway from Bergen, Norway, No restrictions, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:(Edvard_Grieg_portrait)_(3470673354).jpg"
+},
+"handel": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fa/George_Frideric_Handel_by_Balthasar_Denner.jpg/250px-George_Frideric_Handel_by_Balthasar_Denner.jpg",
+"credit": "Attributed to Balthasar Denner, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:George_Frideric_Handel_by_Balthasar_Denner.jpg"
+},
+"haydn": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/69/Joseph_Haydn%2C_m%C3%A5lning_av_Thomas_Hardy_fr%C3%A5n_1792.jpg/250px-Joseph_Haydn%2C_m%C3%A5lning_av_Thomas_Hardy_fr%C3%A5n_1792.jpg",
+"credit": "Thomas Hardy, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Joseph_Haydn,_m%C3%A5lning_av_Thomas_Hardy_fr%C3%A5n_1792.jpg"
+},
+"holst": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/01/Gustav_Holst.jpg/250px-Gustav_Holst.jpg",
+"credit": "Herbert Lambert, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Gustav_Holst.jpg"
+},
+"liszt": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/62/Franz_Liszt_by_Pierre_Petit.png/250px-Franz_Liszt_by_Pierre_Petit.png",
+"credit": "Pierre Petit, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Franz_Liszt_by_Pierre_Petit.png"
+},
+"mahler": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b7/Gustav-Mahler-Kohut.jpg/250px-Gustav-Mahler-Kohut.jpg",
+"credit": "Leonard Berlin, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Gustav-Mahler-Kohut.jpg"
+},
+"mendelssohn": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1f/Felix_Mendelssohn_Bartholdy%2C_Wilhelm_Hensel%2C_1847.jpg/250px-Felix_Mendelssohn_Bartholdy%2C_Wilhelm_Hensel%2C_1847.jpg",
+"credit": "Stadtmuseum Düsseldorf, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Felix_Mendelssohn_Bartholdy,_Wilhelm_Hensel,_1847.jpg"
+},
+"mozart": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1e/Wolfgang-amadeus-mozart_1.jpg/250px-Wolfgang-amadeus-mozart_1.jpg",
+"credit": "Barbara Krafft, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Wolfgang-amadeus-mozart_1.jpg"
+},
+"mussorgsky": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/db/Modest_Musorgskiy%2C_1870.jpg/250px-Modest_Musorgskiy%2C_1870.jpg",
+"credit": "Self-scanned, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Modest_Musorgskiy,_1870.jpg"
+},
+"offenbach": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/Jacques_Offenbach_by_Nadar.jpg/250px-Jacques_Offenbach_by_Nadar.jpg",
+"credit": "Nadar, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Jacques_Offenbach_by_Nadar.jpg"
+},
+"orff": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/Carl_Orff_profile_view.jpg/250px-Carl_Orff_profile_view.jpg",
+"credit": "derivative by Fulvio314, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Carl_Orff_profile_view.jpg"
+},
+"paradis": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/F._Parmanti%C3%A9%2C_1784_-_Maria_Theresia_Paradis.jpg/250px-F._Parmanti%C3%A9%2C_1784_-_Maria_Theresia_Paradis.jpg",
+"credit": "Faustine Parmantié, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:F._Parmanti%C3%A9,_1784_-_Maria_Theresia_Paradis.jpg"
+},
+"rachmaninoff": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/Sergei_Rachmaninoff_LOC_30160_cropped.jpg/250px-Sergei_Rachmaninoff_LOC_30160_cropped.jpg",
+"credit": "Bain News Service, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Sergei_Rachmaninoff_LOC_30160_cropped.jpg"
+},
+"ravel": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/78/Maurice_Ravel_1925.jpg/250px-Maurice_Ravel_1925.jpg",
+"credit": "Maurice Ravel, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Maurice_Ravel_1925.jpg"
+},
+"rimsky": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fb/Nikolay_A_Rimsky_Korsakov_1897.jpg/250px-Nikolay_A_Rimsky_Korsakov_1897.jpg",
+"credit": "Serge Lachinov, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Nikolay_A_Rimsky_Korsakov_1897.jpg"
+},
+"rossini": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f5/Composer_Rossini_G_1865_by_Carjat_-_Restoration.jpg/250px-Composer_Rossini_G_1865_by_Carjat_-_Restoration.jpg",
+"credit": "Étienne Carjat, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Composer_Rossini_G_1865_by_Carjat_-_Restoration.jpg"
+},
+"rstrauss": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2d/Strauss3.jpg/250px-Strauss3.jpg",
+"credit": "Franz Leximeliaman, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Strauss3.jpg"
+},
+"saintgeorges": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2c/Monsieur_de_St._George_MET_DP819235.jpg/250px-Monsieur_de_St._George_MET_DP819235.jpg",
+"credit": "William Ward, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Monsieur_de_St._George_MET_DP819235.jpg"
+},
+"saintsaens": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9b/Camille_Saint-Saens_b_Meurisse_1921.jpg/250px-Camille_Saint-Saens_b_Meurisse_1921.jpg",
+"credit": "Agence de presse Meurisse, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Camille_Saint-Saens_b_Meurisse_1921.jpg"
+},
+"salieri": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/07/Antonio_Salieri_painted_by_Joseph_Willibrord_M%C3%A4hler.jpg/250px-Antonio_Salieri_painted_by_Joseph_Willibrord_M%C3%A4hler.jpg",
+"credit": "Joseph Willibrord Mähler, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Antonio_Salieri_painted_by_Joseph_Willibrord_M%C3%A4hler.jpg"
+},
+"schubert": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0d/Franz_Schubert_by_Wilhelm_August_Rieder_1875.jpg/250px-Franz_Schubert_by_Wilhelm_August_Rieder_1875.jpg",
+"credit": "Wilhelm August Rieder, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Franz_Schubert_by_Wilhelm_August_Rieder_1875.jpg"
+},
+"shostakovich": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ab/Dmitri_Shostakovich_credit_Deutsche_Fotothek_adjusted.jpg/250px-Dmitri_Shostakovich_credit_Deutsche_Fotothek_adjusted.jpg",
+"credit": "Roger & Renate Rössing, Deutsche Fotothek; derivative work: Improvist, CC BY-SA 3.0 DE, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Dmitri_Shostakovich_credit_Deutsche_Fotothek_adjusted.jpg"
+},
+"strauss2": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/67/Johann_Strauss_II_by_Fritz_Luckhardt.jpg/250px-Johann_Strauss_II_by_Fritz_Luckhardt.jpg",
+"credit": "Fritz Luckhardt, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Johann_Strauss_II_by_Fritz_Luckhardt.jpg"
+},
+"stravinsky": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/33/Igor_Stravinsky_LOC_32392u.jpg/250px-Igor_Stravinsky_LOC_32392u.jpg",
+"credit": "George Grantham Bain Collection, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Igor_Stravinsky_LOC_32392u.jpg"
+},
+"tchaikovsky": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/20/Tchaikovsky_by_Reutlinger_%28cropped%29.jpg/250px-Tchaikovsky_by_Reutlinger_%28cropped%29.jpg",
+"credit": "Émile Reutlinger, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Tchaikovsky_by_Reutlinger_(cropped).jpg"
+},
+"verdi": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c6/Giuseppi_Verdi_by_Ferdinand_Mulnier_c1870.jpg/250px-Giuseppi_Verdi_by_Ferdinand_Mulnier_c1870.jpg",
+"credit": "Ferdinand Mulnier, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Giuseppi_Verdi_by_Ferdinand_Mulnier_c1870.jpg"
+},
+"vivaldi": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1b/Antonio_Vivaldi.jpg/250px-Antonio_Vivaldi.jpg",
+"credit": "François Morellon la Cave, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Antonio_Vivaldi.jpg"
+},
+"wagner": {
+"img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/83/Richard_Wagner%2C_Paris%2C_1861.jpg/250px-Richard_Wagner%2C_Paris%2C_1861.jpg",
+"credit": "Pierre Petit, Public domain, via Wikimedia Commons",
+"src": "https://commons.wikimedia.org/wiki/File:Richard_Wagner,_Paris,_1861.jpg"
+}
+};
+COMPOSERS.forEach(c=>Object.assign(c,IMAGES[c.id]||{}));
+
 const byId = Object.fromEntries(COMPOSERS.map(c=>[c.id,c]));
 const CAN_EMBED = location.protocol.startsWith("http") && !/claude|anthropic/i.test(location.hostname);
 const esc = s => String(s).replace(/[&<>"]/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
 const eraVar = e => `var(--${e})`;
 const initials = c => c.short.replace(/^C\.P\.E\. /,"CPE ").split(/[\s-]+/).map(w=>w[0]).join("").slice(0,3);
-const faceHtml = c => `<span class="face" style="background:${eraVar(c.era)}">${c.img?`<img src="${esc(c.img)}" alt="">`:esc(initials(c))}</span>`;
+const faceHtml = c => `<span class="face" style="background:${eraVar(c.era)}">${esc(initials(c))}${c.img?`<img src="${esc(c.img)}" alt="Mynd af ${esc(c.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`:""}</span>`;
 
 function vidHtml(v, col, small, extra=""){
   return `<a class="vid${small?" small":""}" href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener" data-yt="${v.id}" style="--vcol:${col}" ${extra}>
@@ -658,7 +859,48 @@ if("IntersectionObserver" in window){
 document.getElementById("story").addEventListener("click",ev=>{const n=ev.target.closest(".note"); if(n) openComposer(n.dataset.id);});
 
 const dlg=document.getElementById("dlg"), dlgC=document.getElementById("dlgContent");
+/* Íslenska Wikipedia: síðan athugar sjálf hvort grein sé til og sýnir aðeins hlekk ef svo er */
+const IS_WIKI={};
+const WIKI_ALT={
+  tchaikovsky:["Pjotr Ilitsj Tsjajkovskíj","Pjotr Tsjajkovskíj","Pyotr Ilyich Tchaikovsky"],
+  rachmaninoff:["Sergej Rakhmanínov","Sergej Rakhmaninov","Sergei Rachmaninoff"],
+  stravinsky:["Igor Stravinskíj","Igor Stravinsky"],
+  shostakovich:["Dmítríj Shostakovitsj","Dmítríj Sjostakovítsj","Dmitri Shostakovich"],
+  rimsky:["Nikolaj Rimskíj-Korsakov","Nikolai Rimsky-Korsakov"],
+  mussorgsky:["Modest Mussorgskíj","Modest Mussorgsky"],
+  strauss2:["Johann Strauss yngri","Johann Strauss II","Johann Strauss"],
+  saintgeorges:["Chevalier de Saint-Georges","Joseph Bologne"],
+  handel:["Georg Friedrich Händel","Georg Friedrich Handel"],
+  saintsaens:["Camille Saint-Saëns"]
+};
+let openId=null;
+(async function checkWiki(){
+  try{
+    const cached=JSON.parse(localStorage.getItem("tss-iswiki")||"null");
+    if(cached && Date.now()-cached.t<7*864e5){ Object.assign(IS_WIKI,cached.m); return; }
+  }catch(e){}
+  const cand=COMPOSERS.map(c=>({id:c.id,titles:[c.name,...(WIKI_ALT[c.id]||[])]}));
+  const all=[...new Set(cand.flatMap(x=>x.titles))];
+  const found={};
+  try{
+    for(let i=0;i<all.length;i+=45){
+      const chunk=all.slice(i,i+45);
+      const r=await fetch("https://is.wikipedia.org/w/api.php?action=query&format=json&redirects=1&origin=*&titles="+encodeURIComponent(chunk.join("|")));
+      const j=await r.json(), qy=j.query||{};
+      const map={}; chunk.forEach(x=>map[x]=x);
+      (qy.normalized||[]).forEach(n=>{ for(const k in map) if(map[k]===n.from) map[k]=n.to; });
+      (qy.redirects||[]).forEach(n=>{ for(const k in map) if(map[k]===n.from) map[k]=n.to; });
+      const ok=new Set(Object.values(qy.pages||{}).filter(p=>!("missing" in p)&&!("invalid" in p)).map(p=>p.title));
+      chunk.forEach(x=>{ if(ok.has(map[x])) found[x]=map[x]; });
+    }
+  }catch(e){ return; }
+  cand.forEach(x=>{ const hit=x.titles.find(tt=>found[tt]); if(hit) IS_WIKI[x.id]="https://is.wikipedia.org/wiki/"+encodeURIComponent(found[hit].replace(/ /g,"_")); });
+  try{ localStorage.setItem("tss-iswiki",JSON.stringify({t:Date.now(),m:IS_WIKI})); }catch(e){}
+  if(openId && dlg.open) openComposer(openId);
+})();
+
 function openComposer(id){
+  openId=id;
   const c=byId[id]; if(!c) return;
   const all=sorted(), i=all.findIndex(x=>x.id===id), prev=all[i-1], next=all[i+1];
   const viralHere = VIRAL.filter(v=>v[1]===id);
@@ -674,6 +916,7 @@ function openComposer(id){
        <div class="row"><span class="tag"><span class="star" style="background:${col}"></span>${ERAS[c.era].name}</span><span class="tag">${esc(c.country)}</span><span class="tag">${c.b}–${c.d} · ${c.d-c.b} ára</span></div>
      </div></div>
      <p>${esc(c.intro)}</p>
+     ${c.credit?`<p class="credit">Mynd: ${c.src?`<a href="${esc(c.src)}" target="_blank" rel="noopener">${esc(c.credit)}</a>`:esc(c.credit)}</p>`:""}
    </div>
    <div class="dlg-body">
      <section><h3>Hlustaðu</h3>${v0?vidHtml(v0,col,false):""}${vRest.length?`<div class="vgrid">${vRest.map(v=>vidHtml(v,col,true)).join("")}</div>`:""}</section>
@@ -682,7 +925,7 @@ function openComposer(id){
 </section>`:""}
      ${c.ask&&c.ask.length?`<section class="ask"><h3>Hlustunarspurningar</h3><ol>${c.ask.map(a=>`<li>${esc(a)}</li>`).join("")}</ol></section>`:""}
      <section><h3>Ítarefni</h3><div class="links-list">
-       <a class="btn ghost small" href="${wiki(c.name)}" target="_blank" rel="noopener">Wikipedia (íslenska)</a>
+       ${IS_WIKI[c.id]?`<a class="btn ghost small" href="${IS_WIKI[c.id]}" target="_blank" rel="noopener">Wikipedia (íslenska)</a>`:""}
        <a class="btn ghost small" href="https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(c.name)}" target="_blank" rel="noopener">Wikipedia (enska)</a>
        ${(c.works||[]).map(w=>`<a class="btn ghost small" href="${yt(c.name+" "+w)}" target="_blank" rel="noopener">▶ ${esc(w)}</a>`).join("")}
        <a class="btn ghost small" href="${yt(c.name)}" target="_blank" rel="noopener">Fleiri myndbönd</a>
