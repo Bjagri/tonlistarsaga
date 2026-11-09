@@ -1,3 +1,10 @@
+<!doctype html>
+<html lang="is">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+</head>
+<body>
 <title>Tónsögusmiðjan</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -317,666 +324,3006 @@ const tlOfEra = k => (ERAS[k]&&ERAS[k].tl)||"sigild";
 const yt = q => "https://www.youtube.com/results?search_query=" + encodeURIComponent(q);
 
 /* Til að setja inn mynd af tónskáldi: bættu img:"myndir/bach.jpg" við færsluna (slóð á mynd í sömu möppu á GitHub). */
-const COMPOSERS = [
- {id:"vivaldi", name:"Antonio Vivaldi", short:"Vivaldi", b:1678, d:1741, country:"Ítalía", era:"barokk", main:true,
-  intro:"Ítalskur barokksnillingur sem samdi yfir 500 konserta. Þekktur sem „rauði presturinn“ og frægastur fyrir tónverk sem sýnir náttúruna í tónlist.",
-  facts:["Vivaldi var vígður prestur og var kallaður „rauði presturinn“ af því að hann var rauðhærður","Vivaldi kenndi tónlist á heimili fyrir stúlkur sem höfðu misst foreldra sína. Margar þeirra urðu frábærar tónlistarkonur og spiluðu í hljómsveit sem var þekkt um alla Evrópu","Tónlist hans fékk ekki nægilega athygli á meðan hann var á lífi. Hún gleymdist í næstum 200 ár"],
-  videos:[{id:"KtMi66anolg", title:"Árstíðirnar"}],
-  pop:["Vorið úr Árstíðunum heyrist í auglýsingum, kvikmyndum og þegar maður bíður í símanum"],
-  ask:["Árstíðirnar eru fjórir konsertar. Heyrir þú hvaða árstíð er í gangi?","Hvaða hljóðfæri leikur aðalhlutverkið?"]},
- {id:"bach", name:"Johann Sebastian Bach", short:"Bach", b:1685, d:1750, country:"Þýskaland", era:"barokk", main:true,
-  intro:"Þýskt barokktónskáld sem samdi flókin, falleg orgelverk, kórverk og hljómsveitartónlist. Hann hefur verið kallaður faðir tónlistarinnar.",
-  facts:["Kom úr mikilli tónlistarfjölskyldu. Faðir hans, bróðir og frændur voru allir tónlistarmenn","Hann átti 20 börn og 4 þeirra urðu einnig þekkt tónskáld","Bach samdi yfir 1000 tónverk!","Sem ungur maður gekk hann um 400 km til að hlusta á frægan organista spila","Hann varð ekki heimsþekktur fyrir snilli sína fyrr en um 100 árum eftir að hann lést"],
-  videos:[{id:"x-zXfkV90fM", title:"Toccata og fúga í d-moll"},{id:"5zz9pyaKc7k", title:"Annað myndband úr Tónlistarmanni vikunnar"}],
-  pop:["Toccata og fúga er „illmennatónlistin“ sem heyrist í hrollvekjum, á hrekkjavöku og í teiknimyndum"],
-  ask:["Hvaða hljóðfæri heyrir þú? Hvernig er hljómurinn í því?","Af hverju ætli þetta lag sé svona oft notað fyrir vonda kallinn?"],
-  connect:["mendelssohn"]},
- {id:"handel", name:"Georg Friedrich Händel", short:"Händel", b:1685, d:1759, country:"Þýskaland og England", era:"barokk", main:true,
-  intro:"Þýskt barokktónskáld sem varð stórstjarna í London. Frægastur fyrir óratoríuna Messías og Hallelújakórinn.",
-  facts:["Händel fæddist sama ár og Bach og ekki langt frá honum, en þeir hittust aldrei","Faðir hans vildi að hann yrði lögfræðingur, svo hann æfði sig í laumi á hljóðfæri uppi á háalofti","Hann samdi Vatnatónlistina fyrir Georg I konung, og hún var leikin á pramma á ánni Thames","Hann samdi allan Messías á um þremur vikum"],
-  videos:[{id:"weFJHtcxJt0", title:"Hallelújakórinn úr Messíasi"}],
-  pop:["Hallelújakórinn heyrist í jólaauglýsingum, bíómyndum og teiknimyndum þegar eitthvað frábært gerist"],
-  ask:["Kórinn syngur sama orðið aftur og aftur. Hvaða áhrif hefur það?","Hvernig myndir þú lýsa stemningunni með einu orði?"]},
- {id:"gluck", name:"Christoph Willibald Gluck", short:"Gluck", b:1714, d:1787, country:"Þýskaland og Austurríki", era:"klassik", main:true,
-  intro:"Óperutónskáld sem vildi gera óperur einfaldari og sannari. Hann sagði að tónlistin ætti að þjóna sögunni, ekki að monta sig.",
-  facts:["Gluck strauk að heiman sem unglingur af því að faðir hans vildi að hann yrði skógarvörður eins og hann sjálfur","Hann kenndi ungri prinsessu í Vín á hljóðfæri. Hún hét María Antoinetta og varð síðar drottning Frakklands","Í óperunni Orfeus og Evridís fer söngvari niður í undirheima til að sækja konuna sína aftur"],
-  videos:[{id:"x-OrXOOeA0I", title:"Dans hinna sælu anda"}],
-  pop:["Dans hinna sælu anda er eitt vinsælasta lag allra flautuleikara"],
-  ask:["Lagið á að lýsa sælum öndum í paradís. Passar flautan við það?"]},
- {id:"cpebach", name:"Carl Philipp Emanuel Bach", short:"C.P.E. Bach", b:1714, d:1788, country:"Þýskaland", era:"klassik", main:true,
-  intro:"Sonur Johanns Sebastians Bach. Á sínum tíma var hann frægari en pabbi hans og brúaði bilið milli barokks og klassíkur.",
-  facts:["Þegar fólk sagði „Bach“ á 18. öld átti það oftast við hann, ekki föður hans","Hann var hirðsembalisti hjá Friðriki mikla Prússakonungi í nærri 30 ár. Konungurinn spilaði sjálfur á flautu","Sagt er að Mozart hafi sagt um hann: „Hann er faðirinn, við erum börnin“","Hann skrifaði frægustu kennslubók síns tíma um hvernig ætti að spila á hljómborð"],
-  videos:[{id:"Jk6m1AC0L-k", title:"Solfeggietto"}],
-  pop:["Solfeggietto er spilað af píanónemendum um allan heim"],
-  ask:["Hlustaðu á Toccötu pabba hans og svo á Solfeggietto. Heyrir þú fjölskyldusvipinn?"],
-  connect:["bach"]},
- {id:"haydn", name:"Joseph Haydn", short:"Haydn", b:1732, d:1809, country:"Austurríki", era:"klassik", main:true,
-  intro:"Austurrískt tónskáld kallað „faðir sinfóníunnar“ og „faðir strengjakvartettsins“. Hann var vinur Mozarts og kennari Beethovens.",
-  facts:["Haydn samdi 104 sinfóníur!","Í Óvæntu sinfóníunni er rólegt lag sem allt í einu fær risastóran, háværan hljóm. Sagan segir að hann hafi viljað vekja áheyrendur sem sofnuðu á tónleikum","Hljóðfæraleikararnir hans vildu komast heim í frí. Hann samdi Kveðjusinfóníuna þar sem þeir hætta einn af öðrum, slökkva á kertinu sínu og ganga út. Prinsinn skildi skilaboðin","Laglína eftir Haydn er í dag þjóðsöngur Þýskalands","Eftir að hann dó var höfuðkúpunni hans stolið. Hún fannst ekki aftur fyrr en 145 árum seinna"],
-  videos:[{id:"VOLy6JxEDLw", title:"Óvænta sinfónían, 2. þáttur"}],
-  pop:["Óvænta sinfónían er notuð í tónmennt um allan heim til að kenna styrkleikabreytingar"],
-  works:["Óvænta sinfónían","Kveðjusinfónían","Trompetkonsert"],
-  ask:["Hlustaðu vel á Óvæntu sinfóníuna. Hvenær kemur „óvænti“ hljómurinn? Brá þér?"],
-  connect:["mozart","beethoven"]},
- {id:"boccherini", name:"Luigi Boccherini", short:"Boccherini", b:1743, d:1805, country:"Ítalía og Spánn", era:"klassik", main:true,
-  intro:"Ítalskur sellósnillingur sem bjó lengst af á Spáni. Hann samdi yfir 100 strengjakvintetta.",
-  facts:["Hann var undrabarn á selló og hélt fyrstu tónleikana sína 13 ára","Hann bætti öðru sellói við strengjakvartettinn og bjó þannig til strengjakvintett","Menúettinn hans er orðinn svo frægur að margir þekkja lagið án þess að vita hver samdi það"],
-  videos:[{id:"5fLPBIBOE5U", title:"Menúett úr strengjakvintett"}],
-  pop:["Menúettinn heyrist í gömlum bíómyndum, auglýsingum og þegar einhver á að vera mjög fínn og kurteis"],
-  ask:["Menúett er dans í þrískiptum takti. Getur þú talið 1-2-3 með?"]},
- {id:"saintgeorges", name:"Joseph Bologne de Saint-Georges", short:"Saint-Georges", b:1745, d:1799, country:"Gvadelúpeyjar og Frakkland", era:"klassik", main:true,
-  intro:"Fiðlusnillingur, tónskáld, hljómsveitarstjóri og besti skylmingamaður Frakklands. Saga hans var gleymd í 200 ár.",
-  facts:["Hann fæddist á Gvadelúpeyjum í Karíbahafi. Faðir hans var franskur plantekrueigandi og móðir hans var afrísk kona sem var hneppt í þrældóm","Hann var talinn besti skylmingamaður Evrópu","Hann stjórnaði einni bestu hljómsveit Parísar, og hún pantaði sex sinfóníur hjá Haydn","Vegna kynþáttafordóma var honum meinað að verða stjórnandi Parísaróperunnar","Hann barðist í frönsku byltingunni og stjórnaði herdeild"],
-  videos:[{id:"eQ1unCtX6K0", title:"Fiðlukonsert í A-dúr"}],
-  pop:["Árið 2022 kom út kvikmynd um ævi hans"],
-  ask:["Af hverju heldur þú að tónlist hans hafi gleymst í svona langan tíma?"],
-  connect:["haydn","mozart"]},
- {id:"salieri", name:"Antonio Salieri", short:"Salieri", b:1750, d:1825, country:"Ítalía og Austurríki", era:"klassik", main:true,
-  intro:"Ítalskt tónskáld sem var eitt valdamesta og virtasta tónskáld Vínarborgar á sama tíma og Mozart.",
-  facts:["Salieri var kennari Beethovens, Schuberts og Liszts!","Til er gömul sögusögn um að hann hafi eitrað fyrir Mozart. Það er ekki satt. Þeir sömdu meira að segja saman lag","Fræg kvikmynd um Mozart sýnir hann sem afbrýðisaman óvin, sem gerði hann frægan á ný, en ekki á réttan hátt","Hann kenndi mörgum nemendum ókeypis"],
-  videos:[{id:"U-_gsSbuyV0", title:"Píanókonsert í C-dúr"}],
-  pop:["Nafnið hans er orðið að hugtaki: að vera „Salieri“ einhvers þýðir að vera næstbestur við hliðina á snillingi"],
-  ask:["Er sanngjarnt að fólk muni bara eftir Salieri sem óvini Mozarts?"],
-  connect:["mozart","beethoven","schubert","liszt"]},
- {id:"clementi", name:"Muzio Clementi", short:"Clementi", b:1752, d:1832, country:"Ítalía og England", era:"klassik", main:true,
-  intro:"Ítalskur píanóleikari sem bjó í London og er oft kallaður „faðir píanósins“.",
-  facts:["Árið 1781 keppti hann við Mozart í píanóeinvígi fyrir keisarann í Vín. Úrslitin voru talin jafntefli","Hann smíðaði líka píanó og gaf út nótur, meðal annars eftir Beethoven","Sónatínurnar hans eru meðal fyrstu verka sem píanónemendur læra"],
-  videos:[{id:"Ryq0nX1_Jds", title:"Sónatína í C-dúr, op. 36 nr. 1"}],
-  pop:["Ef þú lærir á píanó eru miklar líkur á að þú spilir Clementi einhvern tímann"],
-  ask:["Hlustaðu á sónatínuna. Hvernig er A-kaflinn ólíkur B-kaflanum?"],
-  connect:["mozart"]},
- {id:"paradis", name:"Maria Theresia von Paradis", short:"Paradis", b:1759, d:1824, country:"Austurríki", era:"klassik", main:true,
-  intro:"Austurrískur píanóleikari, söngkona og tónskáld sem missti sjónina ung en ferðaðist um Evrópu og hélt tónleika.",
-  facts:["Hún varð blind þriggja ára gömul en lærði yfir 60 píanókonserta utanbókar","Talið er að Mozart hafi samið einn píanókonserta sinna handa henni","Hún notaði sérstakt borð með pinnum til að skrifa niður tónlistina sína","Hún stofnaði tónlistarskóla í Vín, sérstaklega fyrir stúlkur"],
-  videos:[{id:"1egii6SWNVM", title:"Sicilienne"}],
-  pop:["Sicilienne er kennd við hana og er vinsælt verk fyrir fiðlu og selló. Sumir telja þó að fiðluleikari á 20. öld hafi í raun samið það"],
-  ask:["Hvernig heldur þú að hún hafi lært tónlist án þess að geta lesið nótur af blaði?"],
-  connect:["mozart","salieri"]},
- {id:"mozart", name:"Wolfgang Amadeus Mozart", short:"Mozart", b:1756, d:1791, country:"Austurríki", era:"klassik", main:true,
-  intro:"Austurrískt undrabarn sem samdi yfir 600 verk, þar á meðal óperur, sinfóníur og kammerverk. Tónlist hans er skýr, glæsileg og létt.",
-  facts:["Við sex ára aldur var hann byrjaður að ferðast um Evrópu til að spila fyrir konungsfólk með systur sinni Maríu Önnu","Gat hlustað á mjög flókna tónlist og spilað hana eftir minni","Hann samdi fyrstu verkin sín aðeins fimm ára gamall","Hann lést 35 ára og náði ekki að klára Sálumessuna (Requiem). Lacrimosa er úr henni"],
-  videos:[{id:"czBSj6_6rkE", title:"Eine kleine Nachtmusik"},{id:"SWv8OKXwVRM", title:"Lacrimosa úr Requiem"},{id:"A_THdzBnHy0", title:"Rondo alla turca"}],
-  pop:["Lacrimosa er mikið notað í kvikmyndum, stiklum og á TikTok","Tyrkneski marsinn (Rondo alla turca) og Eine kleine Nachtmusik heyrast í teiknimyndum og auglýsingum"],
-  works:["Eine kleine Nachtmusik","Rondo alla turca","Lacrimosa úr Requiem","Töfraflautan"],
-  ask:["Eine kleine Nachtmusik þýðir „lítil næturtónlist“. Passar nafnið við lagið?","Berðu saman Eine kleine Nachtmusik og Lacrimosa. Hvað er ólíkt?"]},
- {id:"beethoven", bw:["Óðurinn til gleðinnar"], name:"Ludwig van Beethoven", short:"Beethoven", b:1770, d:1827, country:"Þýskaland", era:"klassik", main:true,
-  intro:"Þýskur meistari sem braut blað í tónlistarsögunni. Þrátt fyrir að missa heyrn samdi hann stórkostlegar sinfóníur sem lýsa baráttu og von.",
-  facts:["Beethoven byrjaði að missa heyrnina á þrítugsaldri og varð að lokum alveg heyrnarlaus. Samt samdi hann sum af sínum frægustu verkum eftir að hann missti heyrnina","Hann var mikill kaffidrykkjumaður og taldi nákvæmlega 60 kaffibaunir í hvern bolla","Hann var mikið náttúrubarn","Fólk sagði að Beethoven hefði verið erfiður í samskiptum, þrjóskur og orðið auðveldlega reiður 😝","Óðurinn til gleðinnar úr 9. sinfóníunni er í dag þjóðsöngur Evrópusambandsins"],
-  videos:[{id:"DuY6dsPjUV4", title:"Óðurinn til gleðinnar"},{id:"kfSnDd5mTsQ", title:"Tunglskinssónatan, 1. þáttur"}],
-  pop:["Tunglskinssónatan og Für Elise eru meðal þekktustu píanólaga heims","„Ta-ta-ta-taaaa“ upphafið á 5. sinfóníunni er notað í óteljandi bíómyndum og auglýsingum"],
-  works:["Tunglskinssónatan","Für Elise","5. sinfónían","Óðurinn til gleðinnar"],
-  ask:["Hvernig heldur þú að Beethoven hafi farið að því að semja tónlist þegar hann heyrði ekkert?","Prófaðu að syngja eða spila Óðinn til gleðinnar. Laglínan fer mest skref fyrir skref!"],
-  connect:["schubert"]},
- {id:"rossini", name:"Gioachino Rossini", short:"Rossini", b:1792, d:1868, country:"Ítalía", era:"romantik", main:true,
-  intro:"Ítalskt óperutónskáld sem var eitt það vinsælasta í heiminum á sínum tíma.",
-  facts:["Hann samdi Rakarann frá Sevilla á innan við þremur vikum","Hann hætti að semja óperur 37 ára og helgaði sig mat. Steikarréttur er nefndur eftir honum","Hann fæddist 29. febrúar, á hlaupársdegi"],
-  videos:[{id:"xlmg_hY9SSE", title:"Vilhjálmur Tell, lokakafli forleiksins"}],
-  pop:["Lokakaflinn úr forleiknum að Vilhjálmi Tell er hestareiðarlagið í ótal teiknimyndum og kúrekamyndum"],
-  ask:["Hvernig lætur tónlistin hljóma eins og hestar á stökki?"]},
- {id:"schubert", name:"Franz Schubert", short:"Schubert", b:1797, d:1828, country:"Austurríki", era:"romantik", main:true,
-  intro:"Austurrískt tónskáld sem samdi hundruð sönglaga þar sem tónlist og ljóð mynda eina heild. Hann lést ungur en eftir hann liggur gríðarlegt magn tónlistar.",
-  facts:["Schubert lifði aðeins til 31 árs en samdi samt yfir 600 sönglög","Schubert blandaði saman ljóðum og tónlist á einstakan hátt","Schubert dáði Beethoven og gekk með nótur eftir hann í vasanum. Þegar hann dó var hann grafinn rétt hjá Beethoven","Tónlist hans fékk ekki verðskuldaða virðingu fyrr en mörgum árum eftir dauða hans"],
-  videos:[{id:"XpYGgtrMTYs", title:"Ave Maria"}],
-  pop:["Ave Maria er sungið í brúðkaupum, jarðarförum og jólamessum um allan heim"],
-  works:["Ave Maria","Álfakóngurinn (Erlkönig)","Ófullgerða sinfónían"],
-  ask:["Í Álfakónginum syngur einn söngvari fjórar persónur. Hvernig getur hann látið þær hljóma ólíkt?"],
-  connect:["beethoven"]},
- {id:"mendelssohn", name:"Felix Mendelssohn", short:"Mendelssohn", b:1809, d:1847, country:"Þýskaland", era:"romantik", main:true,
-  intro:"Þýskt tónskáld, píanisti og undrabarn. Fjölskylda hans var vel efnuð sem gaf honum frelsi í eigin tónsmíðum. Hann var aðeins 15 ára þegar hann samdi sína fyrstu sinfóníu. Hann var líka fær myndlistarmaður og ljóðskáld.",
-  facts:["Mendelssohn var mjög fær stjórnandi og einn þeirra fyrstu sem notuðu tónsprota til að stjórna hljómsveit","Hann er gjarnan talinn maðurinn sem kynnti heiminum aftur fyrir tónlist Bachs","Hann samdi forleikinn að Draumi á Jónsmessunótt aðeins 17 ára","Hann lést aðeins 38 ára, stuttu eftir að hann frétti af andláti systur sinnar Fanny, sem var líka tónskáld"],
-  videos:[{id:"0Oo4z37OUEI", title:"Myndband úr Tónlistarmanni vikunnar"}],
-  pop:["Brúðarmarsinn úr Draumi á Jónsmessunótt er leikinn þegar brúðhjón ganga út úr kirkjunni"],
-  works:["Brúðarmarsinn","Fiðlukonsert í e-moll","Hebrides-forleikurinn"],
-  ask:["Af hverju ætli brúðarmarsinn hljómi svona glaður og hátíðlegur?"],
-  connect:["bach"]},
- {id:"chopin", name:"Frédéric Chopin", short:"Chopin", b:1810, d:1849, country:"Pólland og Frakkland", era:"romantik", main:true,
-  intro:"Pólskur píanósnillingur sem samdi nánast eingöngu fyrir píanó. Tónlist hans er rómantísk og tilfinningaþrungin.",
-  facts:["Chopin samdi nær einungis fyrir píanó","Chopin fæddist í Varsjá en flutti til Parísar ungur að árum. Hann saknaði ættlands síns alla tíð og samdi mörg verk sem byggð eru á pólskum dönsum","Þegar hann lést í París árið 1849 bað hann um að hjarta sitt yrði flutt aftur til Póllands. Það er nú varðveitt í kirkju í Varsjá"],
-  videos:[{id:"QR10Od1cLaM", title:"Næturljóð í Es-dúr, op. 9 nr. 2"}],
-  pop:["Næturljóðið op. 9 nr. 2 er eitt mest spilaða píanólag á netinu og heyrist oft í kvikmyndum"],
-  ask:["Næturljóð er róleg tónlist fyrir kvöldið. Hvað sérðu fyrir þér þegar þú hlustar?"]},
- {id:"liszt", name:"Franz Liszt", short:"Liszt", b:1811, d:1886, country:"Ungverjaland", era:"romantik", main:true,
-  intro:"Ungverskur píanóleikari sem var fyrsta „rokkstjarna“ tónlistarsögunnar. Hann var talinn besti píanóleikari heims.",
-  facts:["Aðdáendurnir urðu svo æstir á tónleikunum hans að fyrirbærið fékk nafn: „Lisztomania“","Fólk slóst um hanskana hans og vasaklútana","Hann var einn þeirra fyrstu sem héldu einleikstónleika og sneri píanóinu á hlið svo áhorfendur sæju andlitið hans","Hann kenndi mörgum nemendum ókeypis"],
-  videos:[{id:"LdH1hSWGFGU", title:"Ungversk rapsódía nr. 2"}],
-  pop:["Ungverska rapsódían nr. 2 er í frægum teiknimyndum þar sem Tommi köttur og Kalli kanína spila á píanó"],
-  ask:["Lagið byrjar hægt og endar hratt. Hvernig breytist stemningin?"]},
- {id:"wagner", name:"Richard Wagner", short:"Wagner", b:1813, d:1883, country:"Þýskaland", era:"romantik", main:true,
-  intro:"Þýskt óperutónskáld sem hugsaði allt risastórt: sögurnar, hljómsveitina og jafnvel óperuhúsið.",
-  facts:["Óperuröðin Niflungahringurinn tekur um 15 klukkustundir í flutningi og er sýnd á fjórum kvöldum","Niflungahringurinn byggir á norrænum goðsögum og Völsunga sögu, sem við þekkjum úr íslenskum handritum","Hann lét byggja sitt eigið óperuhús í Bayreuth sem eingöngu sýnir verkin hans","Hann var mjög umdeildur maður og skuldaði peninga út um allt"],
-  videos:[{id:"3JeuQ-CA67w", title:"Valkyrjureiðin"}],
-  pop:["Valkyrjureiðin heyrist í stríðsmyndum, teiknimyndum og þegar eitthvað stórt er að fara að gerast","Brúðarkórinn úr Lohengrin er lagið sem oft er leikið þegar brúðurin gengur inn kirkjugólfið"],
-  ask:["Valkyrjur eru úr norrænni goðafræði. Hvernig heyrist að þær séu á flugi?"]},
- {id:"verdi", name:"Giuseppe Verdi", short:"Verdi", b:1813, d:1901, country:"Ítalía", era:"romantik", main:true,
-  intro:"Frægasta óperutónskáld Ítalíu. Óperurnar hans eru enn þær sem oftast eru sýndar í heiminum.",
-  facts:["Verdi var hafnað þegar hann sótti um í tónlistarháskólann í Mílanó. Í dag ber skólinn nafnið hans!","Þegar hann dó söng mannfjöldinn á götunum kórinn „Va, pensiero“ úr óperunni Nabucco","Hann fæddist sama ár og Wagner, 1813"],
-  videos:[{id:"60mRj_9Rybc", title:"Dies irae úr Sálumessunni"}],
-  pop:["Dies irae úr Sálumessunni er mikið notað í kvikmyndastiklum og tölvuleikjum þegar allt er að springa","Aría hertogans „La donna è mobile“ úr Rigoletto heyrist í auglýsingum og teiknimyndum"],
-  ask:["Hvað gera slagverkið og kórinn til að láta Dies irae hljóma svona ógnvekjandi?"]},
- {id:"offenbach", name:"Jacques Offenbach", short:"Offenbach", b:1819, d:1880, country:"Frakkland", era:"romantik", main:true,
-  intro:"Þýskfætt tónskáld sem bjó í París og samdi um 100 fyndnar óperettur.",
-  facts:["Hann var líka frábær sellóleikari","Galop infernal úr Orfeusi í undirheimum varð lagið við Can-can dansinn"],
-  videos:[{id:"VfFh06EZ5gk", title:"Galop infernal (Can-can)"}],
-  pop:["Can-can lagið heyrist í teiknimyndum, auglýsingum og þegar einhver dansar fáránlega"],
-  ask:["Hvernig dans myndir þú dansa við þetta lag?"]},
- {id:"strauss2", name:"Johann Strauss yngri", short:"Strauss", b:1825, d:1899, country:"Austurríki", era:"romantik", main:true,
-  intro:"Austurrískt tónskáld kallað „valsakóngurinn“. Hann samdi um 500 dansa, valsa og polka.",
-  facts:["Faðir hans hét líka Johann Strauss og var líka frægt tónskáld. Hann vildi ekki að sonurinn yrði tónlistarmaður","Strauss æfði sig í laumi á fiðlu","Valsinn Dóná svo blá er nánast óopinber þjóðsöngur Austurríkis og spilaður á hverju nýársdegi í Vín","Ekki rugla honum saman við Richard Strauss, sem var allt annar maður!"],
-  videos:[{id:"fHzhDKwYP2s", title:"Dóná svo blá"}],
-  pop:["Dóná svo blá er notuð í frægri geimmynd þar sem geimskip dansa um geiminn"],
-  ask:["Valsar eru í þrískiptum takti. Getur þú talið 1-2-3, 1-2-3 með laginu?"],
-  connect:["rstrauss"]},
- {id:"brahms", name:"Johannes Brahms", short:"Brahms", b:1833, d:1897, country:"Þýskaland", era:"romantik", main:true,
-  intro:"Þýskur rómantíkus sem skrifaði kraftmiklar sinfóníur og viðkvæm lög. Hann var bæði hefðbundinn og nýskapandi á sama tíma.",
-  facts:["Honum var lýst sem alvarlegum manni, en þeir sem þekktu hann vel sögðu hann hafa verið hlýlegan, fyndinn og glaðan","Brahms var mjög gagnrýninn á sjálfan sig og henti mörgum verkum. Hann vildi aðeins gefa út það sem hann taldi fullkomið","Brahms var undrabarn á píanó sem hjálpaði fjölskyldu sinni fjárhagslega"],
-  videos:[{id:"T6nb35I9w-8", title:"Vögguvísa"},{id:"Nzo3atXtm54", title:"Ungverskur dans nr. 5"}],
-  pop:["Vögguvísan er í ótal spiladósum og leikföngum fyrir ungbörn","Ungverskur dans nr. 5 er í frægri gamanmynd þar sem rakari rakar mann í takt við tónlistina"],
-  works:["Vögguvísa","Ungverskur dans nr. 5"],
-  ask:["Ungverskur dans nr. 5 hraðar á sér og hægir á sér. Getur þú klappað með?"]},
- {id:"saintsaens", name:"Camille Saint-Saëns", short:"Saint-Saëns", b:1835, d:1921, country:"Frakkland", era:"romantik", main:true,
-  intro:"Franskt undrabarn og tónskáld sem samdi Karnival dýranna.",
-  facts:["Hann lærði að lesa nótur áður en hann lærði að lesa bækur","Hann samdi Karnival dýranna sem grín og bannaði að það yrði gefið út á meðan hann lifði, nema Svaninn","Hann hafði líka mikinn áhuga á stjörnufræði og fornleifafræði"],
-  videos:[{id:"I0KT4iXmeUs", title:"Karnival dýranna"}],
-  pop:["Fílarnir, kengúrurnar og svanurinn úr Karnivali dýranna heyrast í teiknimyndum og barnaefni"],
-  ask:["Hvaða dýr heldur þú að sé verið að leika? Hvernig heyrir þú það?"]},
- {id:"mussorgsky", name:"Modest Mussorgsky", short:"Mussorgsky", b:1839, d:1881, country:"Rússland", era:"romantik", main:true,
-  intro:"Rússneskt tónskáld sem vildi búa til tónlist sem hljómaði rússnesk, ekki eins og þýsk tónlist.",
-  facts:["Hann var hermaður og opinber starfsmaður og samdi tónlistina í frítímanum","Hann samdi líka Myndir á sýningu, tónverk um myndlistarsýningu vinar síns"],
-  videos:[{id:"j9R7k3M-wM4", title:"Nótt á Nornafelli"}],
-  pop:["Nótt á Nornafelli er í frægri teiknimynd frá 1940 þar sem tónlistin og myndirnar fara saman"],
-  ask:["Hvernig lýsir tónlistin nornum og draugum?"]},
- {id:"tchaikovsky", name:"Pjotr Tsjajkovskíj", short:"Tsjajkovskíj", b:1840, d:1893, country:"Rússland", era:"romantik", main:true,
-  intro:"Rússneskt tónskáld sem blandaði saman þjóðlegum áhrifum og vestrænni tónlist. Frægur fyrir ballettana sína sem eru dansaðir víða í dag.",
-  facts:["Tsjajkovskíj er þekktastur fyrir ballettana Hnotubrjótinn, Svanavatnið og Þyrnirós","Hann var einn af fyrstu rússnesku tónskáldunum sem urðu heimsfræg","Áður en hann fór í tónlistarnám starfaði hann sem lögfræðingur","Nadezhda von Meck var mikill aðdáandi hans, svo mikið að hún styrkti hann fjárhagslega í 13 ár. Þau höfðu samkomulag um að hittast aldrei"],
-  videos:[{id:"L23XLW8DvXY", title:"Svanavatnið"},{id:"9MfmLyvPMlI", title:"Dans sykurplómudísarinnar"}],
-  pop:["Dans sykurplómudísarinnar úr Hnotubrjótnum heyrist í nánast öllum jólaauglýsingum","Svanavatnið er notað í kvikmyndum og teiknimyndum um ballett"],
-  works:["Dans sykurplómudísarinnar","Svanavatnið","Hnotubrjóturinn"],
-  ask:["Dans sykurplómudísarinnar notar hljóðfæri sem heitir selesta. Hvernig hljómar það?"]},
- {id:"dvorak", name:"Antonín Dvořák", short:"Dvořák", b:1841, d:1904, country:"Tékkland", era:"romantik", main:true,
-  intro:"Tékkneskt tónskáld sem byrjaði sem slátraralærlingur og endaði sem heimsfrægt tónskáld.",
-  facts:["Dvořák elskaði lestir og eimreiðar og gat setið tímunum saman á lestarstöðinni","Hann bjó í nokkur ár í Bandaríkjunum og samdi þar sinfóníuna Frá nýja heiminum","Geimfarinn Neil Armstrong tók upptöku af sinfóníunni Frá nýja heiminum með sér í ferðina til tunglsins"],
-  videos:[{id:"89jOPAGJq-M", title:"Frá nýja heiminum, 4. þáttur"}],
-  pop:["Upphaf 4. þáttar sinfóníunnar Frá nýja heiminum er notað í kvikmyndum og auglýsingum þegar eitthvað ógnvekjandi nálgast"],
-  ask:["Lagið fór til tunglsins. Hvaða lag myndir þú taka með þér út í geim?"]},
- {id:"grieg", bw:[{t:"Í höll Dofrakonungs", skra:"log/grieg-dofrakonungur.musicxml", hradi:120}], name:"Edvard Grieg", short:"Grieg", b:1843, d:1907, country:"Noregur", era:"romantik", main:true,
-  intro:"Norskt tónskáld sem sótti innblástur í náttúruna, landslag og þjóðsögur. Tónlist Griegs fellur undir rómantíska tímabilið í tónlistarsögunni.",
-  facts:["Hann fæddist og bjó lengst af í Björgvin (Bergen)","Þekktasta verk hans er tónlistin við leikritið Pétur Gautur (Peer Gynt) eftir Henrik Ibsen. Þar á meðal „Í höll Dofrakonungs“ og „Morgunstemning“","Grieg kunni betur við að semja styttri verk en langar sinfóníur","Hann var afar lágvaxinn, um 152 cm","Talið er að 30–40 þúsund manns hafi mætt í jarðarför hans","Stóra styttu af Grieg má finna í Seattle í Bandaríkjunum, og gígur á plánetunni Merkúríusi er nefndur eftir honum"],
-  videos:[{id:"OqvHWUZZdP0", title:"Í höll Dofrakonungs"},{id:"7lKo6TYDXCQ", title:"Morgunstemning"},{id:"PdNilhpO0jY", title:"Úr Pétri Gauti (úr Tónlistarmanni vikunnar)"}],
-  pop:["Í höll Dofrakonungs heyrist í auglýsingum, kvikmyndum og tölvuleikjum, oft þegar eitthvað verður hraðara og hraðara","Morgunstemning er klassíska „sólin rís“ lagið í teiknimyndum"],
-  works:["Í höll Dofrakonungs","Morgunstemning","Píanókonsert í a-moll"],
-  ask:["Í höll Dofrakonungs byrjar lágt og hægt. Hvað gerist svo?","Hvað sérðu fyrir þér þegar þú heyrir Morgunstemningu?"]},
- {id:"rimsky", name:"Nikolaj Rimskíj-Korsakov", short:"Rimskíj-Korsakov", b:1844, d:1908, country:"Rússland", era:"romantik", main:true,
-  intro:"Rússneskt tónskáld og meistari í að láta hljómsveitina hljóma í öllum litum.",
-  facts:["Hann var sjóliðsforingi og sigldi um heiminn áður en hann gerðist tónlistarkennari","Flug býflugunnar er úr óperunni Sagan af Saltan keisara, þar sem prins breytist í býflugu"],
-  videos:[{id:"OAtFmLA1vK0", title:"Flug býflugunnar"}],
-  pop:["Flug býflugunnar er vinsælasta hraðaáskorun á netinu. Fólk reynir að spila það á allt mögulegt"],
-  ask:["Hvernig lætur tónlistin hljóma eins og býfluga sé að suða?"]},
- {id:"mahler", name:"Gustav Mahler", short:"Mahler", b:1860, d:1911, country:"Austurríki", era:"romantik", main:true,
-  intro:"Austurrískt tónskáld og hljómsveitarstjóri sem samdi risastórar sinfóníur. Hann sagði að sinfónía ætti að vera eins og heimurinn og innihalda allt.",
-  facts:["Í 1. sinfóníunni hans er „Meistari Jakob“ leikinn í moll, hægt og sorglega, eins og jarðarfararmars!","Ein sinfónían hans er kölluð „Sinfónía hinna þúsund“ því það þarf um þúsund flytjendur","Hann var hræddur við að semja 9. sinfóníu, því Beethoven og fleiri dóu eftir sína níundu","Hann var einn frægasti hljómsveitarstjóri síns tíma og stjórnaði í New York"],
-  videos:[{id:"zDoim94Rt-w", title:"1. sinfónía, 3. þáttur (Meistari Jakob)"}],
-  pop:["Nemendur þekkja laglínuna strax: Meistari Jakob, bara í moll"],
-  ask:["Syngið Meistara Jakob í dúr og hlustið svo á útgáfu Mahlers í moll. Hvað breytist?"]},
- {id:"debussy", name:"Claude Debussy", short:"Debussy", b:1862, d:1918, country:"Frakkland", era:"nutimi", main:true,
-  intro:"Franskt tónskáld sem þekkt er fyrir draumkennda og litríka tónlist. Hann er tengdur impressjónisma, sem þekkist líka í myndlist.",
-  facts:["Heillaðist af myndlist sem barn, sérstaklega impressjónisma þar sem útlínur eru máðar eða hreinlega ekki til staðar","Hóf nám í mjög ströngum tónlistarskóla í París aðeins 10 ára gamall","Clair de lune þýðir „tunglskin“"],
-  videos:[{id:"-Bxpm0EmOMU", title:"Clair de lune"}],
-  pop:["Clair de lune er í mörgum kvikmyndum, til dæmis í lokin á frægri ránsmynd og í vinsælli vampírumynd"],
-  ask:["Clair de lune þýðir tunglskin. Hvernig lætur tónlistin hljóma eins og tunglskin?"],
-  connect:["ravel"]},
- {id:"rstrauss", name:"Richard Strauss", short:"R. Strauss", b:1864, d:1949, country:"Þýskaland", era:"romantik", main:true,
-  intro:"Þýskt tónskáld og hljómsveitarstjóri. Ekki skylt valsakónginum Johann Strauss!",
-  facts:["Hann samdi fyrsta verkið sitt sex ára","Upphafið á Also sprach Zarathustra er einhver frægasta byrjun tónlistarsögunnar: þrír tónar sem rísa og risastór hljómur"],
-  videos:[{id:"7JgiJaRTocg", title:"Also sprach Zarathustra, sólarupprásin"}],
-  pop:["Upphafið á Also sprach Zarathustra er í frægri geimmynd og heyrist þegar eitthvað stórkostlegt er að gerast"],
-  ask:["Af hverju ætli þetta upphaf sé notað þegar eitthvað stórt og mikilvægt gerist?"],
-  connect:["strauss2"]},
- {id:"dukas", name:"Paul Dukas", short:"Dukas", b:1865, d:1935, country:"Frakkland", era:"romantik", main:true,
-  intro:"Franskt tónskáld sem var svo gagnrýninn á sjálfan sig að hann eyðilagði flest verkin sín.",
-  facts:["Lærisveinn galdrameistarans er byggt á ljóði eftir Goethe um lærling sem lætur kúst sækja vatn og ræður svo ekki við galdurinn","Hann var líka virtur kennari í París"],
-  videos:[{id:"O_bdguZEI8Q", title:"Lærisveinn galdrameistarans"}],
-  pop:["Lærisveinn galdrameistarans er í frægri teiknimynd frá 1940 þar sem kústar bera vatn og allt fer úr böndunum"],
-  ask:["Hvernig heyrist að galdurinn fari úr böndunum?"]},
- {id:"rachmaninoff", name:"Sergej Rakhmanínov", short:"Rakhmanínov", b:1873, d:1943, country:"Rússland og Bandaríkin", era:"romantik", main:true,
-  intro:"Rússneskur píanósnillingur og tónskáld, frægur fyrir stórar, tilfinningaríkar laglínur.",
-  facts:["Hann hafði risastórar hendur og gat teygt sig yfir 12–13 hvítar nótur á píanóinu","Fyrsta sinfónían hans fékk svo slæma dóma að hann gat ekki samið í þrjú ár. Svo samdi hann píanókonsert nr. 2, sem sló í gegn","Hann flúði Rússland 1917 og bjó síðustu árin í Bandaríkjunum"],
-  videos:[{id:"HfPE3cgYyco", title:"Píanókonsert nr. 2, 2. þáttur"}],
-  pop:["Frægt popplag frá 1975 byggir á laglínu úr píanókonsert nr. 2","18. tilbrigðið úr Rapsódíu um stef eftir Paganini heyrist í mörgum bíómyndum"],
-  ask:["Settu hönd á píanó. Hvað nærðu yfir margar nótur? En Rakhmanínov?"]},
- {id:"holst", name:"Gustav Holst", short:"Holst", b:1874, d:1934, country:"England", era:"nutimi", main:true,
-  intro:"Enskt tónskáld og tónlistarkennari sem samdi Pláneturnar.",
-  facts:["Pláneturnar hafa sjö þætti, einn fyrir hverja plánetu. Jörðin er ekki með","Mars er í 5/4 takti, sem gerir hann óstöðugan og ógnandi","Holst kenndi tónlist í stúlknaskóla í London í næstum 30 ár"],
-  videos:[{id:"xZfIUz1S97U", title:"Pláneturnar: Mars, stríðsboðinn"}],
-  pop:["Mars, stríðsboðinn hefur haft áhrif á mörg kvikmyndatónskáld. Margir heyra geimstríðsmyndatónlist í honum"],
-  ask:["Teljið 1-2-3-4-5 með laginu. Hvernig er að ganga í 5/4 takti?"]},
- {id:"ravel", name:"Maurice Ravel", short:"Ravel", b:1875, d:1937, country:"Frakkland", era:"nutimi", main:true,
-  intro:"Franskt tónskáld sem var meistari hljómsveitarinnar. Tónlist hans er nákvæm eins og svissneskt úr.",
-  facts:["Í Boléro endurtekur sneriltromman sama taktinn yfir 150 sinnum, og laglínan er spiluð aftur og aftur á meðan hljómsveitin stækkar","Ravel reyndi fimm sinnum að vinna virtustu tónlistarverðlaun Frakklands og tókst það aldrei","Hann elskaði djass og bandaríska tónlist","Ravel sjálfur kallaði Boléro „tilraun“ og var hissa á hvað verkið varð vinsælt"],
-  videos:[{id:"4LLylhgR3uM", title:"Boléro"}],
-  pop:["Boléro er notað í kvikmyndum, íþróttum og auglýsingum. Listdansparið Torvill og Dean vann Ólympíugull við það 1984"],
-  ask:["Boléro verður hægt og rólega háværara. Hvaða hljóðfæri bætast við?","Getur þú klappað sneriltrommutaktinn?"],
-  connect:["debussy"]},
- {id:"stravinsky", name:"Igor Stravinskíj", short:"Stravinskíj", b:1882, d:1971, country:"Rússland, Frakkland og Bandaríkin", era:"nutimi", main:true,
-  intro:"Rússneskt tónskáld sem skapaði nýja strauma með rytmískri, kröftugri tónlist. Frægur fyrir að hneyksla áheyrendur með frumlegum hljóðum.",
-  facts:["Frumsýningin á ballettinum Vorblótinu árið 1913 var ansi skrautleg. Áhorfendur rifust, öskruðu og sumir yfirgáfu salinn, því tónlistin og dansinn þóttu svo nýstárleg að fólk vissi ekki hvernig það átti að bregðast við","Hann breytti stöðugt um stíl","Stravinskíj var mikill heimsborgari og talaði mörg tungumál. Hann fæddist í Rússlandi, bjó síðar í Frakklandi og að lokum í Bandaríkjunum"],
-  videos:[{id:"5UJOaGIhG7A", title:"Myndband úr Tónlistarmanni vikunnar"}],
-  pop:["Vorblótið er í frægri teiknimynd frá 1940 þar sem risaeðlur birtast"],
-  ask:["Af hverju heldur þú að fólk hafi orðið svona reitt árið 1913?"]},
- {id:"orff", name:"Carl Orff", short:"Orff", b:1895, d:1982, country:"Þýskaland", era:"nutimi", main:true,
-  intro:"Þýskt tónskáld og tónlistarkennari. Hann er ástæðan fyrir því að tónmenntastofur eru fullar af xýlófónum!",
-  facts:["Orff bjó til kennsluaðferð, Orff-Schulwerk, þar sem börn læra tónlist með því að syngja, dansa og spila á einföld hljóðfæri","Xýlófónarnir, metallófónarnir og klukkuspilin í tónmenntastofunni eru oft kölluð Orff-hljóðfæri","O Fortuna er úr Carmina Burana, sem byggir á gömlum miðaldaljóðum"],
-  videos:[{id:"bnr7teAg5DU", title:"O Fortuna úr Carmina Burana"}],
-  pop:["O Fortuna er í ótal kvikmyndastiklum, auglýsingum og gríni á netinu þegar eitthvað dramatískt gerist"],
-  ask:["Kíktu á hljóðfærin í tónmenntastofunni. Hver þeirra eru Orff-hljóðfæri?"]},
- {id:"shostakovich", name:"Dmítríj Shostakovitsj", short:"Shostakovitsj", b:1906, d:1975, country:"Rússland (Sovétríkin)", era:"nutimi", main:true,
-  intro:"Rússneskt tónskáld sem samdi undir eftirliti stjórnvalda í Sovétríkjunum. Tónlist hans er ýmist fyndin, myrk eða hetjuleg.",
-  facts:["Í seinni heimsstyrjöldinni var hann sjálfboðaliði í slökkviliðinu í Leníngrad, og mynd af honum með slökkviliðshjálm fór á forsíðu bandarísks tímarits","Hann elskaði fótbolta og var með dómararéttindi","Stjórnvöld gagnrýndu tónlistina hans harðlega og hann var lengi hræddur um að vera handtekinn"],
-  videos:[{id:"8rqWbPm9hiU", title:"Vals nr. 2"}],
-  pop:["Vals nr. 2 heyrist í kvikmyndum, auglýsingum og á skautasvellum"],
-  ask:["Valsinn hljómar bæði glaður og dálítið sorglegur. Hvað veldur því?"]},
- {id:"hildegard", name:"Hildegard von Bingen", short:"Hildegard", b:1098, d:1179, approx:false, country:"Þýskaland", era:"midaldir", main:true, woman:true,
-  intro:"Þýsk nunna og abbadís sem var tónskáld, skáld, vísindakona og ráðgjafi konunga og páfa. Hún er eitt elsta tónskáld sem við vitum nafnið á.",
-  facts:["Hún samdi eitt elsta tónlistarleikrit sem til er, Ordo Virtutum, þar sem dyggðirnar berjast við djöfulinn","Hún skrifaði bækur um lækningajurtir, náttúruna og mannslíkamann","Hún bjó til sitt eigið leynitungumál með sínu eigin stafrófi","Árið 2012, rúmum 800 árum eftir dauða sinn, var hún gerð að dýrlingi"],
-  videos:[{id:"T9cZv9A8h50", title:"O virtus Sapientiae"}],
-  pop:["Tónlist hennar er vinsæl í hugleiðslu og slökun og hefur verið gefin út á metsöluplötum"],
-  ask:["Það er bara ein laglína og engir hljómar. Hvernig er það ólíkt tónlistinni sem þú hlustar á?"]},
- {id:"machaut", name:"Guillaume de Machaut", short:"Machaut", b:1300, d:1377, approx:true, country:"Frakkland", era:"midaldir", main:true,
-  intro:"Franskt skáld og tónskáld á 14. öld, eitt mikilvægasta tónskáld miðalda.",
-  facts:["Messa hans, Messe de Nostre Dame, er elsta heila messan sem vitað er að einn maður samdi","Lagið „Ma fin est mon commencement“ þýðir „endirinn er upphafið mitt“. Ein röddin er sú sama og önnur, bara sungin aftur á bak!","Hann lét safna öllum verkum sínum í falleg handrit svo þau myndu varðveitast"],
-  videos:[{id:"WYPwRlphyTg", title:"Ma fin est mon commencement"}],
-  pop:["Tónlistin hans hljómar oft í kvikmyndum og tölvuleikjum sem gerast á miðöldum"],
-  ask:["Lagið er eins og orðaleikur sem má lesa aftur á bak. Heyrir þú það?"]},
- {id:"josquin", name:"Josquin des Prez", short:"Josquin", b:1450, d:1521, approx:true, country:"Frakkland og Ítalía", era:"midaldir", main:true,
-  intro:"Frægasta tónskáld endurreisnartímans. Á sínum tíma var hann eins og stórstjarna.",
-  facts:["Lagið El Grillo fjallar um krybbu sem syngur allan daginn. Söngvararnir herma eftir henni!","Eftir að prentlistin kom til sögunnar var tónlist hans meðal þeirra fyrstu sem voru prentaðar í nótnabók","Martin Lúther sagði að Josquin væri meistari nótnanna, en aðrir væru meistarar hans"],
-  videos:[{id:"XPveIzlgWqc", title:"El Grillo (Krybban)"}],
-  pop:["El Grillo er vinsælt hjá kórum um allan heim, líka barna- og unglingakórum"],
-  ask:["Hvernig herma söngvararnir eftir krybbunni?"]},
- {id:"tallis", name:"Thomas Tallis", short:"Tallis", b:1505, d:1585, approx:true, country:"England", era:"midaldir", main:true,
-  intro:"Enskt tónskáld sem samdi fyrir kirkjuna á tímum mikilla breytinga í Englandi.",
-  facts:["Spem in alium er samið fyrir 40 sjálfstæðar raddir sem syngja allar sína eigin laglínu","Hann vann fyrir fjóra konunga og drottningar Englands, hvert á eftir öðru, þó þau væru mjög ósammála um trúmál","Elísabet I drottning gaf honum einkarétt á að prenta nótur í Englandi"],
-  videos:[{id:"lnzwXo-RQFI", title:"Spem in alium (40 raddir)"}],
-  pop:["Spem in alium hefur verið sett upp sem listaverk þar sem hver rödd kemur úr sínum hátalara og áhorfendur ganga á milli"],
-  ask:["Fjörutíu raddir syngja í einu. Getur þú greint einhverja eina rödd?"]},
- {id:"palestrina", name:"Giovanni Pierluigi da Palestrina", short:"Palestrina", b:1525, d:1594, approx:true, country:"Ítalía", era:"midaldir", main:true,
-  intro:"Ítalskt tónskáld sem samdi kirkjutónlist í Róm. Margraddaða tónlistin hans þykir svo fullkomin að tónlistarnemar læra hana enn í dag.",
-  facts:["Hann samdi yfir 100 messur","Gömul sögusögn segir að messa hans hafi bjargað margröddun í kirkjutónlist þegar kirkjan íhugaði að banna hana","Hann heitir eftir bænum Palestrina nálægt Róm, þar sem hann fæddist"],
-  videos:[{id:"P7j1JEXWP3g", title:"Sicut cervus"}],
-  pop:["Kennslubækur í tónsmíðum hafa kennt „Palestrina-stílinn“ í mörg hundruð ár"],
-  ask:["Hvernig skiptast raddirnar á að taka laglínuna?"]},
- {id:"monteverdi", name:"Claudio Monteverdi", short:"Monteverdi", b:1567, d:1643, country:"Ítalía", era:"barokk", main:true,
-  intro:"Ítalskt tónskáld sem stendur á mörkum endurreisnar og barokks. Hann samdi eina af fyrstu óperum sögunnar.",
-  facts:["L'Orfeo frá 1607 er ein fyrsta óperan og sú elsta sem enn er sett á svið reglulega","Óperan byrjar á Toccötu sem var eins og lúðrakall til að láta fólk vita að sýningin væri að byrja","Hann var stjórnandi tónlistarinnar í Markúsarkirkjunni í Feneyjum í 30 ár"],
-  videos:[{id:"90lhQM6ORWg", title:"Toccata úr L'Orfeo"}],
-  pop:["Toccatan úr L'Orfeo er notuð sem upphafsstef á tónlistarhátíðum og í heimildarmyndum"],
-  ask:["Toccatan er eins og tilkynning. Hvaða lag myndir þú nota til að byrja sýningu?"]},
- {id:"pachelbel", name:"Johann Pachelbel", short:"Pachelbel", b:1653, d:1706, country:"Þýskaland", era:"barokk", main:true,
-  intro:"Þýskt barokktónskáld og organisti. Eitt verk eftir hann er orðið eitt þekktasta lag í heimi.",
-  facts:["Í Kanónunni í D er sama bassalínan endurtekin aftur og aftur á meðan fiðlurnar spila ofan á","Sami hljómagangur er notaður í ótal popplögum","Hann kenndi eldri bróður Johanns Sebastians Bach","Kanónan var nánast gleymd í 250 ár og varð ekki fræg fyrr en á 20. öld"],
-  videos:[{id:"AP6ylKv5YKc", title:"Kanóna í D-dúr"}],
-  pop:["Kanónan er spiluð í ótal brúðkaupum og hljómagangurinn heyrist í mörgum popplögum"],
-  works:["Kanóna í D-dúr"],
-  ask:["Teldu hversu oft bassinn spilar sömu línuna. Hvað gera fiðlurnar á meðan?"],
-  connect:["bach"]},
- {id:"fanny", name:"Fanny Mendelssohn Hensel", short:"Fanny Mendelssohn", b:1805, d:1847, country:"Þýskaland", era:"romantik", main:true, woman:true,
-  intro:"Þýskt tónskáld og píanóleikari, eldri systir Felix Mendelssohn. Hún samdi yfir 460 verk.",
-  facts:["Faðir hennar sagði að tónlist gæti orðið starf Felix en hún ætti bara að hafa hana sem skraut","Nokkur laga hennar voru gefin út undir nafni Felix","Viktoría Englandsdrottning söng fyrir Felix uppáhaldslagið sitt eftir hann. Það var í raun eftir Fanny!","Páskasónata hennar var lengi talin eftir Felix. Það kom ekki í ljós fyrr en 2010 að hún hefði samið hana"],
-  videos:[{id:"Ij8JoTj2J1I", title:"Páskasónatan"}],
-  pop:["Tónlist hennar er nú flutt um allan heim eftir að hafa verið falin í nærri 200 ár"],
-  ask:["Af hverju heldur þú að lögin hennar hafi verið gefin út undir nafni bróður hennar?"],
-  connect:["mendelssohn"]},
- {id:"clara", name:"Clara Schumann", short:"Clara Schumann", b:1819, d:1896, country:"Þýskaland", era:"romantik", main:true, woman:true,
-  intro:"Þýskur píanósnillingur og tónskáld. Hún var ein frægasta tónlistarkona 19. aldar og hélt tónleika í 60 ár.",
-  facts:["Hún byrjaði að semja píanókonsertinn sinn aðeins 13 ára gömul","Mynd af henni var á þýska 100 marka peningaseðlinum","Hún var gift tónskáldinu Robert Schumann og góð vinkona Brahms","Hún ól upp átta börn og sá fyrir fjölskyldunni með tónleikum sínum"],
-  videos:[{id:"Xol1DKul984", title:"Píanókonsert í a-moll"}],
-  pop:["Hún var ein af fyrstu píanóleikurunum sem spiluðu tónleika utanbókar, sem er orðið venja í dag"],
-  ask:["Hún var unglingur þegar hún samdi þetta. Hvað myndir þú semja ef þú ættir heila hljómsveit?"],
-  connect:["brahms"]},
- {id:"boulanger", name:"Lili Boulanger", short:"Lili Boulanger", b:1893, d:1918, country:"Frakkland", era:"nutimi", main:true, woman:true,
-  intro:"Franskt tónskáld sem braut blað í sögunni þrátt fyrir að lifa aðeins í 24 ár.",
-  facts:["Árið 1913 varð hún fyrsta konan til að vinna Rómarverðlaunin, virtustu tónsmíðaverðlaun Frakklands. Þau sem Ravel náði aldrei!","Hún var veik nánast alla ævi en samdi samt mikið af tónlist","Systir hennar, Nadia Boulanger, varð einn frægasti tónlistarkennari 20. aldar"],
-  videos:[{id:"e-N-xjifOZg", title:"D'un matin de printemps (Vormorgunn)"}],
-  pop:["Tónlist hennar er sífellt meira spiluð og hljómsveitir um allan heim eru að uppgötva hana"],
-  ask:["Lagið heitir Vormorgunn. Hvernig lýsir tónlistin vori?"],
-  connect:["ravel","debussy"]}
+const COMPOSERS=[
+ {
+  "id": "vivaldi",
+  "name": "Antonio Vivaldi",
+  "short": "Vivaldi",
+  "b": 1678,
+  "d": 1741,
+  "country": "Ítalía",
+  "era": "barokk",
+  "main": true,
+  "intro": "Ítalskur barokksnillingur sem samdi yfir 500 konserta. Hann var þekktur sem „rauði presturinn“ og frægastur fyrir tónverkið Árstíðirnar sem sýnir náttúruna í tónlist.",
+  "facts": [
+   "Vivaldi var vígður prestur og var kallaður „rauði presturinn“ af því að hann var rauðhærður",
+   "Vivaldi kenndi tónlist á heimili fyrir munaðarlausar stúlkur. Margar þeirra urðu frábærar tónlistarkonur og spiluðu í hljómsveit sem var þekkt um alla Evrópu",
+   "Tónlist hans fékk ekki nægilega athygli á meðan hann var á lífi. Hún gleymdist í næstum 200 ár"
+  ],
+  "videos": [
+   {
+    "id": "KtMi66anolg",
+    "title": "Árstíðirnar"
+   }
+  ],
+  "pop": [
+   "Vorið úr Árstíðunum heyrist í auglýsingum, kvikmyndum og þegar maður bíður í símanum"
+  ],
+  "ask": [
+   "Árstíðirnar eru fjórir konsertar. Heyrir þú hvaða árstíð er í gangi?",
+   "Hvaða hljóðfæri heyrum við?"
+  ]
+ },
+ {
+  "id": "bach",
+  "name": "Johann Sebastian Bach",
+  "short": "Bach",
+  "b": 1685,
+  "d": 1750,
+  "country": "Þýskaland",
+  "era": "barokk",
+  "main": true,
+  "intro": "Þýskt barokktónskáld sem samdi flókin, falleg orgelverk, kórverk og hljómsveitartónlist. Hann hefur verið kallaður faðir tónlistarinnar.",
+  "facts": [
+   "Kom úr mikilli tónlistarfjölskyldu. Faðir hans, bróðir og frændur voru allir tónlistarmenn",
+   "Hann átti 20 börn og 4 þeirra urðu einnig þekkt tónskáld",
+   "Bach samdi yfir 1000 tónverk!",
+   "Sem ungur maður gekk hann um 400 km til að hlusta á frægan organista spila",
+   "Hann varð ekki heimsþekktur fyrr en um 80 árum eftir að hann lést, þegar Mendelssohn flutti Mattheusarpassíuna árið 1829"
+  ],
+  "videos": [
+   {
+    "id": "x-zXfkV90fM",
+    "title": "Toccata og fúga í d-moll"
+   },
+   {
+    "id": "5zz9pyaKc7k",
+    "title": "Annað myndband úr Tónlistarmanni vikunnar"
+   }
+  ],
+  "pop": [
+   "Toccata og fúga er tónlistin sem heyrist í hrollvekjum, á hrekkjavöku og í teiknimyndum"
+  ],
+  "ask": [
+   "Hvaða hljóðfæri heyrir þú? Hvernig er hljómurinn í því?",
+   "Af hverju ætli þetta lag sé svona oft notað fyrir vonda kallinn?"
+  ],
+  "connect": [
+   "mendelssohn"
+  ]
+ },
+ {
+  "id": "handel",
+  "name": "Georg Friedrich Händel",
+  "short": "Händel",
+  "b": 1685,
+  "d": 1759,
+  "country": "Þýskaland og England",
+  "era": "barokk",
+  "main": true,
+  "intro": "Þýskt barokktónskáld sem varð stórstjarna í London. Frægastur fyrir óratoríuna Messías og Hallelújakórinn.",
+  "facts": [
+   "Händel fæddist sama ár og Bach og ekki langt frá honum. Þeir hittust þó aldrei",
+   "Faðir hans vildi að hann yrði lögfræðingur. Sagan segir að hann hafi æft sig í laumi á hljóðfæri uppi á háalofti",
+   "Hann samdi Vatnatónlistina fyrir Georg I konung og hún var leikin á pramma á ánni Thames",
+   "Hann samdi Messías á um þremur vikum"
+  ],
+  "videos": [
+   {
+    "id": "weFJHtcxJt0",
+    "title": "Hallelújakórinn úr Messíasi"
+   }
+  ],
+  "pop": [
+   "Hallelújakórinn má heyra í jólaauglýsingum, bíómyndum og teiknimyndum"
+  ],
+  "ask": [
+   "Kórinn syngur sama orðið aftur og aftur. Hvaða áhrif hefur það?",
+   "Hvernig myndir þú lýsa stemningunni með einu orði?"
+  ]
+ },
+ {
+  "id": "gluck",
+  "name": "Christoph Willibald Gluck",
+  "short": "Gluck",
+  "b": 1714,
+  "d": 1787,
+  "country": "Þýskaland og Austurríki",
+  "era": "klassik",
+  "main": true,
+  "intro": "Óperutónskáld sem vildi gera óperur einfaldari og sannari. Hann sagði að tónlistin ætti að þjóna sögunni",
+  "facts": [
+   "Gluck strauk að heiman sem unglingur af því að faðir hans vildi að hann yrði skógarvörður eins og hann sjálfur",
+   "Hann kenndi ungri prinsessu í Vín á hljóðfæri. Hún hét María Antoinetta og varð síðar drottning Frakklands",
+   "Í óperunni Orfeus og Evridís fer söngvari niður í undirheima til að sækja konuna sína aftur"
+  ],
+  "videos": [
+   {
+    "id": "x-OrXOOeA0I",
+    "title": "Dans hinna sælu anda"
+   }
+  ],
+  "pop": [
+   "Dans hinna sælu anda er eitt vinsælasta lag allra flautuleikara"
+  ],
+  "ask": [
+   "Lagið á að lýsa sælum öndum í paradís. Passar flautan við það?"
+  ]
+ },
+ {
+  "id": "cpebach",
+  "name": "Carl Philipp Emanuel Bach",
+  "short": "C.P.E. Bach",
+  "b": 1714,
+  "d": 1788,
+  "country": "Þýskaland",
+  "era": "klassik",
+  "main": true,
+  "intro": "Sonur Johanns Sebastians Bach. Eitt sinn var hann þekktari en pabbi sinn og brúaði bilið milli barokks og klassíkur.",
+  "facts": [
+   "Þegar fólk sagði „Bach“ á 18. öld átti það oftast við hann en ekki föður hans",
+   "Hann var hirðsembalisti hjá Friðriki mikla Prússakonungi í nærri 30 ár. Konungurinn spilaði sjálfur á flautu",
+   "Hann skrifaði þekktustu kennslubók síns tíma um hvernig ætti að spila á hljómborð"
+  ],
+  "videos": [
+   {
+    "id": "Jk6m1AC0L-k",
+    "title": "Solfeggietto"
+   }
+  ],
+  "pop": [
+   "Solfeggietto er spilað af píanónemendum um allan heim"
+  ],
+  "ask": [
+   "Hlustaðu á Toccötu pabba hans og svo á Solfeggietto. Heyrir þú fjölskyldusvipinn?"
+  ],
+  "connect": [
+   "bach"
+  ]
+ },
+ {
+  "id": "haydn",
+  "name": "Joseph Haydn",
+  "short": "Haydn",
+  "b": 1732,
+  "d": 1809,
+  "country": "Austurríki",
+  "era": "klassik",
+  "main": true,
+  "intro": "Austurrískt tónskáld kallað „faðir sinfóníunnar“ og „faðir strengjakvartettsins“. Hann var vinur Mozarts og kennari Beethovens.",
+  "facts": [
+   "Haydn samdi 104 sinfóníur!",
+   "Í Óvæntu sinfóníunni er rólegt lag sem allt í einu fær risastóran, háværan hljóm. Sagan segir að hann hafi viljað vekja áheyrendur sem sofnuðu á tónleikum",
+   "Hljóðfæraleikararnir hans vildu komast heim í frí. Hann samdi Kveðjusinfóníuna þar sem þeir hætta einn af öðrum, slökkva á kertinu sínu og ganga út. Prinsinn skildi skilaboðin",
+   "Laglína eftir Haydn er í dag þjóðsöngur Þýskalands",
+   "Eftir að hann dó var höfuðkúpunni hans stolið. Hún fannst ekki aftur fyrr en 145 árum seinna"
+  ],
+  "videos": [
+   {
+    "id": "VOLy6JxEDLw",
+    "title": "Óvænta sinfónían, 2. þáttur"
+   }
+  ],
+  "pop": [
+   "Óvænta sinfónían er oft notuð til að kenna styrkleikabreytingar"
+  ],
+  "works": [
+   "Óvænta sinfónían",
+   "Kveðjusinfónían",
+   "Trompetkonsert"
+  ],
+  "ask": [
+   "Hlustaðu vel á Óvæntu sinfóníuna. Hvenær kemur „óvænti“ hljómurinn?"
+  ],
+  "connect": [
+   "mozart",
+   "beethoven"
+  ]
+ },
+ {
+  "id": "boccherini",
+  "name": "Luigi Boccherini",
+  "short": "Boccherini",
+  "b": 1743,
+  "d": 1805,
+  "country": "Ítalía og Spánn",
+  "era": "klassik",
+  "main": true,
+  "intro": "Ítalskur sellósnillingur sem bjó lengst af á Spáni. Hann samdi yfir 100 verk fyrir strengjakvintetta.",
+  "facts": [
+   "Hann var algjört undrabarn á selló og hélt fyrstu tónleikana sína 13 ára",
+   "Hann samdi fjölda verka með tveimur sellóum og gerði þá samsetningu vinsæla",
+   "Menúettinn hans er orðinn svo frægur að margir þekkja lagið án þess að vita hver samdi það"
+  ],
+  "videos": [
+   {
+    "id": "5fLPBIBOE5U",
+    "title": "Menúett úr strengjakvintett"
+   }
+  ],
+  "pop": [
+   "Menúettinn heyrist í gömlum bíómyndum, auglýsingum og þegar einhver á að vera mjög fínn og kurteis"
+  ],
+  "ask": [
+   "Menúett er dans í þrískiptum takti. Getur þú talið 1-2-3 með?"
+  ]
+ },
+ {
+  "id": "saintgeorges",
+  "name": "Joseph Bologne de Saint-Georges",
+  "short": "Saint-Georges",
+  "b": 1745,
+  "d": 1799,
+  "country": "Gvadelúpeyjar og Frakkland",
+  "era": "klassik",
+  "main": true,
+  "intro": "Fiðlusnillingur, tónskáld, hljómsveitarstjóri og besti skylmingamaður Frakklands. Tónlist hans og saga var gleymd í 200 ár.",
+  "facts": [
+   "Hann fæddist á Gvadelúpeyjum í Karíbahafi. Faðir hans var franskur plantekrueigandi og móðir hans var frá Senegal en var hneppt í þrældóm",
+   "Hann var talinn besti skylmingamaður Evrópu",
+   "Hann stjórnaði þekktri hljómsveit Parísar",
+   "Vegna kynþáttafordóma var honum meinað að verða stjórnandi Parísaróperunnar",
+   "Hann barðist í frönsku byltingunni"
+  ],
+  "videos": [
+   {
+    "id": "eQ1unCtX6K0",
+    "title": "Fiðlukonsert í A-dúr"
+   }
+  ],
+  "pop": [
+   "Árið 2022 kom út kvikmynd um ævi hans sem kallast Chevalier"
+  ],
+  "ask": [
+   "Af hverju heldur þú að tónlist hans hafi gleymst í svona langan tíma?"
+  ],
+  "connect": [
+   "haydn",
+   "mozart"
+  ]
+ },
+ {
+  "id": "salieri",
+  "name": "Antonio Salieri",
+  "short": "Salieri",
+  "b": 1750,
+  "d": 1825,
+  "country": "Ítalía og Austurríki",
+  "era": "klassik",
+  "main": true,
+  "intro": "Ítalskt tónskáld sem var eitt virtasta tónskáld Vínarborgar á sama tíma og Mozart.",
+  "facts": [
+   "Salieri var kennari Beethovens, Schuberts og Liszts!",
+   "Til er gömul sögusögn um að hann hafi eitrað fyrir Mozart. Hún er þó ekki sönn. Þeir sömdu meira að segja saman lag",
+   "Fræg kvikmynd sýnir Salieri sem afbrýðisaman óvin Mozarts, það er þó ekki alveg rétt",
+   "Hann kenndi mörgum nemendum ókeypis"
+  ],
+  "videos": [
+   {
+    "id": "U-_gsSbuyV0",
+    "title": "Píanókonsert í C-dúr"
+   }
+  ],
+  "pop": [
+   "Nafnið hans er orðið að hugtaki. Það að vera „Salieri“ einhvers þýðir að vera sá næstbesti"
+  ],
+  "ask": [
+   "Er sanngjarnt að fólk muni bara eftir Salieri sem óvini Mozarts?"
+  ],
+  "connect": [
+   "mozart",
+   "beethoven",
+   "schubert",
+   "liszt"
+  ]
+ },
+ {
+  "id": "clementi",
+  "name": "Muzio Clementi",
+  "short": "Clementi",
+  "b": 1752,
+  "d": 1832,
+  "country": "Ítalía og England",
+  "era": "klassik",
+  "main": true,
+  "intro": "Ítalskur píanóleikari sem bjó í London. Hann er oft kallaður „faðir píanósins“.",
+  "facts": [
+   "Árið 1781 keppti hann við Mozart í píanóeinvígi fyrir keisarann í Vín. Það endaði sem jafntefli",
+   "Hann smíðaði píanó og gaf út nótur, þar á meðal eftir Beethoven",
+   "Sónatínurnar hans eru meðal fyrstu verka sem píanónemendur læra"
+  ],
+  "videos": [
+   {
+    "id": "Ryq0nX1_Jds",
+    "title": "Sónatína í C-dúr, op. 36 nr. 1"
+   }
+  ],
+  "pop": [
+   "Ef þú lærir á píanó eru miklar líkur á að þú spilir Clementi einhvern tímann"
+  ],
+  "ask": [
+   "Hlustaðu á sónatínuna. Hvernig er A-kaflinn ólíkur B-kaflanum?"
+  ],
+  "connect": [
+   "mozart"
+  ]
+ },
+ {
+  "id": "paradis",
+  "name": "Maria Theresia von Paradis",
+  "short": "Paradis",
+  "b": 1759,
+  "d": 1824,
+  "country": "Austurríki",
+  "era": "klassik",
+  "main": true,
+  "intro": "Austurrískur píanóleikari, söngkona og tónskáld sem missti sjónina ung. Hún ferðaðist um Evrópu og hélt tónleika.",
+  "facts": [
+   "Hún varð blind þriggja ára gömul en lærði yfir 60 píanókonserta utanbókar",
+   "Talið er að Mozart hafi samið einn píanókonserta sinna handa henni",
+   "Hún notaði sérstakt borð með pinnum til að skrifa niður tónlistina sína",
+   "Hún stofnaði tónlistarskóla í Vín og kenndi þar aðallega stúlkum"
+  ],
+  "videos": [
+   {
+    "id": "1egii6SWNVM",
+    "title": "Sicilienne"
+   }
+  ],
+  "pop": [
+   "Sicilienne er kennd við hana og er vinsælt verk fyrir fiðlu og selló. Sumir telja þó að fiðluleikari á 20. öld hafi í raun samið það"
+  ],
+  "ask": [
+   "Hvernig heldur þú að hún hafi lært tónlist án þess að geta lesið nótur af blaði?"
+  ],
+  "connect": [
+   "mozart",
+   "salieri"
+  ]
+ },
+ {
+  "id": "mozart",
+  "name": "Wolfgang Amadeus Mozart",
+  "short": "Mozart",
+  "b": 1756,
+  "d": 1791,
+  "country": "Austurríki",
+  "era": "klassik",
+  "main": true,
+  "intro": "Austurrískt undrabarn sem samdi yfir 600 verk, þar á meðal óperur, sinfóníur og kammerverk. Tónlist hans er skýr, glæsileg og létt.",
+  "facts": [
+   "Við sex ára aldur var hann byrjaður að ferðast um Evrópu til þess að spila fyrir konungsfólk ásamt systur sinni Maríu Önnu",
+   "Hann gat hlustað á mjög flókna tónlist og spilað hana eftir minni",
+   "Hann samdi sitt fyrsta verk aðeins fimm ára gamall",
+   "Hann lést 35 ára og náði ekki að klára Sálumessuna (Requiem). Lacrimosa er úr henni"
+  ],
+  "videos": [
+   {
+    "id": "czBSj6_6rkE",
+    "title": "Eine kleine Nachtmusik"
+   },
+   {
+    "id": "SWv8OKXwVRM",
+    "title": "Lacrimosa úr Requiem"
+   },
+   {
+    "id": "A_THdzBnHy0",
+    "title": "Rondo alla turca"
+   }
+  ],
+  "pop": [
+   "Lacrimosa er mikið notað í kvikmyndum",
+   "Rondo alla turca og Eine kleine Nachtmusik má gjarnan heyra í kvikmyndum og auglýsingum"
+  ],
+  "works": [
+   "Eine kleine Nachtmusik",
+   "Rondo alla turca",
+   "Lacrimosa úr Requiem",
+   "Töfraflautan"
+  ],
+  "ask": [
+   "Eine kleine Nachtmusik þýðir „lítil næturtónlist“. Passar nafnið við lagið?",
+   "Berðu saman Eine kleine Nachtmusik og Lacrimosa. Hvað er ólíkt?"
+  ]
+ },
+ {
+  "id": "beethoven",
+  "bw": [
+   "Óðurinn til gleðinnar"
+  ],
+  "name": "Ludwig van Beethoven",
+  "short": "Beethoven",
+  "b": 1770,
+  "d": 1827,
+  "country": "Þýskaland",
+  "era": "klassik",
+  "main": true,
+  "intro": "Þýskur meistari sem braut blað í tónlistarsögunni. Þrátt fyrir að missa heyrnina samdi hann stórkostlegar sinfóníur.",
+  "facts": [
+   "Beethoven byrjaði að missa heyrnina á þrítugsaldri og varð að lokum alveg heyrnarlaus. Þrátt fyrir það samdi hann sum af sínum frægustu verkum eftir að hann missti heyrnina",
+   "Hann var mikill kaffidrykkjumaður og taldi nákvæmlega 60 kaffibaunir í hvern bolla",
+   "Hann var mikið náttúrubarn",
+   "Fólk sagði að Beethoven hefði verið erfiður í samskiptum, þrjóskur og orðið auðveldlega reiður",
+   "Óðurinn til gleðinnar úr 9. sinfóníunni er í dag opinber söngur Evrópusambandsins"
+  ],
+  "videos": [
+   {
+    "id": "DuY6dsPjUV4",
+    "title": "Óðurinn til gleðinnar"
+   },
+   {
+    "id": "kfSnDd5mTsQ",
+    "title": "Tunglskinssónatan, 1. þáttur"
+   }
+  ],
+  "pop": [
+   "Tunglskinssónatan og Für Elise eru meðal þekktustu píanólaga",
+   "„Da-da-da-daaaa“ upphafið á 5. sinfóníunni er eitt þekktasta stef tónlistarsögunnar"
+  ],
+  "works": [
+   "Tunglskinssónatan",
+   "Für Elise",
+   "5. sinfónían",
+   "Óðurinn til gleðinnar"
+  ],
+  "ask": [
+   "Hvernig heldur þú að Beethoven hafi farið að því að semja tónlist þegar hann heyrði ekkert?",
+   "Prófaðu að syngja eða spila Óðinn til gleðinnar"
+  ],
+  "connect": [
+   "schubert"
+  ]
+ },
+ {
+  "id": "rossini",
+  "name": "Gioachino Rossini",
+  "short": "Rossini",
+  "b": 1792,
+  "d": 1868,
+  "country": "Ítalía",
+  "era": "romantik",
+  "main": true,
+  "intro": "Ítalskt óperutónskáld sem var eitt það vinsælasta í heiminum á sínum tíma.",
+  "facts": [
+   "Hann samdi Rakarann frá Sevilla á innan við þremur vikum",
+   "Hann hætti að semja óperur 37 ára og helgaði sig matargerð",
+   "Hann fæddist 29. febrúar, á hlaupársdegi"
+  ],
+  "videos": [
+   {
+    "id": "xlmg_hY9SSE",
+    "title": "William Tell, lokakafli forleiksins"
+   }
+  ],
+  "pop": [
+   "Lokakaflinn úr forleiknum að William Tell hefur verið notaður í ótal teiknimyndum og kúrekamyndum"
+  ],
+  "ask": [
+   "Hvernig lætur tónlistin hljóma eins og hestar á stökki?"
+  ]
+ },
+ {
+  "id": "schubert",
+  "name": "Franz Schubert",
+  "short": "Schubert",
+  "b": 1797,
+  "d": 1828,
+  "country": "Austurríki",
+  "era": "romantik",
+  "main": true,
+  "intro": "Austurrískt tónskáld sem samdi hundruð sönglaga þar sem tónlist og ljóð mynda eina heild.",
+  "facts": [
+   "Schubert lést aðeins 31 árs og skildi eftir sig yfir 600 sönglög",
+   "Schubert blandaði saman ljóðum og tónlist á einstakan hátt",
+   "Schubert dáði Beethoven og var viðstaddur útför hans árið 1827. Ári seinna var Schubert sjálfur jarðsettur rétt hjá honum",
+   "Tónlist hans fékk ekki verðskuldaða virðingu fyrr en mörgum árum eftir dauða hans"
+  ],
+  "videos": [
+   {
+    "id": "XpYGgtrMTYs",
+    "title": "Ave Maria"
+   }
+  ],
+  "pop": [
+   "Ave Maria er sungið í brúðkaupum, jarðarförum og jólamessum um allan heim"
+  ],
+  "works": [
+   "Ave Maria",
+   "Álfakóngurinn (Erlkönig)",
+   "Ófullgerða sinfónían"
+  ],
+  "ask": [
+   "Í Álfakónginum syngur einn söngvari fjórar persónur. Hvernig getur hann látið þær hljóma ólíkt?"
+  ],
+  "connect": [
+   "beethoven"
+  ]
+ },
+ {
+  "id": "mendelssohn",
+  "name": "Felix Mendelssohn",
+  "short": "Mendelssohn",
+  "b": 1809,
+  "d": 1847,
+  "country": "Þýskaland",
+  "era": "romantik",
+  "main": true,
+  "intro": "Þýskt tónskáld, píanisti og undrabarn. Fjölskylda hans var vel efnuð sem gaf honum frelsi í eigin tónsmíðum. Hann var aðeins 15 ára þegar hann samdi sína fyrstu sinfóníu. Hann var líka hæfileikaríkur myndlistarmaður og málaði fallegar vatnslitamyndir.",
+  "facts": [
+   "Mendelssohn var mjög fær stjórnandi og var einn þeirra fyrstu til að nota sprota til þess að stjórna hljómsveit",
+   "Hann er gjarnan talinn maðurinn sem kynnti heiminum fyrir tónlist Bachs",
+   "Hann samdi forleikinn að Draumi á Jónsmessunótt aðeins 17 ára",
+   "Hann lést aðeins 38 ára, stuttu eftir að hann frétti af andláti systur sinnar Fanny"
+  ],
+  "videos": [
+   {
+    "id": "0Oo4z37OUEI",
+    "title": "Myndband úr Tónlistarmanni vikunnar"
+   }
+  ],
+  "pop": [
+   "Brúðarmarsinn úr Draumi á Jónsmessunótt ættu flestir að kannast við"
+  ],
+  "works": [
+   "Brúðarmarsinn",
+   "Fiðlukonsert í e-moll",
+   "Hebrides-forleikurinn"
+  ],
+  "ask": [
+   "Af hverju ætli brúðarmarsinn hljómi svona glaður og hátíðlegur?"
+  ],
+  "connect": [
+   "bach"
+  ]
+ },
+ {
+  "id": "chopin",
+  "name": "Frédéric Chopin",
+  "short": "Chopin",
+  "b": 1810,
+  "d": 1849,
+  "country": "Pólland og Frakkland",
+  "era": "romantik",
+  "main": true,
+  "intro": "Pólskur píanósnillingur. Tónlist hans er rómantísk og tilfinningaþrungin.",
+  "facts": [
+   "Chopin samdi nær einungis fyrir píanó",
+   "Chopin fæddist í Varsjá en flutti til Parísar ungur að árum. Hann saknaði Póllands alla tíð og samdi mörg verk sem byggð eru á pólskum dönsum",
+   "Þegar hann lést í París árið 1849 bað hann um að hjarta sitt yrði flutt aftur til Póllands. Það er nú varðveitt í kirkju í Varsjá"
+  ],
+  "videos": [
+   {
+    "id": "QR10Od1cLaM",
+    "title": "Næturljóð í Es-dúr, op. 9 nr. 2"
+   }
+  ],
+  "pop": [
+   "Næturljóðið op. 9 nr. 2 er eitt mest spilaða píanólag á Youtube og Spotify"
+  ],
+  "ask": [
+   "Næturljóð er róleg tónlist fyrir kvöldið. Hvað sérðu fyrir þér þegar þú hlustar?"
+  ]
+ },
+ {
+  "id": "liszt",
+  "name": "Franz Liszt",
+  "short": "Liszt",
+  "b": 1811,
+  "d": 1886,
+  "country": "Ungverjaland",
+  "era": "romantik",
+  "main": true,
+  "intro": "Ungverskur píanóleikari sem var fyrsta rokkstjarna tónlistarsögunnar. Hann var talinn besti píanóleikari heims.",
+  "facts": [
+   "Aðdáendurnir urðu svo æstir á tónleikunum hans að fyrirbærið fékk nafnið „Lisztomania“",
+   "Fólk slóst um hanskana hans og vasaklúta",
+   "Hann var einn þeirra fyrstu sem héldu einleikstónleika og stillti píanóinu á hlið svo áhorfendur sæju andlitið hans",
+   "Hann kenndi mörgum nemendum ókeypis"
+  ],
+  "videos": [
+   {
+    "id": "LdH1hSWGFGU",
+    "title": "Ungversk rapsódía nr. 2"
+   }
+  ],
+  "pop": [
+   "Ungversku rapsódíuna nr. 2 má sjá og heyra í teiknimyndum þar sem Tommi, Jenni og Kalli kanína spila á píanó"
+  ],
+  "ask": [
+   "Lagið byrjar hægt og endar hratt. Hvernig breytist stemningin?"
+  ]
+ },
+ {
+  "id": "wagner",
+  "name": "Richard Wagner",
+  "short": "Wagner",
+  "b": 1813,
+  "d": 1883,
+  "country": "Þýskaland",
+  "era": "romantik",
+  "main": true,
+  "intro": "Þýskt óperutónskáld sem hugsaði allt risastórt: sögurnar, hljómsveitina og jafnvel óperuhúsið.",
+  "facts": [
+   "Óperuröðin Niflungahringurinn tekur um 15 klukkustundir í flutningi og er sýnd á fjórum kvöldum",
+   "Niflungahringurinn byggir á norrænum goðsögum og Völsunga sögu, sem við þekkjum úr íslenskum fornsögum",
+   "Hann lét byggja sitt eigið óperuhús í Bayreuth sem eingöngu sýnir verkin hans",
+   "Hann var mjög umdeildur maður og skuldaði peninga út um allt"
+  ],
+  "videos": [
+   {
+    "id": "3JeuQ-CA67w",
+    "title": "Valkyrjureiðin"
+   }
+  ],
+  "pop": [
+   "Valkyrjureiðin heyrist gjarnan í stríðsmyndum og þegar eitthvað rosalegt er að fara að gerast",
+   "Brúðarkórinn úr Lohengrin er lagið sem oft er leikið þegar brúðurin gengur inn kirkjugólfið"
+  ],
+  "ask": [
+   "Valkyrjur eru úr norrænni goðafræði. Hvernig heyrum við að þær séu á flugi?"
+  ]
+ },
+ {
+  "id": "verdi",
+  "name": "Giuseppe Verdi",
+  "short": "Verdi",
+  "b": 1813,
+  "d": 1901,
+  "country": "Ítalía",
+  "era": "romantik",
+  "main": true,
+  "intro": "Frægasta óperutónskáld Ítalíu. Óperurnar hans eru enn þær sem oftast eru sýndar í heiminum.",
+  "facts": [
+   "Verdi var hafnað þegar hann sótti um í tónlistarháskólann í Mílanó. Í dag ber skólinn nafnið hans!",
+   "Þegar hann var lagður til hinstu hvílu stjórnaði Toscanini 820 manna kór sem söng „Va, pensiero“ úr óperunni Nabucco",
+   "Hann fæddist sama ár og Wagner, 1813"
+  ],
+  "videos": [
+   {
+    "id": "60mRj_9Rybc",
+    "title": "Dies irae úr Sálumessunni"
+   }
+  ],
+  "pop": [
+   "Dies irae úr Sálumessunni er mikið notað í kvikmyndastiklum og tölvuleikjum þegar allt er að springa",
+   "Aría hertogans „La donna è mobile“ úr Rigoletto er mjög þekkt"
+  ],
+  "ask": [
+   "Hvað gera slagverkið og kórinn til að láta Dies irae hljóma svona ógnvekjandi?"
+  ]
+ },
+ {
+  "id": "offenbach",
+  "name": "Jacques Offenbach",
+  "short": "Offenbach",
+  "b": 1819,
+  "d": 1880,
+  "country": "Frakkland",
+  "era": "romantik",
+  "main": true,
+  "intro": "Þýskt tónskáld sem bjó í París og samdi um 100 fyndnar óperettur.",
+  "facts": [
+   "Hann var frábær sellóleikari",
+   "Galop infernal úr Orfeusi í undirheimum varð lagið við Can-can dansinn"
+  ],
+  "videos": [
+   {
+    "id": "VfFh06EZ5gk",
+    "title": "Galop infernal (Can-can)"
+   }
+  ],
+  "pop": [
+   "Can-can lagið heyrist í teiknimyndum, auglýsingum og þegar einhver dansar skringilega"
+  ],
+  "ask": [
+   "Hvernig dans myndir þú dansa við þetta lag?"
+  ]
+ },
+ {
+  "id": "strauss2",
+  "name": "Johann Strauss yngri",
+  "short": "Strauss",
+  "b": 1825,
+  "d": 1899,
+  "country": "Austurríki",
+  "era": "romantik",
+  "main": true,
+  "intro": "Austurrískt tónskáld kallað „valsakóngurinn“. Hann samdi um 500 dansa, valsa og polka.",
+  "facts": [
+   "Faðir hans hét líka Johann Strauss og var frægt tónskáld. Hann vildi ekki að sonurinn yrði tónlistarmaður",
+   "Strauss æfði sig á fiðlu í laumi",
+   "Valsinn Dóná svo blá er nánast óopinber þjóðsöngur Austurríkis og spilaður á nýársdegi í Vín",
+   "Ekki rugla honum saman við Richard Strauss"
+  ],
+  "videos": [
+   {
+    "id": "fHzhDKwYP2s",
+    "title": "Dóná svo blá"
+   }
+  ],
+  "pop": [
+   "Dóná svo blá er notuð í frægri geimmynd þar sem geimskip dansa um geiminn"
+  ],
+  "ask": [
+   "Valsar eru í þrískiptum takti. Getur þú talið 1-2-3, 1-2-3 með laginu?"
+  ],
+  "connect": [
+   "rstrauss"
+  ]
+ },
+ {
+  "id": "brahms",
+  "name": "Johannes Brahms",
+  "short": "Brahms",
+  "b": 1833,
+  "d": 1897,
+  "country": "Þýskaland",
+  "era": "romantik",
+  "main": true,
+  "intro": "Þýskt tónskáld sem samdi kraftmiklar sinfóníur og viðkvæm lög. Hann var bæði hefðbundinn og nýskapandi á sama tíma.",
+  "facts": [
+   "Honum var lýst sem alvarlegum manni en þeir sem þekktu hann vel sögðu að hann hafi verið fyndinn, hlýr og glaður maður",
+   "Brahms var mjög gagnrýninn á sjálfan sig og henti mörgum verkum. Hann vildi aðeins gefa út það sem hann taldi fullkomið",
+   "Brahms var undrabarn á píanó og hjálpaði fjölskyldu sinni fjárhagslega"
+  ],
+  "videos": [
+   {
+    "id": "T6nb35I9w-8",
+    "title": "Vögguvísa"
+   },
+   {
+    "id": "Nzo3atXtm54",
+    "title": "Ungverskur dans nr. 5"
+   }
+  ],
+  "pop": [
+   "Vögguvísu hans má finna í ótal spiladósum og leikföngum",
+   "Ungverskur dans nr. 5 er í frægri gamanmynd þar sem rakari rakar mann í takt við tónlistina"
+  ],
+  "works": [
+   "Vögguvísa",
+   "Ungverskur dans nr. 5"
+  ],
+  "ask": [
+   "Ungverskur dans nr. 5 hraðar á sér og hægir á sér. Getur þú klappað með?"
+  ]
+ },
+ {
+  "id": "saintsaens",
+  "name": "Camille Saint-Saëns",
+  "short": "Saint-Saëns",
+  "b": 1835,
+  "d": 1921,
+  "country": "Frakkland",
+  "era": "romantik",
+  "main": true,
+  "intro": "Franskt undrabarn og tónskáld sem samdi Karnival dýranna.",
+  "facts": [
+   "Hann byrjaði að læra á píanó tveggja ára og samdi fyrsta lagið sitt þriggja ára",
+   "Hann samdi Karnival dýranna sem grín og bannaði að það yrði gefið út á meðan hann lifði",
+   "Hann hafði líka mikinn áhuga á stjörnufræði og fornleifafræði"
+  ],
+  "videos": [
+   {
+    "id": "I0KT4iXmeUs",
+    "title": "Karnival dýranna"
+   }
+  ],
+  "pop": [
+   "Fílarnir, kengúrurnar og svanurinn úr Karnivali dýranna heyrast í teiknimyndum og barnaefni"
+  ],
+  "ask": [
+   "Hvaða dýr heldur þú að sé verið að leika? Hvernig heyrir þú það?"
+  ]
+ },
+ {
+  "id": "mussorgsky",
+  "name": "Modest Mussorgsky",
+  "short": "Mussorgsky",
+  "b": 1839,
+  "d": 1881,
+  "country": "Rússland",
+  "era": "romantik",
+  "main": true,
+  "intro": "Rússneskt tónskáld sem vildi búa til tónlist sem hljómaði rússnesk",
+  "facts": [
+   "Hann var hermaður og opinber starfsmaður og samdi tónlistina í frítímanum",
+   "Hann samdi verkið Myndir á sýningu, tónverk um myndlistarsýningu vinar síns"
+  ],
+  "videos": [
+   {
+    "id": "j9R7k3M-wM4",
+    "title": "Nótt á Nornafelli"
+   }
+  ],
+  "pop": [
+   "Nótt á Nornafelli er í frægri teiknimynd frá 1940 þar sem tónlistin og myndirnar fara saman"
+  ],
+  "ask": [
+   "Hvernig lýsir tónlistin nornum og draugum?"
+  ]
+ },
+ {
+  "id": "tchaikovsky",
+  "name": "Pjotr Tsjajkovskíj",
+  "short": "Tsjajkovskíj",
+  "b": 1840,
+  "d": 1893,
+  "country": "Rússland",
+  "era": "romantik",
+  "main": true,
+  "intro": "Rússneskt tónskáld sem blandaði saman þjóðlegum áhrifum og vestrænni tónlist. Hann er þekktastur fyrir balletta sem eru dansaðir víða í dag.",
+  "facts": [
+   "Tsjajkovskíj er þekktastur fyrir ballettana Hnotubrjótinn, Svanavatnið og Þyrnirós",
+   "Hann var einn af fyrstu rússnesku tónskáldunum sem urðu heimsfræg",
+   "Áður en hann sneri sér að tónlist lærði hann lögfræði og vann í dómsmálaráðuneytinu í Sankti Pétursborg",
+   "Nadezhda von Meck var mikill aðdáandi hans og styrkti hann fjárhagslega í 13 ár. Þau hittust þó aldrei en það var með ráðum gert"
+  ],
+  "videos": [
+   {
+    "id": "L23XLW8DvXY",
+    "title": "Svanavatnið"
+   },
+   {
+    "id": "9MfmLyvPMlI",
+    "title": "Dans sykurplómudísarinnar"
+   }
+  ],
+  "pop": [
+   "Dans sykurplómudísarinnar úr Hnotubrjótnum er gjarnan notuð í jóla auglýsingum og kvikmyndum"
+  ],
+  "works": [
+   "Dans sykurplómudísarinnar",
+   "Svanavatnið",
+   "Hnotubrjóturinn"
+  ],
+  "ask": [
+   "Dans sykurplómudísarinnar notar hljóðfæri sem heitir selesta. Hvernig hljómar það?"
+  ]
+ },
+ {
+  "id": "dvorak",
+  "name": "Antonín Dvořák",
+  "short": "Dvořák",
+  "b": 1841,
+  "d": 1904,
+  "country": "Tékkland",
+  "era": "romantik",
+  "main": true,
+  "intro": "Tékkneskt tónskáld sem nýtti sér efnivið þjóðlagatónlistar í sínum verkum",
+  "facts": [
+   "Dvořák elskaði lestir og eimreiðar og gat setið tímunum saman á lestarstöðinni",
+   "Hann bjó í nokkur ár í Bandaríkjunum og samdi þar sinfóníuna Frá nýja heiminum",
+   "Geimfarinn Neil Armstrong tók upptöku af sinfóníunni Frá nýja heiminum með sér í ferðina til tunglsins"
+  ],
+  "videos": [
+   {
+    "id": "89jOPAGJq-M",
+    "title": "Frá nýja heiminum, 4. þáttur"
+   }
+  ],
+  "pop": [
+   "Upphaf 4. þáttar sinfóníunnar Frá nýja heiminum er notað í kvikmyndum og auglýsingum þegar eitthvað ógnvekjandi nálgast"
+  ],
+  "ask": [
+   "Lagið fór til tunglsins. Hvaða lag myndir þú taka með þér út í geim?"
+  ]
+ },
+ {
+  "id": "grieg",
+  "bw": [
+   {
+    "t": "Í höll Dofrakonungs",
+    "skra": "log/grieg-dofrakonungur.musicxml",
+    "hradi": 120
+   }
+  ],
+  "name": "Edvard Grieg",
+  "short": "Grieg",
+  "b": 1843,
+  "d": 1907,
+  "country": "Noregur",
+  "era": "romantik",
+  "main": true,
+  "intro": "Norskt tónskáld sem sótti innblástur í náttúruna, landslag og þjóðsögur. Tónlist Griegs fellur undir rómantíska tímabilið í tónlistarsögunni.",
+  "facts": [
+   "Hann fæddist og bjó lengst af í Björgvin (Bergen) í Noregi",
+   "Þekktasta verk hans er tónlistin við leikritið Pétur Gautur (Peer Gynt) eftir Henrik Ibsen. Þar á meðal „Í höll Dofrakonungs“ og „Morgunstemning“",
+   "Grieg kunni betur við að semja styttri verk en langar sinfóníur",
+   "Hann var afar lágvaxinn, um 152 cm",
+   "Talið er að 30–40 þúsund manns hafi mætt í jarðarför hans",
+   "Stóra styttu af Grieg má finna í Seattle í Bandaríkjunum og gígur á plánetunni Merkúríus er nefndur eftir honum"
+  ],
+  "videos": [
+   {
+    "id": "OqvHWUZZdP0",
+    "title": "Í höll Dofrakonungs"
+   },
+   {
+    "id": "7lKo6TYDXCQ",
+    "title": "Morgunstemning"
+   },
+   {
+    "id": "PdNilhpO0jY",
+    "title": "Úr Pétri Gauti (úr Tónlistarmanni vikunnar)"
+   }
+  ],
+  "pop": [
+   "Í höll Dofrakonungs heyrist í auglýsingum, kvikmyndum og tölvuleikjum, oft þegar eitthvað verður hraðara og hraðara",
+   "Morgunstemning er klassíska „sólin rís“ lagið"
+  ],
+  "works": [
+   "Í höll Dofrakonungs",
+   "Morgunstemning",
+   "Píanókonsert í a-moll"
+  ],
+  "ask": [
+   "Í höll Dofrakonungs byrjar lágt og hægt. Hvað gerist svo?",
+   "Hvað sérðu fyrir þér þegar þú heyrir Morgunstemningu?"
+  ]
+ },
+ {
+  "id": "rimsky",
+  "name": "Nikolaj Rimskíj-Korsakov",
+  "short": "Rimskíj-Korsakov",
+  "b": 1844,
+  "d": 1908,
+  "country": "Rússland",
+  "era": "romantik",
+  "main": true,
+  "intro": "Rússneskt tónskáld og meistari í að láta hljómsveitina hljóma í öllum litum",
+  "facts": [
+   "Hann var sjóliðsforingi og sigldi um heiminn áður en hann gerðist tónlistarkennari",
+   "Flug býflugunnar er úr óperunni Sagan af Saltan keisara, þar sem prins breytist í býflugu"
+  ],
+  "videos": [
+   {
+    "id": "OAtFmLA1vK0",
+    "title": "Flug býflugunnar"
+   }
+  ],
+  "pop": [
+   "Flug býflugunnar er vinsælasta hraðaáskorun á netinu. Fólk reynir að spila það á allt mögulegt"
+  ],
+  "ask": [
+   "Hvernig lætur tónlistin hljóma eins og býfluga sé að suða?"
+  ]
+ },
+ {
+  "id": "mahler",
+  "name": "Gustav Mahler",
+  "short": "Mahler",
+  "b": 1860,
+  "d": 1911,
+  "country": "Austurríki",
+  "era": "romantik",
+  "main": true,
+  "intro": "Austurrískt tónskáld og hljómsveitarstjóri sem samdi risastórar sinfóníur. Hann sagði að sinfónía ætti að vera eins og heimurinn og innihalda allt.",
+  "facts": [
+   "Fyrsta sinfónían hans er „Meistari Jakob“ leikinn í moll, hægt og sorglega, eins og jarðarfararmars!",
+   "Ein sinfónían hans er kölluð „Sinfónía þúsundanna“ því á frumflutningnum komu rúmlega þúsund flytjendur fram",
+   "Hann var hræddur við að semja sína 9. sinfóníu, vegna þess að Beethoven og fleiri dóu eftir sína níundu",
+   "Hann var einn frægasti hljómsveitarstjóri síns tíma og stjórnaði í New York"
+  ],
+  "videos": [
+   {
+    "id": "zDoim94Rt-w",
+    "title": "1. sinfónía, 3. þáttur (Meistari Jakob)"
+   }
+  ],
+  "pop": [
+   "Nemendur þekkja laglínuna strax: Meistari Jakob, bara í moll"
+  ],
+  "ask": [
+   "Syngið Meistara Jakob í dúr og hlustið svo á útgáfu Mahlers í moll. Hvað breytist?"
+  ]
+ },
+ {
+  "id": "debussy",
+  "name": "Claude Debussy",
+  "short": "Debussy",
+  "b": 1862,
+  "d": 1918,
+  "country": "Frakkland",
+  "era": "nutimi",
+  "main": true,
+  "intro": "Franskt tónskáld sem þekkt er fyrir draumkennda og litríka tónlist. Hann er gjarnan tengdur impressjónisma sem þekkist líka í myndlist.",
+  "facts": [
+   "Hann hafði mikinn áhuga á myndlist, þá einna helst japönskum tréristum. Honum líkaði samt illa að vera kallaður impressjónisti",
+   "Hóf nám í mjög ströngum tónlistarskóla í París aðeins 10 ára gamall",
+   "Clair de lune þýðir „tunglskin“"
+  ],
+  "videos": [
+   {
+    "id": "-Bxpm0EmOMU",
+    "title": "Clair de lune"
+   }
+  ],
+  "pop": [
+   "Clair de lune má heyra í mörgum kvikmyndum"
+  ],
+  "ask": [
+   "Clair de lune þýðir tunglskin. Hvernig lætur tónlistin hljóma eins og tunglskin?"
+  ],
+  "connect": [
+   "ravel"
+  ]
+ },
+ {
+  "id": "rstrauss",
+  "name": "Richard Strauss",
+  "short": "R. Strauss",
+  "b": 1864,
+  "d": 1949,
+  "country": "Þýskaland",
+  "era": "romantik",
+  "main": true,
+  "intro": "Þýskt tónskáld og hljómsveitarstjóri. Þó ekki skyldur valskónginum Johann Strauss",
+  "facts": [
+   "Hann samdi fyrsta verkið sitt sex ára",
+   "Upphafið á Also sprach Zarathustra er ein þekktasta byrjun tónlistarsögunnar. Þrír tónar og risastór hljómur"
+  ],
+  "videos": [
+   {
+    "id": "7JgiJaRTocg",
+    "title": "Also sprach Zarathustra, sólarupprásin"
+   }
+  ],
+  "pop": [
+   "Upphafið á Also sprach Zarathustra má heyra í kvikmyndinni 2001: A Space Odyssey"
+  ],
+  "ask": [
+   "Af hverju ætli þetta upphaf sé notað þegar eitthvað stórt og mikilvægt gerist?"
+  ],
+  "connect": [
+   "strauss2"
+  ]
+ },
+ {
+  "id": "dukas",
+  "name": "Paul Dukas",
+  "short": "Dukas",
+  "b": 1865,
+  "d": 1935,
+  "country": "Frakkland",
+  "era": "romantik",
+  "main": true,
+  "intro": "Franskt tónskáld sem var svo gagnrýninn á sjálfan sig að hann eyðilagði flest verkin sín.",
+  "facts": [
+   "Lærisveinn galdrameistarans er byggt á ljóði eftir Goethe",
+   "Hann var virtur kennari í París"
+  ],
+  "videos": [
+   {
+    "id": "O_bdguZEI8Q",
+    "title": "Lærisveinn galdrameistarans"
+   }
+  ],
+  "pop": [
+   "Lærisveinn galdrameistarans er í frægri teiknimynd frá 1940 þar sem kústar bera vatn og allt fer úr böndunum"
+  ],
+  "ask": [
+   "Hvað heyrist þegar galdurinn fer úr böndunum?"
+  ]
+ },
+ {
+  "id": "rachmaninoff",
+  "name": "Sergej Rakhmanínov",
+  "short": "Rakhmanínov",
+  "b": 1873,
+  "d": 1943,
+  "country": "Rússland og Bandaríkin",
+  "era": "romantik",
+  "main": true,
+  "intro": "Rússneskur píanósnillingur og tónskáld, frægur fyrir miklar og tilfinningaríkar laglínur.",
+  "facts": [
+   "Hann hafði stórar hendur og gat teygt sig yfir 12–13 hvítar nótur á píanóinu",
+   "Fyrsta sinfónían hans fékk svo slæma dóma að hann fékk sig ekki til þess að semja tónlist í þrjú ár. Eftir það samdi hann píanókonsert nr. 2 sem sló í gegn",
+   "Hann flúði Rússland 1917 og bjó síðustu árin í Bandaríkjunum"
+  ],
+  "videos": [
+   {
+    "id": "HfPE3cgYyco",
+    "title": "Píanókonsert nr. 2, 2. þáttur"
+   }
+  ],
+  "pop": [
+   "Lagið All by Myself eftir Eric Carmen frá 1975 byggir á laglínu úr píanókonsert nr. 2",
+   "18. tilbrigðið úr Rapsódíu um stef eftir Paganini heyrist í mörgum bíómyndum"
+  ],
+  "ask": [
+   "Settu hönd á píanó. Hvað nærðu yfir margar nótur? En Rakhmanínov?"
+  ]
+ },
+ {
+  "id": "holst",
+  "name": "Gustav Holst",
+  "short": "Holst",
+  "b": 1874,
+  "d": 1934,
+  "country": "England",
+  "era": "nutimi",
+  "main": true,
+  "intro": "Enskt tónskáld og tónlistarkennari sem samdi Pláneturnar.",
+  "facts": [
+   "Pláneturnar hafa sjö þætti, einn fyrir hverja plánetu. Jörðin er þó ekki talin með",
+   "Mars er í 5/4 takti sem gerir hann óstöðugan og ógnandi",
+   "Holst kenndi tónlist í stúlknaskóla í London í næstum 30 ár"
+  ],
+  "videos": [
+   {
+    "id": "xZfIUz1S97U",
+    "title": "Pláneturnar: Mars, stríðsboðinn"
+   }
+  ],
+  "pop": [
+   "Mars hefur haft áhrif á mörg kvikmyndatónskáld. Heyra má áhrifin í tónlist John Williams úr Star Wars kvikmyndunum"
+  ],
+  "ask": [
+   "Teljið 1-2-3-4-5 með laginu. Hvernig er að ganga í 5/4 takti?"
+  ]
+ },
+ {
+  "id": "ravel",
+  "name": "Maurice Ravel",
+  "short": "Ravel",
+  "b": 1875,
+  "d": 1937,
+  "country": "Frakkland",
+  "era": "nutimi",
+  "main": true,
+  "intro": "Franskt tónskáld sem var meistari hljómsveitarinnar. Tónlist hans er mjög nákvæm og úthugsuð",
+  "facts": [
+   "Í Boléro endurtekur sneriltromman sama taktinn yfir 150 sinnum. Laglínan er svo spiluð aftur og aftur á meðan lagið rís",
+   "Hann elskaði djass og bandaríska tónlist",
+   "Ravel sjálfur kallaði Boléro tilraun og var frekar hissa á því að verkið hafi orðið vinsælt"
+  ],
+  "videos": [
+   {
+    "id": "4LLylhgR3uM",
+    "title": "Boléro"
+   }
+  ],
+  "pop": [
+   "Boléro er notað í kvikmyndum, íþróttaviðburðum og auglýsingum. Listdansparið Torvill og Dean vann Ólympíugull við það 1984"
+  ],
+  "ask": [
+   "Boléro verður hægt og rólega háværara. Hvaða hljóðfæri bætast við?",
+   "Getur þú klappað sneriltrommutaktinn?"
+  ],
+  "connect": [
+   "debussy"
+  ]
+ },
+ {
+  "id": "stravinsky",
+  "name": "Igor Stravinskíj",
+  "short": "Stravinskíj",
+  "b": 1882,
+  "d": 1971,
+  "country": "Rússland, Frakkland og Bandaríkin",
+  "era": "nutimi",
+  "main": true,
+  "intro": "Rússneskt tónskáld sem skapaði nýja strauma með rytmískri, kröftugri tónlist. Frægur fyrir að hneyksla áheyrendur með frumlegum tónsmíðum sínum.",
+  "facts": [
+   "Frumsýningin á ballettinum Vorblótinu árið 1913 var ansi skrautleg. Áhorfendur rifust, öskruðu og sumir yfirgáfu salinn. Tónlistin og dansinn þóttu svo nýstárleg að fólk vissi ekki hvernig það átti að bregðast við",
+   "Hann breytti stöðugt um stíl",
+   "Stravinskíj var mikill heimsborgari og talaði mörg tungumál. Hann fæddist í Rússlandi, bjó í Frakklandi og Bandaríkjunum"
+  ],
+  "videos": [
+   {
+    "id": "5UJOaGIhG7A",
+    "title": "Myndband úr Tónlistarmanni vikunnar"
+   }
+  ],
+  "pop": [
+   "Vorblótið má heyra í Fantasia, frægri Disney teiknimynd frá 1940"
+  ],
+  "ask": [
+   "Af hverju heldur þú að fólk hafi orðið svona reitt árið 1913?"
+  ]
+ },
+ {
+  "id": "orff",
+  "name": "Carl Orff",
+  "short": "Orff",
+  "b": 1895,
+  "d": 1982,
+  "country": "Þýskaland",
+  "era": "nutimi",
+  "main": true,
+  "intro": "Þýskt tónskáld og tónlistarkennari. Hann er ástæðan fyrir því að tónmenntastofur eru fullar af stafspilum",
+  "facts": [
+   "Orff bjó til kennsluaðferð sem kallast Orff-Schulwerk, þar sem börn læra tónlist með því að syngja, dansa og spila á einföld hljóðfæri",
+   "Xýlófónarnir, metallófónarnir og klukkuspilin í tónmenntastofunni eru oft kölluð Orff-hljóðfæri",
+   "O Fortuna úr Carmina Burana byggir á gömlum miðaldaljóðum"
+  ],
+  "videos": [
+   {
+    "id": "bnr7teAg5DU",
+    "title": "O Fortuna úr Carmina Burana"
+   }
+  ],
+  "pop": [
+   "O Fortuna er í ótal kvikmyndastiklum, auglýsingum og gríni á netinu þegar eitthvað dramatískt gerist"
+  ],
+  "ask": [
+   "Kíktu á hljóðfærin í tónmenntastofunni. Hver þeirra eru Orff-hljóðfæri?"
+  ]
+ },
+ {
+  "id": "shostakovich",
+  "name": "Dmítríj Shostakovitsj",
+  "short": "Shostakovitsj",
+  "b": 1906,
+  "d": 1975,
+  "country": "Rússland (Sovétríkin)",
+  "era": "nutimi",
+  "main": true,
+  "intro": "Rússneskt tónskáld sem samdi undir eftirliti stjórnvalda í Sovétríkjunum. Tónlist hans er ýmist fyndin, myrk eða hetjuleg.",
+  "facts": [
+   "Í seinni heimsstyrjöldinni var hann sjálfboðaliði í slökkviliðinu í Leníngrad og mynd af honum með slökkviliðshjálm fór á forsíðu bandarísks tímarits",
+   "Hann elskaði fótbolta og var með dómararéttindi",
+   "Stjórnvöld gagnrýndu tónlistina hans harðlega og hann var lengi hræddur um að vera handtekinn"
+  ],
+  "videos": [
+   {
+    "id": "8rqWbPm9hiU",
+    "title": "Vals nr. 2"
+   }
+  ],
+  "pop": [
+   "Vals nr. 2 má heyra í kvikmyndum, auglýsingum og á skautasvellum"
+  ],
+  "ask": [
+   "Valsinn hljómar bæði glaður og dálítið sorglegur. Hvað veldur því?"
+  ]
+ },
+ {
+  "id": "hildegard",
+  "name": "Hildegard von Bingen",
+  "short": "Hildegard",
+  "b": 1098,
+  "d": 1179,
+  "approx": false,
+  "country": "Þýskaland",
+  "era": "midaldir",
+  "main": true,
+  "woman": true,
+  "intro": "Þýsk nunna, tónskáld, vísindakona og ráðgjafi konunga og páfa. Hún er eitt elsta tónskáld sem við vitum hvað heitir.",
+  "facts": [
+   "Hún samdi eitt elsta tónlistarleikrit sem til er. Það kallast Ordo Virtutum og fjallar um baráttu dyggðana við djöfulinn",
+   "Hún skrifaði bækur um lækningajurtir, náttúruna og mannslíkamann",
+   "Hún bjó til sitt eigið leynitungumál og sitt eigið stafróf",
+   "Árið 2012 var hún gerð að dýrlingi, rúmum 800 árum eftir að hún lést"
+  ],
+  "videos": [
+   {
+    "id": "T9cZv9A8h50",
+    "title": "O virtus Sapientiae"
+   }
+  ],
+  "pop": [
+   "Tónlist hennar er vinsæl í hugleiðslu og slökun og hefur verið gefin út á metsöluplötum"
+  ],
+  "ask": [
+   "Það er bara ein laglína og engir hljómar. Hvernig er það ólíkt tónlistinni sem þú hlustar á?"
+  ]
+ },
+ {
+  "id": "machaut",
+  "name": "Guillaume de Machaut",
+  "short": "Machaut",
+  "b": 1300,
+  "d": 1377,
+  "approx": true,
+  "country": "Frakkland",
+  "era": "midaldir",
+  "main": true,
+  "intro": "Franskt tónskáld og skáld sem var uppi á 14. öld. Hann er eitt þekktasta tónskáld miðalda.",
+  "facts": [
+   "Messe de Nostre Dame er elsta heila messan sem vitað er að einn maður samdi",
+   "Hann lét safna öllum verkum sínum í falleg handrit svo þau myndu varðveitast"
+  ],
+  "videos": [
+   {
+    "id": "WYPwRlphyTg",
+    "title": "Ma fin est mon commencement"
+   }
+  ],
+  "pop": [
+   "Tónlistin hans hefur verið notuð í kvikmyndum og tölvuleikjum sem gerast á miðöldum"
+  ],
+  "ask": [
+   "Lagið er eins og orðaleikur sem má lesa aftur á bak. Heyrir þú það?"
+  ]
+ },
+ {
+  "id": "josquin",
+  "name": "Josquin des Prez",
+  "short": "Josquin",
+  "b": 1450,
+  "d": 1521,
+  "approx": true,
+  "country": "Frakkland og Ítalía",
+  "era": "midaldir",
+  "main": true,
+  "intro": "Þekktasta tónskáld endurreisnartímans",
+  "facts": [
+   "Lagið El Grillo fjallar um krybbu sem syngur allan daginn. Söngvararnir herma eftir henni!",
+   "Tónlist hans var meðal þess fyrsta sem prentað var í nótnabók",
+   "Martin Lúther bar mikla virðingu fyrir Josquin og sagði að hann stjórnaði nótunum, á meðan önnur tónskáld létu nóturnar stýra sér"
+  ],
+  "videos": [
+   {
+    "id": "XPveIzlgWqc",
+    "title": "El Grillo (Krybban)"
+   }
+  ],
+  "pop": [
+   "El Grillo er vinsælt hjá kórum um allan heim"
+  ],
+  "ask": [
+   "Hvernig herma söngvararnir eftir krybbunni?"
+  ]
+ },
+ {
+  "id": "tallis",
+  "name": "Thomas Tallis",
+  "short": "Tallis",
+  "b": 1505,
+  "d": 1585,
+  "approx": true,
+  "country": "England",
+  "era": "midaldir",
+  "main": true,
+  "intro": "Enskt tónskáld sem samdi fyrir kirkjuna á tímum mikilla breytinga í sögu Englands",
+  "facts": [
+   "Spem in alium er samið fyrir 40 raddir sem syngja allar sína eigin laglínu",
+   "Hann vann fyrir fjóra konunga og drottningar Englands, hvert á eftir öðru, þó þau væru mjög ósammála um trúmál",
+   "Elísabet I drottning gaf Tallis og lærisvein hans William Byrd einkaleyfi á að prenta nótur"
+  ],
+  "videos": [
+   {
+    "id": "lnzwXo-RQFI",
+    "title": "Spem in alium (40 raddir)"
+   }
+  ],
+  "pop": [
+   "Spem in alium hefur verið sett upp sem listaverk þar sem hver rödd kemur úr sínum hátalara"
+  ],
+  "ask": [
+   "Fjörutíu raddir syngja í einu. Getur þú greint einhverja eina rödd?"
+  ]
+ },
+ {
+  "id": "palestrina",
+  "name": "Giovanni Pierluigi da Palestrina",
+  "short": "Palestrina",
+  "b": 1525,
+  "d": 1594,
+  "approx": true,
+  "country": "Ítalía",
+  "era": "midaldir",
+  "main": true,
+  "intro": "Ítalskt tónskáld sem samdi kirkjutónlist. Verk hans þykja svo glæsileg að tónlistarnemar læra hana enn í dag.",
+  "facts": [
+   "Hann samdi yfir 100 messur",
+   "Gömul sögusögn segir að messa hans hafi bjargað fjölradda kirkjutónlist þegar kirkjan íhugaði að banna hana",
+   "Hann heitir eftir bænum Palestrina nálægt Róm, þar sem hann fæddist líklega"
+  ],
+  "videos": [
+   {
+    "id": "P7j1JEXWP3g",
+    "title": "Sicut cervus"
+   }
+  ],
+  "pop": [
+   "Kennslubækur í tónsmíðum hafa kennt „Palestrina stílinn“"
+  ],
+  "ask": [
+   "Hvernig skiptast raddirnar á að taka laglínuna?"
+  ]
+ },
+ {
+  "id": "monteverdi",
+  "name": "Claudio Monteverdi",
+  "short": "Monteverdi",
+  "b": 1567,
+  "d": 1643,
+  "country": "Ítalía",
+  "era": "barokk",
+  "main": true,
+  "intro": "Ítalskt tónskáld á mörkum endurreisnar og barokks. Hann samdi eina af fyrstu óperum sögunnar.",
+  "facts": [
+   "L'Orfeo frá 1607 er ein fyrsta óperan og sú elsta sem enn er sett á svið",
+   "Óperan byrjar á lúðrakalli til að láta fólk vita að sýningin væri að byrja",
+   "Hann var stjórnandi tónlistarinnar í Markúsarkirkjunni í Feneyjum í 30 ár"
+  ],
+  "videos": [
+   {
+    "id": "90lhQM6ORWg",
+    "title": "Toccata úr L'Orfeo"
+   }
+  ],
+  "pop": [
+   "Toccatan úr L'Orfeo er notuð sem upphafsstef á tónlistarhátíðum og í heimildarmyndum"
+  ],
+  "ask": [
+   "Toccatan er eins og tilkynning. Hvaða lag myndir þú nota til að byrja sýningu?"
+  ]
+ },
+ {
+  "id": "pachelbel",
+  "name": "Johann Pachelbel",
+  "short": "Pachelbel",
+  "b": 1653,
+  "d": 1706,
+  "country": "Þýskaland",
+  "era": "barokk",
+  "main": true,
+  "intro": "Þýskt barokktónskáld og organisti.",
+  "facts": [
+   "Kanóna í D er líklegast eitt þekktasta lag í heimi. Þar er sama bassalínan endurtekin aftur og aftur á meðan fiðlurnar spila ofan á. Hljómagangurinn er notaður í ótal popplögum",
+   "Kanónan var nánast gleymd í 250 ár og varð ekki fræg fyrr en á 20. öld",
+   "Hann kenndi eldri bróður Johanns Sebastians Bach"
+  ],
+  "videos": [
+   {
+    "id": "AP6ylKv5YKc",
+    "title": "Kanóna í D-dúr"
+   }
+  ],
+  "pop": [
+   "Kanónan er spiluð í ótal brúðkaupum og hljómagangurinn heyrist í mörgum popplögum"
+  ],
+  "works": [
+   "Kanóna í D-dúr"
+  ],
+  "ask": [
+   "Teldu hversu oft bassinn spilar sömu línuna. Hvað gera fiðlurnar á meðan?"
+  ],
+  "connect": [
+   "bach"
+  ]
+ },
+ {
+  "id": "fanny",
+  "name": "Fanny Mendelssohn Hensel",
+  "short": "Fanny Mendelssohn",
+  "b": 1805,
+  "d": 1847,
+  "country": "Þýskaland",
+  "era": "romantik",
+  "main": true,
+  "woman": true,
+  "intro": "Þýskt tónskáld og píanóleikari, eldri systir Felix Mendelssohn. Hún samdi yfir 460 verk.",
+  "facts": [
+   "Faðir hennar sagði að tónlist gæti orðið starf Felix en hún ætti bara að hafa hana sem áhugamál",
+   "Nokkur laga hennar voru gefin út undir nafni Felix",
+   "Viktoría Englandsdrottning söng fyrir Felix uppáhaldslagið sitt eftir hann. Það var í raun eftir Fanny",
+   "Páskasónata hennar var lengi talin eftir Felix. Það kom ekki í ljós fyrr en 2010 að Fanny væri höfundurinn"
+  ],
+  "videos": [
+   {
+    "id": "Ij8JoTj2J1I",
+    "title": "Páskasónatan"
+   }
+  ],
+  "pop": [
+   "Tónlist hennar er nú flutt um allan heim eftir að hafa verið falin í nærri 200 ár"
+  ],
+  "ask": [
+   "Af hverju heldur þú að lögin hennar hafi verið gefin út undir nafni bróður hennar?"
+  ],
+  "connect": [
+   "mendelssohn"
+  ]
+ },
+ {
+  "id": "clara",
+  "name": "Clara Schumann",
+  "short": "Clara Schumann",
+  "b": 1819,
+  "d": 1896,
+  "country": "Þýskaland",
+  "era": "romantik",
+  "main": true,
+  "woman": true,
+  "intro": "Þýskur píanósnillingur og tónskáld. Hún var ein frægasta tónlistarkona 19. aldar og hélt tónleika í 60 ár.",
+  "facts": [
+   "Hún byrjaði að semja píanókonsertinn sinn aðeins 13 ára gömul",
+   "Mynd af henni var á þýska 100 marka peningaseðlinum",
+   "Hún var gift tónskáldinu Robert Schumann og góð vinkona Brahms",
+   "Hún eignaðist átta börn og sá fyrir fjölskyldunni með því að koma fram á tónleikum"
+  ],
+  "videos": [
+   {
+    "id": "Xol1DKul984",
+    "title": "Píanókonsert í a-moll"
+   }
+  ],
+  "pop": [
+   "Hún var ein af fyrstu píanóleikurunum sem spiluðu tónleika utanbókar, sem er orðið venja í dag"
+  ],
+  "ask": [
+   "Hún var unglingur þegar hún samdi þetta. Hvað myndir þú semja ef þú ættir heila hljómsveit?"
+  ],
+  "connect": [
+   "brahms"
+  ]
+ },
+ {
+  "id": "boulanger",
+  "name": "Lili Boulanger",
+  "short": "Lili Boulanger",
+  "b": 1893,
+  "d": 1918,
+  "country": "Frakkland",
+  "era": "nutimi",
+  "main": true,
+  "woman": true,
+  "intro": "Franskt tónskáld sem braut blað í sögunni þrátt fyrir að lifa aðeins í 24 ár.",
+  "facts": [
+   "Árið 1913 varð hún fyrsta konan til að vinna Rómarverðlaunin, virtustu tónsmíðaverðlaun Frakklands",
+   "Hún var veik nánast alla ævi en samdi samt mikið af tónlist",
+   "Systir hennar Nadia Boulanger varð einn frægasti tónlistarkennari 20. aldar"
+  ],
+  "videos": [
+   {
+    "id": "e-N-xjifOZg",
+    "title": "D'un matin de printemps (Vormorgunn)"
+   }
+  ],
+  "pop": [
+   "Tónlist hennar er sífellt meira spiluð og hljómsveitir um allan heim eru að uppgötva hana"
+  ],
+  "ask": [
+   "Lagið heitir Vormorgunn. Hvernig lýsir tónlistin vori?"
+  ],
+  "connect": [
+   "ravel",
+   "debussy"
+  ]
+ }
 ];
 
-const VIRAL = [
- ["Morning Mood (Peer Gynt)","grieg","7lKo6TYDXCQ"],
- ["In the Hall of the Mountain King (Peer Gynt)","grieg","OqvHWUZZdP0"],
- ["Dance of the Sugar Plum Fairy","tchaikovsky","9MfmLyvPMlI"],
- ["Moonlight Sonata (1. þáttur)","beethoven","kfSnDd5mTsQ"],
- ["Lacrimosa (úr Requiem)","mozart","SWv8OKXwVRM"],
- ["Flight of the Bumblebee","rimsky","OAtFmLA1vK0"],
- ["Ride of the Valkyries","wagner","3JeuQ-CA67w"],
- ["Night on Bald Mountain","mussorgsky","j9R7k3M-wM4"],
- ["Clair de Lune","debussy","-Bxpm0EmOMU"],
- ["Galop Infernal (Can-Can)","offenbach","VfFh06EZ5gk"],
- ["Hungarian Dance No. 5","brahms","Nzo3atXtm54"],
- ["The Planets: Mars, the Bringer of War","holst","xZfIUz1S97U"],
- ["Nocturne Op. 9 No. 2","chopin","QR10Od1cLaM"],
- ["Dies Irae (úr Requiem)","verdi","60mRj_9Rybc"],
- ["Rondo Alla Turca (úr píanósónötu nr. 11)","mozart","A_THdzBnHy0"],
- ["O Fortuna (úr Carmina Burana)","orff","bnr7teAg5DU"],
- ["William Tell Overture – Finale","rossini","xlmg_hY9SSE"],
- ["Also sprach Zarathustra – upphaf","rstrauss","7JgiJaRTocg"],
- ["Eine kleine Nachtmusik – 1. þáttur","mozart","czBSj6_6rkE"],
- ["Hungarian Rhapsody No. 2","liszt","LdH1hSWGFGU"],
- ["The Sorcerer's Apprentice","dukas","O_bdguZEI8Q"],
- ["Swan Lake","tchaikovsky","L23XLW8DvXY"],
- ["Tetris Theme (Korobeiniki)",null,"0LivfeQ6PQQ"]
-];
+const VIRAL=[["Morning Mood (Peer Gynt)","grieg","7lKo6TYDXCQ"],["In the Hall of the Mountain King (Peer Gynt)","grieg","OqvHWUZZdP0"],["Dance of the Sugar Plum Fairy","tchaikovsky","9MfmLyvPMlI"],["Moonlight Sonata (1. þáttur)","beethoven","kfSnDd5mTsQ"],["Lacrimosa (úr Requiem)","mozart","SWv8OKXwVRM"],["Flight of the Bumblebee","rimsky","OAtFmLA1vK0"],["Ride of the Valkyries","wagner","3JeuQ-CA67w"],["Night on Bald Mountain","mussorgsky","j9R7k3M-wM4"],["Clair de Lune","debussy","-Bxpm0EmOMU"],["Galop Infernal (Can-Can)","offenbach","VfFh06EZ5gk"],["Hungarian Dance No. 5","brahms","Nzo3atXtm54"],["The Planets: Mars, the Bringer of War","holst","xZfIUz1S97U"],["Nocturne Op. 9 No. 2","chopin","QR10Od1cLaM"],["Dies Irae (úr Requiem)","verdi","60mRj_9Rybc"],["Rondo Alla Turca (úr píanósónötu nr. 11)","mozart","A_THdzBnHy0"],["O Fortuna (úr Carmina Burana)","orff","bnr7teAg5DU"],["William Tell Overture – Finale","rossini","xlmg_hY9SSE"],["Also sprach Zarathustra – upphaf","rstrauss","7JgiJaRTocg"],["Eine kleine Nachtmusik – 1. þáttur","mozart","czBSj6_6rkE"],["Hungarian Rhapsody No. 2","liszt","LdH1hSWGFGU"],["The Sorcerer's Apprentice","dukas","O_bdguZEI8Q"],["Swan Lake","tchaikovsky","L23XLW8DvXY"],["Tetris Theme (Korobeiniki)",null,"0LivfeQ6PQQ"]];
 
-
-/* Dægurtónlist: y = árið sem stóra lagið eða byltingin kom (raðað eftir því), band = hljómsveit, ekkert d = enn á lífi / starfandi */
+/* Dægurtónlist: y = árið sem stóra lagið kom, band = hljómsveit, ekkert d = enn á lífi / starfandi */
 const ARTISTS=[
- {id:"bessie", name:"Bessie Smith", short:"Bessie Smith", b:1894, d:1937, y:1923, country:"Bandaríkin", era:"blus", woman:true,
-  intro:"Bandarísk blússöngkona sem var kölluð „keisaraynja blússins“. Á 3. áratugnum var hún ein vinsælasta söngkona Bandaríkjanna.",
-  facts:["Sem barn söng hún og dansaði á götuhornum í Chattanooga á meðan bróðir hennar spilaði á gítar","Fyrsta platan hennar seldist í hundruðum þúsunda eintaka árið 1923, sem var gríðarlegt á þeim tíma","Ungur trompetleikari að nafni Louis Armstrong spilaði með henni á upptöku af St. Louis Blues","Stuttmyndin St. Louis Blues frá 1929 er eina kvikmyndin sem hún lék í"],
-  videos:[{id:"S1qqB9l7RQM", title:"St. Louis Blues (kvikmynd frá 1929)"}],
-  pop:["Rokksöngkonan Janis Joplin dáði hana svo mikið að hún hjálpaði til við að kaupa legstein á gröf hennar"],
-  works:["St. Louis Blues","Downhearted Blues"],
-  ask:["Blús fjallar oft um sorgir. Heyrir þú það í röddinni hennar?"],
-  connect:["armstrong"]},
- {id:"armstrong", name:"Louis Armstrong", short:"Louis Armstrong", b:1901, d:1971, y:1925, country:"Bandaríkin", era:"blus",
-  intro:"Trompetleikari og söngvari frá New Orleans, fæðingarstað djassins. Hann er einn áhrifamesti tónlistarmaður 20. aldar.",
-  facts:["Hann ólst upp við mikla fátækt og lærði á kornett á heimili fyrir drengi","Hann var kallaður „Satchmo“ og var frægur fyrir stóra brosið og hrjúfu röddina","Sagt er að hann hafi misst textablaðið í upptöku og byrjað að syngja bull-atkvæði í staðinn. Það kallast „scat“-söngur","Árið 1964 ýtti lagið hans Hello, Dolly! Bítlunum úr efsta sæti vinsældalistans í Bandaríkjunum"],
-  videos:[{id:"0NlfQdH5MSg", title:"What a Wonderful World"}],
-  pop:["What a Wonderful World heyrist í ótal kvikmyndum, auglýsingum og sjónvarpsþáttum"],
-  works:["What a Wonderful World","Hello, Dolly!"],
-  ask:["Lagið fjallar um allt það fallega í heiminum. Hvað myndir þú setja í svona lag?"],
-  connect:["bessie","ella"]},
- {id:"ellington", name:"Duke Ellington", short:"Duke Ellington", b:1899, d:1974, y:1927, country:"Bandaríkin", era:"blus",
-  intro:"Píanóleikari, tónskáld og stjórnandi einnar frægustu stórsveitar djassins. Hann samdi yfir þúsund verk.",
-  facts:["Hann fékk viðurnefnið „Duke“ (hertoginn) sem strákur af því að hann var alltaf svo fínn og kurteis","Hljómsveitin hans spilaði árum saman í Cotton Club í Harlem í New York","Hann vildi helst ekki tala um „djass“, heldur einfaldlega „bandaríska tónlist“","Take the A Train samdi vinur hans, Billy Strayhorn. Lagið fjallar um A-neðanjarðarlestina sem fór til Harlem"],
-  videos:[{id:"cb2w2m1JmCY", title:"Take the „A“ Train"}],
-  pop:["Stórsveitardjass eins og hans var dansmúsík síns tíma, svipað og popptónlist í dag"],
-  works:["Take the A Train","It Don't Mean a Thing"],
-  ask:["Í stórsveit eru margir blásarar. Getur þú heyrt hvenær trompetarnir og saxófónarnir skiptast á?"]},
- {id:"rjohnson", name:"Robert Johnson", short:"Robert Johnson", b:1911, d:1938, y:1936, country:"Bandaríkin", era:"blus",
-  intro:"Blúsgítarleikari og söngvari frá Mississippi. Hann tók aðeins upp 29 lög, en þau breyttu tónlistarsögunni.",
-  facts:["Gömul þjóðsaga segir að hann hafi hitt djöfulinn á krossgötum og selt honum sálina sína í skiptum fyrir gítarsnilli","Aðeins örfáar ljósmyndir eru til af honum","Hann spilaði á gítarinn eins og tveir væru að spila í einu: bassalínu og laglínu",
-   "Rolling Stones, Eric Clapton og fleiri rokkstjörnur hafa sagt að hann sé ein stærsta fyrirmynd þeirra"],
-  videos:[{id:"Ug0ZRSbmCRM", title:"Sweet Home Chicago (1936)"}],
-  pop:["Sweet Home Chicago varð frægt aftur í kvikmyndinni The Blues Brothers"],
-  works:["Sweet Home Chicago","Cross Road Blues"],
-  ask:["Teldu hljómana. Blús notar oft bara þrjá hljóma. Heyrir þú hvenær þeir skipta?"],
-  connect:["stones"]},
- {id:"ella", name:"Ella Fitzgerald", short:"Ella Fitzgerald", b:1917, d:1996, y:1938, country:"Bandaríkin", era:"blus", woman:true,
-  intro:"Ein besta djasssöngkona allra tíma, kölluð „forsetafrú söngsins“. Hún gat sungið nánast hvað sem er.",
-  facts:["Hún ætlaði að dansa í hæfileikakeppni 17 ára gömul en varð svo stressuð að hún söng í staðinn. Hún vann!","Hún var fyrsta svarta konan til að vinna Grammy-verðlaun","Á tónleikum í Berlín 1960 gleymdi hún textanum í Mack the Knife og bjó bara til nýjan texta á staðnum. Hún fékk Grammy fyrir upptökuna","Hún var snillingur í „scat“-söng, þar sem röddin hljómar eins og hljóðfæri"],
-  videos:[{id:"M0mXle68qGM", title:"Mack the Knife (Berlín 1960)"}],
-  pop:["Margir söngvarar í dag, til dæmis Laufey, segja að Ella sé ein stærsta fyrirmynd þeirra"],
-  works:["Mack the Knife","A-Tisket, A-Tasket"],
-  ask:["Hún gleymdi textanum. Getur þú heyrt hvar hún byrjar að spinna?"],
-  connect:["armstrong","laufey"]},
-
- {id:"tharpe", name:"Sister Rosetta Tharpe", short:"Rosetta Tharpe", b:1915, d:1973, y:1944, country:"Bandaríkin", era:"rokk", woman:true,
-  intro:"Gospelsöngkona og gítarsnillingur sem er kölluð „guðmóðir rokksins“. Hún spilaði á rafmagnsgítar löngu áður en rokkið varð til.",
-  facts:["Hún byrjaði að spila á gítar fjögurra ára gömul og kom fram í kirkjum með móður sinni","Elvis Presley, Chuck Berry, Little Richard og Johnny Cash hlustuðu allir á hana","Myndbandið er frá 1964 þegar hún spilaði á yfirgefinni lestarstöð í Manchester á Englandi, í rigningu!","Árið 2018 var hún loksins tekin inn í Frægðarhöll rokksins"],
-  videos:[{id:"jGPx4ancGhg", title:"Didn't It Rain (Manchester 1964)"}],
-  pop:["Saga hennar gleymdist lengi en nú vita fleiri að rokkið á henni mikið að þakka"],
-  works:["Didn't It Rain","Strange Things Happening Every Day"],
-  ask:["Lagið heitir „Rigndi ekki?“ og það rigndi á tónleikunum. Hvernig myndir þú lýsa gítarleiknum hennar?"],
-  connect:["elvis","berry","littlerichard"]},
- {id:"berry", name:"Chuck Berry", short:"Chuck Berry", b:1926, d:2017, y:1955, country:"Bandaríkin", era:"rokk",
-  intro:"Gítarleikari og lagasmiður sem bjó til hljóm rokksins. Gítarriffin hans eru spiluð af gítarleikurum um allan heim.",
-  facts:["Hann var frægur fyrir „andagönguna“: hann hoppaði á öðrum fæti um sviðið á meðan hann spilaði","Johnny B. Goode er á gullplötunni í geimförunum Voyager sem eru nú komin út fyrir sólkerfið okkar","John Lennon sagði: „Ef þú ætlaðir að gefa rokkinu annað nafn myndir þú kalla það Chuck Berry“","Hann samdi lög um það sem unglingar höfðu áhuga á: bíla, skóla og dans"],
-  videos:[{id:"aKCt8ssC7cs", title:"Johnny B. Goode"}],
-  pop:["Í kvikmyndinni Aftur til framtíðar (Back to the Future) spilar Marty McFly Johnny B. Goode"],
-  works:["Johnny B. Goode","Roll Over Beethoven"],
-  ask:["Byrjunin á laginu er eitt frægasta gítarriff sögunnar. Getur þú klappað taktinn með?"],
-  connect:["beatles","stones"]},
- {id:"littlerichard", name:"Little Richard", short:"Little Richard", b:1932, d:2020, y:1955, country:"Bandaríkin", era:"rokk",
-  intro:"Píanóleikari og söngvari með ótrúlega orku. Hann öskraði, hamraði á píanóið og stóð oft við það á meðan hann spilaði.",
-  facts:["Tutti Frutti byrjar á frægu bulli: „A-wop-bop-a-loo-bop-a-lop-bam-boom!“","Sagt er að hann hafi fengið hugmyndina á meðan hann vaskaði upp á rútustöð","Bítlarnir hituðu upp fyrir hann árið 1962 og Paul McCartney lærði frægu „wooo“-öskrin af honum","Hann var með háa hárgreiðslu, farða og glitrandi föt, sem þótti ótrúlega djarft á 6. áratugnum"],
-  videos:[{id:"F13JNjpNW6c", title:"Tutti Frutti"}],
-  pop:["Tutti Frutti er oft nefnt sem eitt mikilvægasta rokklag allra tíma"],
-  works:["Tutti Frutti","Long Tall Sally"],
-  ask:["Hvernig hljómar píanóið? Er það rólegt eða villt?"],
-  connect:["beatles"]},
- {id:"elvis", name:"Elvis Presley", short:"Elvis", b:1935, d:1977, y:1956, country:"Bandaríkin", era:"rokk",
-  intro:"„Konungur rokksins“. Elvis gerði rokk og ról að æði um allan heim og varð ein stærsta stjarna sögunnar.",
-  facts:["Hann langaði í reiðhjól í 11 ára afmælisgjöf en fékk gítar í staðinn","Mjaðmahreyfingarnar hans þóttu svo hneykslanlegar að í einum sjónvarpsþætti var hann bara sýndur fyrir ofan mitti","Dansinn í Jailhouse Rock er úr kvikmynd frá 1957 og er eitt frægasta dansatriði rokksögunnar","Hann átti tvíburabróður sem dó við fæðingu"],
-  videos:[{id:"gj0Rz-uP4Mk", title:"Jailhouse Rock"}],
-  pop:["Elvis-eftirhermur eru til um allan heim og í Las Vegas er hægt að láta „Elvis“ gifta sig"],
-  works:["Jailhouse Rock","Hound Dog","Heartbreak Hotel"],
-  ask:["Af hverju heldur þú að foreldrar hafi verið hneykslaðir á Elvis en unglingar elskað hann?"],
-  connect:["tharpe"]},
- {id:"holly", name:"Buddy Holly", short:"Buddy Holly", b:1936, d:1959, y:1957, country:"Bandaríkin", era:"rokk",
-  intro:"Rokkari með stór gleraugu sem samdi lögin sín sjálfur. Hljómsveitin hans var fyrirmynd að ótal hljómsveitum.",
-  facts:["Hljómsveitin hans, The Crickets (Krybburnar), var með tvo gítara, bassa og trommur. Það varð hin klassíska rokkhljómsveit","Bítlarnir völdu nafnið sitt meðal annars út frá Krybbunum: bjöllur í stað krybba","Peggy Sue heitir eftir kærustu trommarans","Hann var aðeins 22 ára þegar hann lést í flugslysi árið 1959"],
-  videos:[{id:"_qQzuvfvBdE", title:"Peggy Sue (í sjónvarpi)"}],
-  pop:["Dagurinn sem hann lést er kallaður „dagurinn sem tónlistin dó“ í laginu American Pie"],
-  works:["Peggy Sue","That'll Be the Day"],
-  ask:["Trommurnar í Peggy Sue spila nánast allan tímann sama mynstrið. Getur þú trommað það á borðið?"],
-  connect:["beatles"]},
-
- {id:"beatles", name:"The Beatles", short:"Bítlarnir", about:"Bítlana", b:1960, d:1970, y:1962, band:true, country:"England", era:"bitlar",
-  intro:"Fjórir strákar frá Liverpool, John, Paul, George og Ringo, sem urðu vinsælasta hljómsveit sögunnar.",
-  facts:["Æðið í kringum þá var kallað „Bítlaæðið“. Aðdáendurnir öskruðu svo hátt að hljómsveitin heyrði ekki í sjálfri sér","Árið 1964 horfðu um 73 milljónir manna á þá í bandarísku sjónvarpi","Þeir lærðu aldrei að lesa nótur almennilega en sömdu samt hundruð laga","Síðustu tónleikarnir þeirra voru óvæntir, uppi á þaki í London árið 1969","Here Comes the Sun samdi George Harrison einn sólríkan dag í garði vinar síns"],
-  videos:[{id:"KQetemT1sWc", title:"Here Comes the Sun"}],
-  pop:["Yesterday er eitt þeirra laga sem flestir hafa tekið upp í sinni eigin útgáfu"],
-  works:["Here Comes the Sun","Yellow Submarine","Hey Jude","Yesterday"],
-  ask:["Lagið fjallar um að vorið sé að koma eftir langan vetur. Heyrir þú það í tónlistinni?"],
-  connect:["holly","littlerichard","hljomar"]},
- {id:"beachboys", name:"The Beach Boys", short:"Beach Boys", b:1961, y:1962, band:true, country:"Bandaríkin", era:"bitlar",
-  intro:"Hljómsveit frá Kaliforníu sem söng um sól, brimbretti og bíla, með ótrúlegum raddútsetningum.",
-  facts:["Í hljómsveitinni voru bræðurnir Brian, Dennis og Carl Wilson ásamt frænda þeirra og vini","Aðeins einn þeirra, Dennis, kunni í raun á brimbretti","Good Vibrations var tekið upp í mörgum hlutum í mörgum hljóðverum og það tók marga mánuði","Undarlega flautuhljóðið í Good Vibrations kemur úr rafmagnshljóðfæri skyldu þereminu"],
-  videos:[{id:"apBWI6xrbLY", title:"Good Vibrations"}],
-  pop:["Paul McCartney hefur sagt að God Only Knows sé eitt besta lag sem samið hefur verið"],
-  works:["Good Vibrations","Surfin' USA","God Only Knows"],
-  ask:["Hlustaðu eftir röddunum. Hversu margar raddir syngja saman í einu?"],
-  connect:["beatles"]},
- {id:"dylan", name:"Bob Dylan", short:"Bob Dylan", b:1941, y:1963, country:"Bandaríkin", era:"bitlar",
-  intro:"Söngvaskáld sem breytti því hvað popplög gátu fjallað um. Textarnir hans eru eins og ljóð.",
-  facts:["Hann heitir í raun Robert Zimmerman","Árið 2016 fékk hann Nóbelsverðlaunin í bókmenntum, fyrstur tónlistarmanna","Hann spilar á gítar og munnhörpu á sama tíma, með munnhörpuna í grind um hálsinn","Þegar hann skipti yfir í rafmagnsgítar á þjóðlagahátíð árið 1965 bauluðu sumir áhorfendur á hann"],
-  videos:[{id:"MMFj8uDubsE", title:"Blowin' in the Wind"}],
-  pop:["Blowin' in the Wind varð söngur réttindabaráttu svartra í Bandaríkjunum"],
-  works:["Blowin' in the Wind","The Times They Are a-Changin'"],
-  ask:["Lagið spyr margra spurninga. Hvaða spurningu myndir þú spyrja í lagi?"]},
- {id:"aretha", name:"Aretha Franklin", short:"Aretha Franklin", b:1942, d:2018, y:1967, country:"Bandaríkin", era:"bitlar", woman:true,
-  intro:"„Drottning sálartónlistarinnar“ (soul). Ein kraftmesta söngrödd sögunnar.",
-  facts:["Hún byrjaði að syngja í kirkju föður síns í Detroit","Respect var upphaflega eftir Otis Redding, en hún bætti við „R-E-S-P-E-C-T“ og gerði lagið að sínu","Árið 1987 varð hún fyrsta konan sem var tekin inn í Frægðarhöll rokksins","Hún söng við embættistöku Baracks Obama Bandaríkjaforseta árið 2009"],
-  videos:[{id:"U0yIf9Tkgu4", title:"Respect"}],
-  pop:["Respect er notað í ótal kvikmyndum og varð baráttusöngur kvenna og mannréttinda"],
-  works:["Respect","Think","(You Make Me Feel Like) A Natural Woman"],
-  ask:["Hún stafar orðið R-E-S-P-E-C-T. Hvaða orð myndir þú stafa í lagi?"]},
- {id:"stones", name:"The Rolling Stones", short:"Rolling Stones", b:1962, y:1965, band:true, country:"England", era:"bitlar",
-  intro:"Rokkhljómsveit frá London sem hefur verið starfandi í yfir 60 ár. Þeir voru „óþekku strákarnir“ á móti snyrtilegu Bítlunum.",
-  facts:["Gítarleikarinn Keith Richards vaknaði um miðja nótt með Satisfaction-riffið í höfðinu, tók það upp og sofnaði aftur. Á upptökunni heyrist hann svo hrjóta í 40 mínútur!","Hljómsveitin heitir eftir blúslagi eftir Muddy Waters","Tungu- og varamerkið þeirra er eitt frægasta lógó heims","Mick Jagger og Keith Richards kynntust fyrst sem börn"],
-  videos:[{id:"zhJwSsUGb04", title:"(I Can't Get No) Satisfaction"}],
-  pop:["Tungumerkið þeirra sést á bolum út um allan heim, líka hjá fólki sem hefur aldrei hlustað á þá"],
-  works:["Satisfaction","Paint It Black","Jumpin' Jack Flash"],
-  ask:["Riffið kom í draumi. Hefur þú einhvern tíma fengið lag á heilann sem þú bjóst til sjálf(ur)?"],
-  connect:["rjohnson","berry"]},
- {id:"hendrix", name:"Jimi Hendrix", short:"Jimi Hendrix", b:1942, d:1970, y:1967, country:"Bandaríkin", era:"bitlar",
-  intro:"Af mörgum talinn besti rafgítarleikari allra tíma. Hann lét gítarinn gera hljóð sem enginn hafði heyrt áður.",
-  facts:["Hann var örvhentur og spilaði á gítar fyrir rétthenta sem hann sneri á hvolf","Hann gat spilað með tönnunum og fyrir aftan bak","Á tónleikum árið 1967 kveikti hann í gítarnum sínum á sviðinu","Frægðarferill hans stóð aðeins í um fjögur ár"],
-  videos:[{id:"I-PK3sbxvhw", title:"Purple Haze"}],
-  pop:["Hann lék bandaríska þjóðsönginn á rafgítar á Woodstock-hátíðinni 1969, það er ein frægasta tónleikastund sögunnar"],
-  works:["Purple Haze","Hey Joe","All Along the Watchtower"],
-  ask:["Hvaða hljóð gerir gítarinn sem þú hefur ekki heyrt áður?"]},
-
- {id:"jamesbrown", name:"James Brown", short:"James Brown", b:1933, d:2006, y:1965, country:"Bandaríkin", era:"disko",
-  intro:"„Guðfaðir sálartónlistarinnar“ og faðir fönksins. Hann var kallaður duglegasti maðurinn í skemmtanabransanum.",
-  facts:["Í fönki leggja allir áherslu á fyrsta slagið í taktinum. James Brown kallaði það „the one“","Hann var frægur fyrir að dansa, renna sér á hnjánum og þykjast hníga niður á sviðinu áður en hann stökk aftur upp","Trommutaktar úr lögunum hans eru meðal þeirra sem oftast hafa verið notaðir í hipphoppi","Hann ólst upp við mikla fátækt og pússaði skó til að eiga fyrir mat"],
-  videos:[{id:"iSLwVaebsJg", title:"I Got You (I Feel Good)"}],
-  pop:["Öskrið í byrjun I Got You (I Feel Good) heyrist í bíómyndum, teiknimyndum og auglýsingum"],
-  works:["I Got You (I Feel Good)","Get Up (I Feel Like Being a) Sex Machine"],
-  ask:["Klappaðu á fyrsta slagið í hverjum takti. Heyrir þú hvað bassinn og trommurnar leggja áherslu á það?"],
-  connect:["rundmc"]},
- {id:"stevie", name:"Stevie Wonder", short:"Stevie Wonder", b:1950, y:1972, country:"Bandaríkin", era:"disko",
-  intro:"Söngvari, lagahöfundur og fjölhljóðfæraleikari sem hefur verið blindur frá fæðingu. Hann var undrabarn sem varð goðsögn.",
-  facts:["Hann gerði plötusamning aðeins 11 ára gamall og var þá kallaður „Little Stevie Wonder“","13 ára átti hann lag í efsta sæti bandaríska vinsældalistans","Í Superstition spilar hann á klavínett, rafmagnshljómborð sem hljómar eins og fönkgítar","Hann hefur unnið 25 Grammy-verðlaun"],
-  videos:[{id:"_ul7X5js1vE", title:"Superstition (í Sesame Street 1973)"}],
-  pop:["Hann flutti Superstition í Sesame Street og þar dansa krakkar í kringum hann"],
-  works:["Superstition","Isn't She Lovely","Happy Birthday"],
-  ask:["Hvaða hljóðfæri byrjar lagið? Hvernig myndir þú lýsa hljóðinu?"]},
- {id:"queen", name:"Queen", short:"Queen", b:1970, y:1975, band:true, country:"England", era:"disko",
-  intro:"Ensk rokkhljómsveit með söngvarann Freddie Mercury í broddi fylkingar. Lögin þeirra eru sungin á íþróttaleikjum um allan heim.",
-  facts:["Bohemian Rhapsody er um sex mínútur, hefur ekkert viðlag og breytist úr ballöðu í óperu og svo í rokk. Útgáfufyrirtækið hélt að enginn myndi spila það í útvarpi","Gítarleikarinn Brian May smíðaði gítarinn sinn sjálfur með föður sínum, meðal annars úr gamalli arinhillu","Brian May er líka doktor í stjarneðlisfræði","Tónleikar þeirra á Live Aid árið 1985 eru oft kallaðir bestu tónleikar rokksögunnar"],
-  videos:[{id:"fJ9rUzIMcZQ", title:"Bohemian Rhapsody"}],
-  pop:["We Will Rock You (stapp, stapp, klapp) og We Are the Champions eru sungin á íþróttaleikjum um allan heim"],
-  works:["Bohemian Rhapsody","We Will Rock You","Don't Stop Me Now"],
-  ask:["Hversu margir ólíkir hlutar eru í Bohemian Rhapsody? Hvar breytist lagið?"]},
- {id:"abba", name:"ABBA", short:"ABBA", b:1972, y:1974, band:true, country:"Svíþjóð", era:"disko",
-  intro:"Sænsk popphljómsveit sem sigraði í Eurovision og varð ein vinsælasta hljómsveit heims.",
-  facts:["Nafnið er búið til úr fyrstu stöfunum í nöfnunum þeirra: Agnetha, Björn, Benny og Anni-Frid","Þau unnu Eurovision árið 1974 með laginu Waterloo","Dancing Queen var eina lagið þeirra sem náði efsta sæti í Bandaríkjunum","Árið 2022 hófust tónleikar í London þar sem stafrænar útgáfur af þeim, „ABBAtarar“, koma fram"],
-  videos:[{id:"xFrGuyw1V8s", title:"Dancing Queen"}],
-  pop:["Söngleikurinn og kvikmyndin Mamma Mia! eru byggð á lögunum þeirra"],
-  works:["Dancing Queen","Waterloo","Mamma Mia"],
-  ask:["Lagið er um 17 ára stelpu á dansgólfinu. Hvernig fær tónlistin fólk til að vilja dansa?"]},
- {id:"donnasummer", name:"Donna Summer", short:"Donna Summer", b:1948, d:2012, y:1977, country:"Bandaríkin", era:"disko", woman:true,
-  intro:"„Drottning diskósins“. Lagið hennar I Feel Love hljómaði eins og tónlist framtíðarinnar.",
-  facts:["Í I Feel Love er nánast allur undirleikurinn gerður með hljóðgervli (synthesizer), sem var nýjung árið 1977","Sagt er að tónlistarmaðurinn Brian Eno hafi heyrt lagið og sagt: „Þetta er hljómur framtíðarinnar“","Hún söng í söngleiknum Hárinu í Þýskalandi áður en hún sló í gegn","Hún vann fimm Grammy-verðlaun"],
-  videos:[{id:"bHfrdQ8h2Pw", title:"I Feel Love"}],
-  pop:["I Feel Love er oft kallað fyrsta raftónlistarlagið sem allir dönsuðu við"],
-  works:["I Feel Love","Hot Stuff","Last Dance"],
-  ask:["Bassalínan endurtekur sig aftur og aftur. Heyrir þú að hún er gerð í tölvu-hljóðfæri?"],
-  connect:["kraftwerk"]},
- {id:"ramones", name:"Ramones", short:"Ramones", b:1974, d:1996, y:1976, band:true, country:"Bandaríkin", era:"disko",
-  intro:"Pönkhljómsveit frá New York með leðurjakka, rifnar gallabuxur og hröð, stutt lög.",
-  facts:["Allir í hljómsveitinni tóku sér eftirnafnið Ramone, en þeir voru ekki bræður","Lögin þeirra voru oft bara um tvær mínútur og með þremur hljómum","Pönkið sagði að allir gætu stofnað hljómsveit, maður þyrfti ekki að vera snillingur","Þegar þeir spiluðu í London 1976 voru margir í salnum sem stofnuðu svo sínar eigin pönkhljómsveitir"],
-  videos:[{id:"268C3N2dDYk", title:"Blitzkrieg Bop"}],
-  pop:["„Hey! Ho! Let's go!“ er hrópað á íþróttaleikjum og heyrist í mörgum kvikmyndum"],
-  works:["Blitzkrieg Bop","I Wanna Be Sedated"],
-  ask:["Hversu hratt er lagið? Prófaðu að telja slögin á meðan þú hlustar."]},
-
- {id:"kraftwerk", name:"Kraftwerk", short:"Kraftwerk", b:1970, y:1978, band:true, country:"Þýskaland", era:"hipp",
-  intro:"Þýsk hljómsveit frá Düsseldorf sem bjó til raftónlist áður en flestir vissu hvað það var.",
-  facts:["Þeir smíðuðu sum hljóðfærin sín sjálfir","Á sviðinu klæddu þeir sig eins og vélmenni og stundum stóðu vélmennabrúður í stað þeirra","Rappararnir í New York notuðu lög Kraftwerk og þannig hjálpaði hljómsveitin til við að búa til hipphopp og teknó","Nafnið þýðir „orkuver“ eða „rafstöð“"],
-  videos:[{id:"vpTRDY5XkrY", title:"The Robots (Vélmennin)"}],
-  pop:["Nánast öll raftónlist sem þú heyrir í dag á rætur að rekja til Kraftwerk"],
-  works:["The Robots","Autobahn","Trans-Europe Express"],
-  ask:["Hvaða hljóð í laginu minna þig á vélmenni?"],
-  connect:["donnasummer","daftpunk"]},
- {id:"mj", name:"Michael Jackson", short:"Michael Jackson", b:1958, d:2009, y:1982, country:"Bandaríkin", era:"hipp",
-  intro:"„Konungur poppsins“. Söngvari og dansari sem breytti tónlistarmyndböndum og dansi um allan heim.",
-  facts:["Hann byrjaði að syngja barnungur með bræðrum sínum í hljómsveitinni Jackson 5","Thriller er söluhæsta plata allra tíma","Hann sýndi „moonwalk“-dansinn í fyrsta sinn þegar hann söng Billie Jean í sjónvarpi árið 1983","Hann var frægur fyrir einn glitrandi hanska"],
-  videos:[{id:"Zi_XLOBDo_Y", title:"Billie Jean"}],
-  pop:["Krakkar um allan heim reyna enn að læra „moonwalk“-dansinn hans"],
-  works:["Billie Jean","Thriller","Beat It"],
-  ask:["Byrjunin á Billie Jean er bara trommur og bassi. Hvaða hljóðfæri bætast svo við?"]},
- {id:"madonna", name:"Madonna", short:"Madonna", b:1958, y:1984, country:"Bandaríkin", era:"hipp", woman:true,
-  intro:"„Drottning poppsins“. Hún var þekkt fyrir að breyta sífellt um stíl, útlit og tónlist.",
-  facts:["Hún flutti til New York sem ung kona með nánast enga peninga og ætlaði að verða dansari","Hún er söluhæsta tónlistarkona sögunnar samkvæmt heimsmetabók Guinness","Í Vogue sýnir hún dansstíl sem varð til á dansleikjum í New York","Hún skipti svo oft um útlit að fólk beið spennt eftir að sjá hver hún yrði næst"],
-  videos:[{id:"GuJQSAiODqI", title:"Vogue"}],
-  pop:["Margar poppstjörnur í dag segja að Madonna hafi rutt brautina fyrir þær"],
-  works:["Vogue","Like a Prayer","Material Girl"],
-  ask:["Hvernig passar dansinn í myndbandinu við taktinn í laginu?"]},
- {id:"rundmc", name:"Run-DMC", short:"Run-DMC", b:1981, d:2002, y:1986, band:true, country:"Bandaríkin", era:"hipp",
-  intro:"Rapphópur frá New York sem kom hipphoppinu út til alls heimsins.",
-  facts:["Þeir voru fyrsti rapphópurinn sem fékk myndbandið sitt reglulega sýnt á MTV","Í Walk This Way rappa þeir með rokkhljómsveitinni Aerosmith. Í myndbandinu brjóta þeir vegginn á milli rokks og rapps, bókstaflega!","Þeir sömdu lagið My Adidas og urðu fyrstu rappararnir með stóran auglýsingasamning","Plötusnúðurinn þeirra, Jam Master Jay, notaði plötuspilarana eins og hljóðfæri"],
-  videos:[{id:"4B_UYYPb-Gk", title:"Walk This Way (með Aerosmith)"}],
-  pop:["Adidas-skór án reima og svartir hattar urðu tískan sem fylgdi hipphoppinu"],
-  works:["Walk This Way","It's Tricky","My Adidas"],
-  ask:["Í laginu mætast rokk og rapp. Hvaða hlutar eru rokk og hvaða hlutar eru rapp?"],
-  connect:["jamesbrown"]},
- {id:"nirvana", name:"Nirvana", short:"Nirvana", b:1987, d:1994, y:1991, band:true, country:"Bandaríkin", era:"hipp",
-  intro:"Hljómsveit frá Seattle sem gerði gruggrokk (grunge) heimsfrægt.",
-  facts:["Platan Nevermind ýtti sjálfum Michael Jackson úr efsta sæti vinsældalistans í janúar 1992","Smells Like Teen Spirit skiptist á milli lágværra erinda og hávaðasamra viðlaga","Trommarinn Dave Grohl stofnaði seinna hljómsveitina Foo Fighters","Á plötuumslaginu er ungbarn að synda á eftir peningaseðli"],
-  videos:[{id:"hTWKbfoikeg", title:"Smells Like Teen Spirit"}],
-  pop:["Gítarriffið í Smells Like Teen Spirit er eitt það fyrsta sem margir læra á rafgítar"],
-  works:["Smells Like Teen Spirit","Come as You Are"],
-  ask:["Hlustaðu eftir styrkleikabreytingunum. Hvenær er lagið lágvært og hvenær hávært?"]},
- {id:"daftpunk", name:"Daft Punk", short:"Daft Punk", b:1993, d:2021, y:1997, band:true, country:"Frakkland", era:"hipp",
-  intro:"Franskur raftónlistardúett sem faldi andlitin sín á bak við vélmennahjálma.",
-  facts:["Thomas Bangalter og Guy-Manuel de Homem-Christo komu nánast aldrei fram án hjálmanna","Í Around the World eru orðin „around the world“ endurtekin 144 sinnum í lengri útgáfunni","Í myndbandinu táknar hver hópur dansara eitt hljóðfæri: beinagrindur eru gítarinn, íþróttamenn bassinn og vélmennin söngurinn","Þeir sömdu tónlistina við kvikmyndina Tron: Legacy"],
-  videos:[{id:"K0HSD_i2DvA", title:"Around the World"}],
-  pop:["Get Lucky frá 2013 var spilað alls staðar og vann Grammy-verðlaun fyrir lag ársins"],
-  works:["Around the World","One More Time","Get Lucky"],
-  ask:["Fylgstu með dönsurunum. Hvaða hópur fylgir bassanum og hvaða hópur trommunum?"],
-  connect:["kraftwerk"]},
-
- {id:"beyonce", name:"Beyoncé", short:"Beyoncé", b:1981, y:2008, country:"Bandaríkin", era:"nyold", woman:true,
-  intro:"Söngkona, dansari og lagahöfundur frá Texas, ein stærsta stjarna 21. aldarinnar.",
-  facts:["Hún varð fyrst fræg með stúlknasveitinni Destiny's Child","Hún hefur unnið fleiri Grammy-verðlaun en nokkur annar tónlistarmaður","Myndbandið við Single Ladies er svarthvítt og nánast allt tekið í einni töku","Hún æfir dansinn og sönginn svo mikið að hún getur hlaupið á bretti og sungið á sama tíma"],
-  videos:[{id:"4m1EFMoRFvY", title:"Single Ladies (Put a Ring on It)"}],
-  pop:["Dansinn í Single Ladies hefur verið hermdur eftir af milljónum manna á netinu"],
-  works:["Single Ladies","Crazy in Love","Halo"],
-  ask:["Hvernig passa danshreyfingarnar við taktinn? Getur þú fundið hvar dansinn stoppar í laginu?"]},
- {id:"swift", name:"Taylor Swift", short:"Taylor Swift", b:1989, y:2014, country:"Bandaríkin", era:"nyold", woman:true,
-  intro:"Lagahöfundur og söngkona sem byrjaði í kántrítónlist og varð ein stærsta poppstjarna heims.",
-  facts:["Fjölskyldan hennar flutti til Nashville þegar hún var 14 ára svo hún gæti reynt fyrir sér í tónlist","Hún semur eða er meðhöfundur að öllum lögunum sínum","Eras-tónleikaferðin hennar er tekjuhæsta tónleikaferð sögunnar","Hún tók gömlu plöturnar sínar upp aftur, „Taylor's Version“, til að eiga sjálf tónlistina sína"],
-  videos:[{id:"nfWlot6h_JM", title:"Shake It Off"}],
-  pop:["Á tónleikum hennar í Seattle 2023 hoppuðu aðdáendurnir svo mikið að jarðskjálftamælar námu hreyfinguna"],
-  works:["Shake It Off","Love Story","Anti-Hero"],
-  ask:["Shake It Off þýðir að hrista eitthvað af sér. Um hvað heldur þú að lagið fjalli?"]},
- {id:"sheeran", name:"Ed Sheeran", short:"Ed Sheeran", b:1991, y:2017, country:"England", era:"nyold",
-  intro:"Enskur söngvari og lagahöfundur sem getur fyllt risastóra leikvanga einn með gítar og lykkjupedal.",
-  facts:["Með lykkjupedala (loop pedal) tekur hann upp klapp, gítar og raddir á sviðinu og byggir heilt lag einn síns liðs","Sem unglingur spilaði hann á götum úti og svaf stundum í sófum hjá vinum sínum í London","Shape of You var fyrsta lagið sem náði þremur milljörðum spilana á Spotify","Plöturnar hans heita eftir stærðfræðitáknum: +, ×, ÷, = og −"],
-  videos:[{id:"JGwWNGJdvx8", title:"Shape of You"}],
-  pop:["Shape of You er eitt mest spilaða lag í sögu streymisveitna"],
-  works:["Shape of You","Perfect","Thinking Out Loud"],
-  ask:["Taktinn í Shape of You er hægt að slá á borðið. Getur þú fundið hann?"]},
- {id:"billie", name:"Billie Eilish", short:"Billie Eilish", b:2001, y:2019, country:"Bandaríkin", era:"nyold", woman:true,
-  intro:"Söngkona sem bjó til tónlistina sína með bróður sínum, Finneas, í svefnherberginu hans heima.",
-  facts:["Fyrsta lagið hennar, Ocean Eyes, setti hún á netið 13 ára og það sló óvænt í gegn","Árið 2020, 18 ára, vann hún öll fjögur stærstu Grammy-verðlaunin sama kvöldið, sú yngsta til þess","Hún samdi titillag James Bond-myndarinnar No Time to Die og vann Óskarsverðlaun fyrir","Hún hefur unnið tvenn Óskarsverðlaun, líka fyrir lag úr kvikmyndinni Barbie"],
-  videos:[{id:"DyDfgMOUjCI", title:"bad guy"}],
-  pop:["bad guy sýndi að það þarf ekki stórt hljóðver til að búa til heimsfrægt lag"],
-  works:["bad guy","Ocean Eyes","What Was I Made For?"],
-  ask:["Lagið er tekið upp í svefnherbergi. Hvaða hljóð gætir þú búið til heima hjá þér?"]},
- {id:"bts", name:"BTS", short:"BTS", b:2013, y:2020, band:true, country:"Suður-Kórea", era:"nyold",
-  intro:"Sjö manna strákasveit frá Suður-Kóreu sem gerði K-popp að alheimsæði.",
-  facts:["Dynamite var fyrsta lag kóreskrar hljómsveitar til að ná efsta sæti bandaríska vinsældalistans","Þeir hafa haldið ræðu hjá Sameinuðu þjóðunum","Aðdáendurnir kallast ARMY og eru milljónir um allan heim","Í K-poppi æfa hljómsveitirnar dans og söng í mörg ár áður en þær byrja"],
-  videos:[{id:"gdZLi9oWNZg", title:"Dynamite"}],
-  pop:["Dansinn í Dynamite hefur verið lærður og dansaður af fólki um allan heim"],
-  works:["Dynamite","Butter"],
-  ask:["Dynamite minnir á diskó frá 8. áratugnum. Heyrir þú líkindin við ABBA eða Donnu Summer?"],
-  connect:["abba","donnasummer"]},
-
- {id:"haukur", name:"Haukur Morthens", short:"Haukur Morthens", about:"Hauk Morthens", b:1924, d:1992, y:1955, country:"Ísland", era:"island",
-  intro:"Einn vinsælasti dægurlagasöngvari Íslands um áratugaskeið. Lögin hans eru enn sungin um allt land.",
-  facts:["Hann söng inn á fjölda platna og var stjarna í danshúsum Reykjavíkur","Lagið Ó borg mín borg, um Reykjavík, samdi hann sjálfur","Hæ mambó er íslensk útgáfa af erlendu dægurlagi, og Haukur gerði það að sínu","Tónlistarmaðurinn Bubbi Morthens er bróðursonur hans"],
-  videos:[{id:"oWGTr-wSYDA", title:"Hæ mambó"},{id:"6B5mZWQEAr0", title:"Til eru fræ"}],
-  pop:["Lögin hans eru sungin á mannamótum og í útilegum enn í dag"],
-  works:["Hæ mambó","Til eru fræ","Ó borg mín borg"],
-  ask:["Hvernig hljómar þessi tónlist í samanburði við rokkið sem kom nokkrum árum seinna?"]},
- {id:"hljomar", name:"Hljómar", short:"Hljómar", about:"Hljóma", b:1963, d:1969, y:1965, band:true, country:"Ísland", era:"island",
-  intro:"Bítlahljómsveit frá Keflavík sem var kölluð „Íslensku Bítlarnir“.",
-  facts:["Í Keflavík heyrðu strákarnir rokk og ról í útvarpi bandarísku herstöðvarinnar áður en það barst til annarra Íslendinga","Gunnar Þórðarson, einn af stofnendunum, varð einn afkastamesti lagahöfundur Íslands","Þeir gáfu líka út plötu á ensku undir nafninu Thor's Hammer","Rúnar Júlíusson, bassaleikarinn, var kallaður „Herra rokk“"],
-  videos:[{id:"ROvbaQ_dUiQ", title:"Bláu augun þín"}],
-  pop:["Bláu augun þín eftir Gunnar Þórðarson er eitt þekktasta íslenska dægurlag allra tíma"],
-  works:["Bláu augun þín","Fyrsti kossinn"],
-  ask:["Hlustaðu á Bítlana og svo á Hljóma. Heyrir þú hvað þeir eiga sameiginlegt?"],
-  connect:["beatles"]},
- {id:"studmenn", name:"Stuðmenn", short:"Stuðmenn", b:1970, y:1975, band:true, country:"Ísland", era:"island",
-  intro:"Ein ástsælasta hljómsveit Íslands, full af húmor, glensi og grípandi lögum.",
-  facts:["Hljómsveitin byrjaði sem nemendahljómsveit í Menntaskólanum við Hamrahlíð","Fyrsta platan þeirra, Sumar á Sýrlandi, kom út árið 1975","Kvikmyndin þeirra Með allt á hreinu frá 1982 er ein vinsælasta íslenska kvikmynd sögunnar","Í hljómsveitinni hafa verið margir af þekktustu tónlistarmönnum landsins, til dæmis Ragnhildur Gísladóttir og Egill Ólafsson"],
-  videos:[{id:"TAkfv8O4VMU", title:"Út á stoppistöð"}],
-  pop:["Margir Íslendingar kunna setningar úr Með allt á hreinu utanbókar"],
-  works:["Út á stoppistöð","Ofboðslega frægur","Popplag í G-dúr"],
-  ask:["Stuðmenn syngja oft um hversdagslega hluti. Um hvaða hversdagslega hlut myndir þú semja lag?"]},
- {id:"bjork", name:"Björk Guðmundsdóttir", short:"Björk", b:1965, y:1995, country:"Ísland", era:"island", woman:true,
-  intro:"Frægasti tónlistarmaður Íslands. Hún er þekkt um allan heim fyrir einstaka rödd, tilraunir og ævintýraleg föt.",
-  facts:["Hún gaf út sína fyrstu plötu aðeins 11 ára gömul","Hún sló fyrst í gegn erlendis með hljómsveitinni Sykurmolunum og laginu Birthday","Á Óskarsverðlaununum 2001 mætti hún í kjól sem leit út eins og svanur","Platan Biophilia var líka smáforrit, og út frá henni urðu til tónlistarsmiðjur fyrir börn í skólum"],
-  videos:[{id:"htobTBlCvUU", title:"It's Oh So Quiet"}],
-  pop:["It's Oh So Quiet er gamalt lag frá 1951 sem hún gerði heimsfrægt aftur"],
-  works:["It's Oh So Quiet","Human Behaviour","Army of Me"],
-  ask:["Lagið skiptist á milli hljóðlátra og hávaðasamra kafla. Réttu upp hönd í hvert sinn sem það verður hávært!"]},
- {id:"sigurros", name:"Sigur Rós", short:"Sigur Rós", b:1994, y:1999, band:true, country:"Ísland", era:"island",
-  intro:"Íslensk hljómsveit sem býr til draumkennda tónlist sem fólk um allan heim tengir við íslenska náttúru.",
-  facts:["Söngvarinn Jónsi spilar á rafmagnsgítar með sellóboga","Sum lögin þeirra eru sungin á „vonlensku“, bulltungumáli sem hljómar eins og íslenska","Hoppípolla þýðir að hoppa í pollum","Platan Ágætis byrjun frá 1999 gerði þá fræga um allan heim"],
-  videos:[{id:"JAYb8ZyjzD0", title:"Hoppípolla"}],
-  pop:["Hoppípolla var notað í kynningu á náttúrulífsþáttunum Planet Earth og í ótal auglýsingum"],
-  works:["Hoppípolla","Svefn-g-englar","Glósóli"],
-  ask:["Hvernig náttúru sérð þú fyrir þér þegar þú hlustar?"]},
- {id:"omam", name:"Of Monsters and Men", short:"Of Monsters and Men", b:2010, y:2011, band:true, country:"Ísland", era:"island",
-  intro:"Íslensk þjóðlagapopp-hljómsveit sem vann Músíktilraunir og sló svo í gegn um allan heim.",
-  facts:["Hljómsveitin vann Músíktilraunir árið 2010","Little Talks náði efsta sæti á vinsældalista óháðrar tónlistar í Bandaríkjunum","Í laginu syngja Nanna Bryndís og Ragnar eins og þau séu að tala saman","Lúðrarnir og „hey!“-hrópin gera lagið að algjöru samsöngslagi"],
-  videos:[{id:"_adqP8Ks4iU", title:"Little Talks"}],
-  pop:["Little Talks hefur verið spilað milljónir sinnum og heyrist í auglýsingum og sjónvarpsþáttum"],
-  works:["Little Talks","Dirty Paws","King and Lionheart"],
-  ask:["Tvær raddir skiptast á. Getur þú heyrt hvenær hvor syngur?"]},
- {id:"laufey", name:"Laufey", short:"Laufey", about:"Laufeyju", b:1999, y:2023, country:"Ísland", era:"island", woman:true,
-  intro:"Íslensk söngkona, sellóleikari og lagahöfundur sem blandar saman djassi, klassík og poppi.",
-  facts:["Hún lék einleik á selló með Sinfóníuhljómsveit Íslands sem unglingur","Faðir hennar er íslenskur og móðir hennar er kínversk og fiðluleikari","Hún vann Grammy-verðlaun árið 2024 fyrir plötuna Bewitched","Stórar fyrirmyndir hennar eru gömlu djasssöngkonurnar, eins og Ella Fitzgerald"],
-  videos:[{id:"lSD_L-xic9o", title:"From The Start"}],
-  pop:["Hún hefur fengið milljónir ungs fólks til að hlusta á djass og klassíska tónlist"],
-  works:["From The Start","Valentine","Falling Behind"],
-  ask:["From The Start er í bossanóva-takti frá Brasilíu. Hvernig er hann ólíkur poppi?"],
-  connect:["ella"]}
+ {
+  "id": "bessie",
+  "name": "Bessie Smith",
+  "short": "Bessie Smith",
+  "b": 1894,
+  "d": 1937,
+  "y": 1923,
+  "country": "Bandaríkin",
+  "era": "blus",
+  "woman": true,
+  "intro": "Bandarísk blússöngkona sem var kölluð „keisaraynja blússins“. Á 3. áratugnum var hún ein vinsælasta söngkona Bandaríkjanna.",
+  "facts": [
+   "Sem barn söng hún og dansaði á götuhornum í Chattanooga á meðan bróðir hennar spilaði á gítar",
+   "Fyrsta platan hennar seldist í hundruðum þúsunda eintaka árið 1923, sem var gríðarlegt á þeim tíma",
+   "Ungur trompetleikari að nafni Louis Armstrong spilaði með henni á upptöku af St. Louis Blues",
+   "Stuttmyndin St. Louis Blues frá 1929 er eina kvikmyndin sem hún lék í"
+  ],
+  "videos": [
+   {
+    "id": "S1qqB9l7RQM",
+    "title": "St. Louis Blues (kvikmynd frá 1929)"
+   }
+  ],
+  "pop": [
+   "Rokksöngkonan Janis Joplin dáði hana svo mikið að hún hjálpaði til við að kaupa legstein á gröf hennar"
+  ],
+  "works": [
+   "St. Louis Blues",
+   "Downhearted Blues"
+  ],
+  "ask": [
+   "Blús fjallar oft um sorgir. Heyrir þú það í röddinni hennar?"
+  ],
+  "connect": [
+   "armstrong"
+  ]
+ },
+ {
+  "id": "armstrong",
+  "name": "Louis Armstrong",
+  "short": "Louis Armstrong",
+  "b": 1901,
+  "d": 1971,
+  "y": 1925,
+  "country": "Bandaríkin",
+  "era": "blus",
+  "intro": "Trompetleikari og söngvari frá New Orleans, fæðingarstað djassins. Hann er einn áhrifamesti tónlistarmaður 20. aldar.",
+  "facts": [
+   "Hann ólst upp við mikla fátækt og lærði á kornett á heimili fyrir drengi",
+   "Hann var kallaður „Satchmo“ og var frægur fyrir stóra brosið og hrjúfu röddina",
+   "Sagt er að hann hafi misst textablaðið í upptöku og byrjað að syngja bull-atkvæði í staðinn. Það kallast „scat“-söngur",
+   "Árið 1964 ýtti lagið hans Hello, Dolly! Bítlunum úr efsta sæti vinsældalistans í Bandaríkjunum"
+  ],
+  "videos": [
+   {
+    "id": "0NlfQdH5MSg",
+    "title": "What a Wonderful World"
+   }
+  ],
+  "pop": [
+   "What a Wonderful World heyrist í ótal kvikmyndum, auglýsingum og sjónvarpsþáttum"
+  ],
+  "works": [
+   "What a Wonderful World",
+   "Hello, Dolly!"
+  ],
+  "ask": [
+   "Lagið fjallar um allt það fallega í heiminum. Hvað myndir þú setja í svona lag?"
+  ],
+  "connect": [
+   "bessie",
+   "ella"
+  ]
+ },
+ {
+  "id": "ellington",
+  "name": "Duke Ellington",
+  "short": "Duke Ellington",
+  "b": 1899,
+  "d": 1974,
+  "y": 1927,
+  "country": "Bandaríkin",
+  "era": "blus",
+  "intro": "Píanóleikari, tónskáld og stjórnandi einnar frægustu stórsveitar djassins. Hann samdi yfir þúsund verk.",
+  "facts": [
+   "Hann fékk viðurnefnið „Duke“ (hertoginn) sem strákur af því að hann var alltaf svo fínn og kurteis",
+   "Hljómsveitin hans spilaði árum saman í Cotton Club í Harlem í New York",
+   "Hann vildi helst ekki tala um „djass“, heldur einfaldlega „bandaríska tónlist“",
+   "Take the A Train samdi vinur hans, Billy Strayhorn. Lagið fjallar um A-neðanjarðarlestina sem fór til Harlem"
+  ],
+  "videos": [
+   {
+    "id": "cb2w2m1JmCY",
+    "title": "Take the „A“ Train"
+   }
+  ],
+  "pop": [
+   "Stórsveitardjass eins og hans var dansmúsík síns tíma, svipað og popptónlist í dag"
+  ],
+  "works": [
+   "Take the A Train",
+   "It Don't Mean a Thing"
+  ],
+  "ask": [
+   "Í stórsveit eru margir blásarar. Getur þú heyrt hvenær trompetarnir og saxófónarnir skiptast á?"
+  ]
+ },
+ {
+  "id": "rjohnson",
+  "name": "Robert Johnson",
+  "short": "Robert Johnson",
+  "b": 1911,
+  "d": 1938,
+  "y": 1936,
+  "country": "Bandaríkin",
+  "era": "blus",
+  "intro": "Blúsgítarleikari og söngvari frá Mississippi. Hann tók aðeins upp 29 lög, en þau breyttu tónlistarsögunni.",
+  "facts": [
+   "Gömul þjóðsaga segir að hann hafi hitt djöfulinn á krossgötum og selt honum sálina sína í skiptum fyrir gítarsnilli",
+   "Aðeins örfáar ljósmyndir eru til af honum",
+   "Hann spilaði á gítarinn eins og tveir væru að spila í einu: bassalínu og laglínu",
+   "Rolling Stones, Eric Clapton og fleiri rokkstjörnur hafa sagt að hann sé ein stærsta fyrirmynd þeirra"
+  ],
+  "videos": [
+   {
+    "id": "Ug0ZRSbmCRM",
+    "title": "Sweet Home Chicago (1936)"
+   }
+  ],
+  "pop": [
+   "Sweet Home Chicago varð frægt aftur í kvikmyndinni The Blues Brothers"
+  ],
+  "works": [
+   "Sweet Home Chicago",
+   "Cross Road Blues"
+  ],
+  "ask": [
+   "Teldu hljómana. Blús notar oft bara þrjá hljóma. Heyrir þú hvenær þeir skipta?"
+  ],
+  "connect": [
+   "stones"
+  ]
+ },
+ {
+  "id": "ella",
+  "name": "Ella Fitzgerald",
+  "short": "Ella Fitzgerald",
+  "b": 1917,
+  "d": 1996,
+  "y": 1938,
+  "country": "Bandaríkin",
+  "era": "blus",
+  "woman": true,
+  "intro": "Ein besta djasssöngkona allra tíma, kölluð „forsetafrú söngsins“. Hún gat sungið nánast hvað sem er.",
+  "facts": [
+   "Hún ætlaði að dansa í hæfileikakeppni 17 ára gömul en varð svo stressuð að hún söng í staðinn. Hún vann!",
+   "Hún var fyrsta svarta konan til að vinna Grammy-verðlaun",
+   "Á tónleikum í Berlín 1960 gleymdi hún textanum í Mack the Knife og bjó bara til nýjan texta á staðnum. Hún fékk Grammy fyrir upptökuna",
+   "Hún var snillingur í „scat“-söng, þar sem röddin hljómar eins og hljóðfæri"
+  ],
+  "videos": [
+   {
+    "id": "M0mXle68qGM",
+    "title": "Mack the Knife (Berlín 1960)"
+   }
+  ],
+  "pop": [
+   "Margir söngvarar í dag, til dæmis Laufey, segja að Ella sé ein stærsta fyrirmynd þeirra"
+  ],
+  "works": [
+   "Mack the Knife",
+   "A-Tisket, A-Tasket"
+  ],
+  "ask": [
+   "Hún gleymdi textanum. Getur þú heyrt hvar hún byrjar að spinna?"
+  ],
+  "connect": [
+   "armstrong",
+   "laufey"
+  ]
+ },
+ {
+  "id": "tharpe",
+  "name": "Sister Rosetta Tharpe",
+  "short": "Rosetta Tharpe",
+  "b": 1915,
+  "d": 1973,
+  "y": 1944,
+  "country": "Bandaríkin",
+  "era": "rokk",
+  "woman": true,
+  "intro": "Gospelsöngkona og gítarsnillingur sem er kölluð „guðmóðir rokksins“. Hún spilaði á rafmagnsgítar áður en rokkið varð til.",
+  "facts": [
+   "Hún byrjaði að spila á gítar fjögurra ára gömul og kom fram í kirkjum með móður sinni",
+   "Elvis Presley, Chuck Berry, Little Richard og Johnny Cash hlustuðu allir á hana",
+   "Myndbandið er frá 1964 þegar hún spilaði á yfirgefinni lestarstöð í Manchester á Englandi, í rigningu!",
+   "Árið 2018 var hún loksins tekin inn í Frægðarhöll rokksins"
+  ],
+  "videos": [
+   {
+    "id": "jGPx4ancGhg",
+    "title": "Didn't It Rain (Manchester 1964)"
+   }
+  ],
+  "pop": [
+   "Saga hennar gleymdist lengi en nú vita fleiri að rokkið á henni mikið að þakka"
+  ],
+  "works": [
+   "Didn't It Rain",
+   "Strange Things Happening Every Day"
+  ],
+  "ask": [
+   "Lagið heitir „Rigndi ekki?“ og það rigndi á tónleikunum. Hvernig myndir þú lýsa gítarleiknum hennar?"
+  ],
+  "connect": [
+   "elvis",
+   "berry",
+   "littlerichard"
+  ]
+ },
+ {
+  "id": "berry",
+  "name": "Chuck Berry",
+  "short": "Chuck Berry",
+  "b": 1926,
+  "d": 2017,
+  "y": 1955,
+  "country": "Bandaríkin",
+  "era": "rokk",
+  "intro": "Gítarleikari og lagasmiður sem bjó til hljóm rokksins. Gítarriffin hans eru spiluð af gítarleikurum um allan heim.",
+  "facts": [
+   "Hann var frægur fyrir „andagönguna“: hann hoppaði á öðrum fæti um sviðið á meðan hann spilaði",
+   "Johnny B. Goode er á gullplötunni í geimförunum Voyager sem eru nú komin út fyrir sólkerfið okkar",
+   "John Lennon sagði: „Ef þú ætlaðir að gefa rokkinu annað nafn myndir þú kalla það Chuck Berry“",
+   "Hann samdi lög um það sem unglingar höfðu áhuga á: bíla, skóla og dans"
+  ],
+  "videos": [
+   {
+    "id": "aKCt8ssC7cs",
+    "title": "Johnny B. Goode"
+   }
+  ],
+  "pop": [
+   "Í kvikmyndinni Aftur til framtíðar (Back to the Future) spilar Marty McFly Johnny B. Goode"
+  ],
+  "works": [
+   "Johnny B. Goode",
+   "Roll Over Beethoven"
+  ],
+  "ask": [
+   "Byrjunin á laginu er eitt frægasta gítarriff sögunnar. Getur þú klappað taktinn með?"
+  ],
+  "connect": [
+   "beatles",
+   "stones"
+  ]
+ },
+ {
+  "id": "littlerichard",
+  "name": "Little Richard",
+  "short": "Little Richard",
+  "b": 1932,
+  "d": 2020,
+  "y": 1955,
+  "country": "Bandaríkin",
+  "era": "rokk",
+  "intro": "Píanóleikari og söngvari með ótrúlega orku. Hann öskraði, hamraði á píanóið og stóð oft við það á meðan hann spilaði.",
+  "facts": [
+   "Tutti Frutti byrjar á frægu bulli: „A-wop-bop-a-loo-bop-a-lop-bam-boom!“",
+   "Sagt er að hann hafi fengið hugmyndina á meðan hann vaskaði upp á rútustöð",
+   "Bítlarnir hituðu upp fyrir hann árið 1962 og Paul McCartney lærði frægu „wooo“-öskrin af honum",
+   "Hann var með háa hárgreiðslu, farða og glitrandi föt, sem þótti ótrúlega djarft á 6. áratugnum"
+  ],
+  "videos": [
+   {
+    "id": "F13JNjpNW6c",
+    "title": "Tutti Frutti"
+   }
+  ],
+  "pop": [
+   "Tutti Frutti er oft nefnt sem eitt mikilvægasta rokklag allra tíma"
+  ],
+  "works": [
+   "Tutti Frutti",
+   "Long Tall Sally"
+  ],
+  "ask": [
+   "Hvernig hljómar píanóið? Er það rólegt eða villt?"
+  ],
+  "connect": [
+   "beatles"
+  ]
+ },
+ {
+  "id": "elvis",
+  "name": "Elvis Presley",
+  "short": "Elvis",
+  "b": 1935,
+  "d": 1977,
+  "y": 1956,
+  "country": "Bandaríkin",
+  "era": "rokk",
+  "intro": "„Konungur rokksins“. Elvis gerði rokk og ról að æði um allan heim og varð ein stærsta stjarna sögunnar.",
+  "facts": [
+   "Hann langaði í reiðhjól í 11 ára afmælisgjöf en fékk gítar í staðinn",
+   "Mjaðmahreyfingarnar hans þóttu svo hneykslanlegar að í einum sjónvarpsþætti var hann bara sýndur fyrir ofan mitti",
+   "Dansinn í Jailhouse Rock er úr kvikmynd frá 1957 og er eitt frægasta dansatriði rokksögunnar",
+   "Hann átti tvíburabróður sem dó við fæðingu"
+  ],
+  "videos": [
+   {
+    "id": "gj0Rz-uP4Mk",
+    "title": "Jailhouse Rock"
+   }
+  ],
+  "pop": [
+   "Elvis-eftirhermur eru til um allan heim og í Las Vegas er hægt að láta „Elvis“ gifta sig"
+  ],
+  "works": [
+   "Jailhouse Rock",
+   "Hound Dog",
+   "Heartbreak Hotel"
+  ],
+  "ask": [
+   "Af hverju heldur þú að foreldrar hafi verið hneykslaðir á Elvis en unglingar elskað hann?"
+  ],
+  "connect": [
+   "tharpe"
+  ]
+ },
+ {
+  "id": "holly",
+  "name": "Buddy Holly",
+  "short": "Buddy Holly",
+  "b": 1936,
+  "d": 1959,
+  "y": 1957,
+  "country": "Bandaríkin",
+  "era": "rokk",
+  "intro": "Rokkari með stór gleraugu sem samdi lögin sín sjálfur. Hljómsveitin hans var fyrirmynd að ótal hljómsveitum.",
+  "facts": [
+   "Hljómsveitin hans, The Crickets (Krybburnar), var með tvo gítara, bassa og trommur. Það varð hin klassíska rokkhljómsveit",
+   "Bítlarnir völdu nafnið sitt meðal annars út frá Krybbunum: bjöllur í stað krybba",
+   "Peggy Sue heitir eftir kærustu trommarans",
+   "Hann var aðeins 22 ára þegar hann lést í flugslysi árið 1959"
+  ],
+  "videos": [
+   {
+    "id": "_qQzuvfvBdE",
+    "title": "Peggy Sue (í sjónvarpi)"
+   }
+  ],
+  "pop": [
+   "Dagurinn sem hann lést er kallaður „dagurinn sem tónlistin dó“ í laginu American Pie"
+  ],
+  "works": [
+   "Peggy Sue",
+   "That'll Be the Day"
+  ],
+  "ask": [
+   "Trommurnar í Peggy Sue spila nánast allan tímann sama mynstrið. Getur þú trommað það á borðið?"
+  ],
+  "connect": [
+   "beatles"
+  ]
+ },
+ {
+  "id": "beatles",
+  "name": "The Beatles",
+  "short": "Bítlarnir",
+  "about": "Bítlana",
+  "b": 1960,
+  "d": 1970,
+  "y": 1962,
+  "band": true,
+  "country": "England",
+  "era": "bitlar",
+  "intro": "Fjórir strákar frá Liverpool, John, Paul, George og Ringo, sem urðu vinsælasta hljómsveit sögunnar.",
+  "facts": [
+   "Æðið í kringum þá var kallað „Bítlaæðið“. Aðdáendurnir öskruðu svo hátt að hljómsveitin heyrði ekki í sjálfri sér",
+   "Árið 1964 horfðu um 73 milljónir manna á þá í bandarísku sjónvarpi",
+   "Þeir lærðu aldrei að lesa nótur almennilega en sömdu samt hundruð laga",
+   "Síðustu tónleikarnir þeirra voru óvæntir, uppi á þaki í London árið 1969",
+   "Here Comes the Sun samdi George Harrison einn sólríkan dag í garði vinar síns"
+  ],
+  "videos": [
+   {
+    "id": "KQetemT1sWc",
+    "title": "Here Comes the Sun"
+   }
+  ],
+  "pop": [
+   "Yesterday er eitt þeirra laga sem flestir hafa tekið upp í sinni eigin útgáfu"
+  ],
+  "works": [
+   "Here Comes the Sun",
+   "Yellow Submarine",
+   "Hey Jude",
+   "Yesterday"
+  ],
+  "ask": [
+   "Lagið fjallar um að vorið sé að koma eftir langan vetur. Heyrir þú það í tónlistinni?"
+  ],
+  "connect": [
+   "holly",
+   "littlerichard",
+   "hljomar"
+  ]
+ },
+ {
+  "id": "beachboys",
+  "name": "The Beach Boys",
+  "short": "Beach Boys",
+  "b": 1961,
+  "y": 1962,
+  "band": true,
+  "country": "Bandaríkin",
+  "era": "bitlar",
+  "intro": "Hljómsveit frá Kaliforníu sem söng um sól, brimbretti og bíla, með ótrúlegum raddútsetningum.",
+  "facts": [
+   "Í hljómsveitinni voru bræðurnir Brian, Dennis og Carl Wilson ásamt frænda þeirra og vini",
+   "Aðeins einn þeirra, Dennis, kunni í raun á brimbretti",
+   "Good Vibrations var tekið upp í mörgum hlutum í mörgum hljóðverum og það tók marga mánuði",
+   "Undarlega flautuhljóðið í Good Vibrations kemur úr rafmagnshljóðfæri skyldu þereminu"
+  ],
+  "videos": [
+   {
+    "id": "apBWI6xrbLY",
+    "title": "Good Vibrations"
+   }
+  ],
+  "pop": [
+   "Paul McCartney hefur sagt að God Only Knows sé eitt besta lag sem samið hefur verið"
+  ],
+  "works": [
+   "Good Vibrations",
+   "Surfin' USA",
+   "God Only Knows"
+  ],
+  "ask": [
+   "Hlustaðu eftir röddunum. Hversu margar raddir syngja saman í einu?"
+  ],
+  "connect": [
+   "beatles"
+  ]
+ },
+ {
+  "id": "dylan",
+  "name": "Bob Dylan",
+  "short": "Bob Dylan",
+  "b": 1941,
+  "y": 1963,
+  "country": "Bandaríkin",
+  "era": "bitlar",
+  "intro": "Söngvaskáld sem breytti því hvað popplög gátu fjallað um. Textarnir hans eru eins og ljóð.",
+  "facts": [
+   "Hann heitir í raun Robert Zimmerman",
+   "Árið 2016 fékk hann Nóbelsverðlaunin í bókmenntum, fyrstur tónlistarmanna",
+   "Hann spilar á gítar og munnhörpu á sama tíma, með munnhörpuna í grind um hálsinn",
+   "Þegar hann skipti yfir í rafmagnsgítar á þjóðlagahátíð árið 1965 bauluðu sumir áhorfendur á hann"
+  ],
+  "videos": [
+   {
+    "id": "MMFj8uDubsE",
+    "title": "Blowin' in the Wind"
+   }
+  ],
+  "pop": [
+   "Blowin' in the Wind varð söngur réttindabaráttu svartra í Bandaríkjunum"
+  ],
+  "works": [
+   "Blowin' in the Wind",
+   "The Times They Are a-Changin'"
+  ],
+  "ask": [
+   "Lagið spyr margra spurninga. Hvaða spurningu myndir þú spyrja í lagi?"
+  ]
+ },
+ {
+  "id": "aretha",
+  "name": "Aretha Franklin",
+  "short": "Aretha Franklin",
+  "b": 1942,
+  "d": 2018,
+  "y": 1967,
+  "country": "Bandaríkin",
+  "era": "bitlar",
+  "woman": true,
+  "intro": "„Drottning sálartónlistarinnar“ (soul). Ein kraftmesta söngrödd sögunnar.",
+  "facts": [
+   "Hún byrjaði að syngja í kirkju föður síns í Detroit",
+   "Respect var upphaflega eftir Otis Redding, en hún bætti við „R-E-S-P-E-C-T“ og gerði lagið að sínu",
+   "Árið 1987 varð hún fyrsta konan sem var tekin inn í Frægðarhöll rokksins",
+   "Hún söng við embættistöku Baracks Obama Bandaríkjaforseta árið 2009"
+  ],
+  "videos": [
+   {
+    "id": "U0yIf9Tkgu4",
+    "title": "Respect"
+   }
+  ],
+  "pop": [
+   "Respect er notað í ótal kvikmyndum og varð baráttusöngur kvenna og mannréttinda"
+  ],
+  "works": [
+   "Respect",
+   "Think",
+   "(You Make Me Feel Like) A Natural Woman"
+  ],
+  "ask": [
+   "Hún stafar orðið R-E-S-P-E-C-T. Hvaða orð myndir þú stafa í lagi?"
+  ]
+ },
+ {
+  "id": "stones",
+  "name": "The Rolling Stones",
+  "short": "Rolling Stones",
+  "b": 1962,
+  "y": 1965,
+  "band": true,
+  "country": "England",
+  "era": "bitlar",
+  "intro": "Rokkhljómsveit frá London sem hefur verið starfandi í yfir 60 ár. Þeir voru „óþekku strákarnir“ á móti snyrtilegu Bítlunum.",
+  "facts": [
+   "Gítarleikarinn Keith Richards vaknaði um miðja nótt með Satisfaction-riffið í höfðinu, tók það upp og sofnaði aftur. Á upptökunni heyrist hann svo hrjóta í 40 mínútur!",
+   "Hljómsveitin heitir eftir blúslagi eftir Muddy Waters",
+   "Tungu- og varamerkið þeirra er eitt frægasta lógó heims",
+   "Mick Jagger og Keith Richards kynntust fyrst sem börn"
+  ],
+  "videos": [
+   {
+    "id": "zhJwSsUGb04",
+    "title": "(I Can't Get No) Satisfaction"
+   }
+  ],
+  "pop": [
+   "Tungumerkið þeirra sést á bolum út um allan heim, líka hjá fólki sem hefur aldrei hlustað á þá"
+  ],
+  "works": [
+   "Satisfaction",
+   "Paint It Black",
+   "Jumpin' Jack Flash"
+  ],
+  "ask": [
+   "Riffið kom í draumi. Hefur þú einhvern tíma fengið lag á heilann sem þú bjóst til sjálf(ur)?"
+  ],
+  "connect": [
+   "rjohnson",
+   "berry"
+  ]
+ },
+ {
+  "id": "hendrix",
+  "name": "Jimi Hendrix",
+  "short": "Jimi Hendrix",
+  "b": 1942,
+  "d": 1970,
+  "y": 1967,
+  "country": "Bandaríkin",
+  "era": "bitlar",
+  "intro": "Af mörgum talinn besti rafgítarleikari allra tíma. Hann lét gítarinn gera hljóð sem enginn hafði heyrt áður.",
+  "facts": [
+   "Hann var örvhentur og spilaði á gítar fyrir rétthenta sem hann sneri á hvolf",
+   "Hann gat spilað með tönnunum og fyrir aftan bak",
+   "Á tónleikum árið 1967 kveikti hann í gítarnum sínum á sviðinu",
+   "Frægðarferill hans stóð aðeins í um fjögur ár"
+  ],
+  "videos": [
+   {
+    "id": "I-PK3sbxvhw",
+    "title": "Purple Haze"
+   }
+  ],
+  "pop": [
+   "Hann lék bandaríska þjóðsönginn á rafgítar á Woodstock-hátíðinni 1969, það er ein frægasta tónleikastund sögunnar"
+  ],
+  "works": [
+   "Purple Haze",
+   "Hey Joe",
+   "All Along the Watchtower"
+  ],
+  "ask": [
+   "Hvaða hljóð gerir gítarinn sem þú hefur ekki heyrt áður?"
+  ]
+ },
+ {
+  "id": "jamesbrown",
+  "name": "James Brown",
+  "short": "James Brown",
+  "b": 1933,
+  "d": 2006,
+  "y": 1965,
+  "country": "Bandaríkin",
+  "era": "disko",
+  "intro": "„Guðfaðir sálartónlistarinnar“ og faðir fönksins. Hann var kallaður duglegasti maðurinn í skemmtanabransanum.",
+  "facts": [
+   "Í fönki leggja allir áherslu á fyrsta slagið í taktinum. James Brown kallaði það „the one“",
+   "Hann var frægur fyrir að dansa, renna sér á hnjánum og þykjast hníga niður á sviðinu áður en hann stökk aftur upp",
+   "Trommutaktar úr lögunum hans eru meðal þeirra sem oftast hafa verið notaðir í hipphoppi",
+   "Hann ólst upp við mikla fátækt og pússaði skó til að eiga fyrir mat"
+  ],
+  "videos": [
+   {
+    "id": "iSLwVaebsJg",
+    "title": "I Got You (I Feel Good)"
+   }
+  ],
+  "pop": [
+   "Öskrið í byrjun I Got You (I Feel Good) heyrist í bíómyndum, teiknimyndum og auglýsingum"
+  ],
+  "works": [
+   "I Got You (I Feel Good)",
+   "Get Up (I Feel Like Being a) Sex Machine"
+  ],
+  "ask": [
+   "Klappaðu á fyrsta slagið í hverjum takti. Heyrir þú hvað bassinn og trommurnar leggja áherslu á það?"
+  ],
+  "connect": [
+   "rundmc"
+  ]
+ },
+ {
+  "id": "stevie",
+  "name": "Stevie Wonder",
+  "short": "Stevie Wonder",
+  "b": 1950,
+  "y": 1972,
+  "country": "Bandaríkin",
+  "era": "disko",
+  "intro": "Söngvari, lagahöfundur og hljóðfæraleikari sem hefur verið blindur frá því skömmu eftir fæðingu. Hann var undrabarn og er í dag goðsögn.",
+  "facts": [
+   "Hann gerði plötusamning aðeins 11 ára gamall og var þá kallaður „Little Stevie Wonder“",
+   "13 ára átti hann lag í efsta sæti bandaríska vinsældalistans",
+   "Í Superstition spilar hann á klavínett, rafmagnshljómborð sem hljómar eins og fönkgítar",
+   "Hann hefur unnið 25 Grammy-verðlaun"
+  ],
+  "videos": [
+   {
+    "id": "_ul7X5js1vE",
+    "title": "Superstition (í Sesame Street 1973)"
+   }
+  ],
+  "pop": [
+   "Hann flutti Superstition í Sesame Street og þar dansa krakkar í kringum hann"
+  ],
+  "works": [
+   "Superstition",
+   "Isn't She Lovely",
+   "Happy Birthday"
+  ],
+  "ask": [
+   "Hvaða hljóðfæri byrjar lagið? Hvernig myndir þú lýsa hljóðinu?"
+  ]
+ },
+ {
+  "id": "queen",
+  "name": "Queen",
+  "short": "Queen",
+  "b": 1970,
+  "y": 1975,
+  "band": true,
+  "country": "England",
+  "era": "disko",
+  "intro": "Ensk rokkhljómsveit með söngvarann Freddie Mercury í broddi fylkingar. Lögin þeirra eru sungin á íþróttaleikjum um allan heim.",
+  "facts": [
+   "Bohemian Rhapsody er um sex mínútur, hefur ekkert viðlag og breytist úr ballöðu í óperu og svo í rokk. Útgáfufyrirtækið hélt að enginn myndi spila það í útvarpi",
+   "Gítarleikarinn Brian May smíðaði gítarinn sinn sjálfur með föður sínum, meðal annars úr gamalli arinhillu",
+   "Brian May er líka doktor í stjarneðlisfræði",
+   "Tónleikar þeirra á Live Aid árið 1985 eru oft kallaðir bestu tónleikar rokksögunnar"
+  ],
+  "videos": [
+   {
+    "id": "fJ9rUzIMcZQ",
+    "title": "Bohemian Rhapsody"
+   }
+  ],
+  "pop": [
+   "We Will Rock You (stapp, stapp, klapp) og We Are the Champions eru sungin á íþróttaleikjum um allan heim"
+  ],
+  "works": [
+   "Bohemian Rhapsody",
+   "We Will Rock You",
+   "Don't Stop Me Now"
+  ],
+  "ask": [
+   "Hversu margir ólíkir hlutar eru í Bohemian Rhapsody? Hvar breytist lagið?"
+  ]
+ },
+ {
+  "id": "abba",
+  "name": "ABBA",
+  "short": "ABBA",
+  "b": 1972,
+  "y": 1974,
+  "band": true,
+  "country": "Svíþjóð",
+  "era": "disko",
+  "intro": "Sænsk popphljómsveit sem sigraði í Eurovision og varð ein vinsælasta hljómsveit heims.",
+  "facts": [
+   "Nafnið er búið til úr fyrstu stöfunum í nöfnunum þeirra: Agnetha, Björn, Benny og Anni-Frid",
+   "Þau unnu Eurovision árið 1974 með laginu Waterloo",
+   "Dancing Queen var eina lagið þeirra sem náði efsta sæti í Bandaríkjunum",
+   "Árið 2022 hófust tónleikar í London þar sem stafrænar útgáfur af þeim, „ABBAtarar“, koma fram"
+  ],
+  "videos": [
+   {
+    "id": "xFrGuyw1V8s",
+    "title": "Dancing Queen"
+   }
+  ],
+  "pop": [
+   "Söngleikurinn og kvikmyndin Mamma Mia! eru byggð á lögunum þeirra"
+  ],
+  "works": [
+   "Dancing Queen",
+   "Waterloo",
+   "Mamma Mia"
+  ],
+  "ask": [
+   "Lagið er um 17 ára stelpu á dansgólfinu. Hvernig fær tónlistin fólk til að vilja dansa?"
+  ]
+ },
+ {
+  "id": "donnasummer",
+  "name": "Donna Summer",
+  "short": "Donna Summer",
+  "b": 1948,
+  "d": 2012,
+  "y": 1977,
+  "country": "Bandaríkin",
+  "era": "disko",
+  "woman": true,
+  "intro": "„Drottning diskósins“. Lagið hennar I Feel Love hljómaði eins og tónlist framtíðarinnar.",
+  "facts": [
+   "Í I Feel Love er nánast allur undirleikurinn gerður með hljóðgervli (synthesizer), sem var nýjung árið 1977",
+   "Sagt er að tónlistarmaðurinn Brian Eno hafi heyrt lagið og sagt: „Þetta er hljómur framtíðarinnar“",
+   "Hún söng í söngleiknum Hárinu í Þýskalandi áður en hún sló í gegn",
+   "Hún vann fimm Grammy-verðlaun"
+  ],
+  "videos": [
+   {
+    "id": "bHfrdQ8h2Pw",
+    "title": "I Feel Love"
+   }
+  ],
+  "pop": [
+   "I Feel Love er oft kallað fyrsta raftónlistarlagið sem allir dönsuðu við"
+  ],
+  "works": [
+   "I Feel Love",
+   "Hot Stuff",
+   "Last Dance"
+  ],
+  "ask": [
+   "Bassalínan endurtekur sig aftur og aftur. Heyrir þú að hún er gerð í tölvu-hljóðfæri?"
+  ],
+  "connect": [
+   "kraftwerk"
+  ]
+ },
+ {
+  "id": "ramones",
+  "name": "Ramones",
+  "short": "Ramones",
+  "b": 1974,
+  "d": 1996,
+  "y": 1976,
+  "band": true,
+  "country": "Bandaríkin",
+  "era": "disko",
+  "intro": "Pönkhljómsveit frá New York með leðurjakka, rifnar gallabuxur og hröð, stutt lög.",
+  "facts": [
+   "Allir í hljómsveitinni tóku sér eftirnafnið Ramone, en þeir voru ekki bræður",
+   "Lögin þeirra voru oft bara um tvær mínútur og með þremur hljómum",
+   "Pönkið sagði að allir gætu stofnað hljómsveit, maður þyrfti ekki að vera snillingur",
+   "Þegar þeir spiluðu í London 1976 voru margir í salnum sem stofnuðu svo sínar eigin pönkhljómsveitir"
+  ],
+  "videos": [
+   {
+    "id": "268C3N2dDYk",
+    "title": "Blitzkrieg Bop"
+   }
+  ],
+  "pop": [
+   "„Hey! Ho! Let's go!“ er hrópað á íþróttaleikjum og heyrist í mörgum kvikmyndum"
+  ],
+  "works": [
+   "Blitzkrieg Bop",
+   "I Wanna Be Sedated"
+  ],
+  "ask": [
+   "Hversu hratt er lagið? Prófaðu að telja slögin á meðan þú hlustar."
+  ]
+ },
+ {
+  "id": "kraftwerk",
+  "name": "Kraftwerk",
+  "short": "Kraftwerk",
+  "b": 1970,
+  "y": 1978,
+  "band": true,
+  "country": "Þýskaland",
+  "era": "hipp",
+  "intro": "Þýsk hljómsveit frá Düsseldorf sem bjó til raftónlist áður en flestir vissu hvað það var.",
+  "facts": [
+   "Þeir smíðuðu sum hljóðfærin sín sjálfir",
+   "Á sviðinu klæddu þeir sig eins og vélmenni og stundum stóðu vélmennabrúður í stað þeirra",
+   "Rappararnir í New York notuðu lög Kraftwerk og þannig hjálpaði hljómsveitin til við að búa til hipphopp og teknó",
+   "Nafnið þýðir „orkuver“ eða „rafstöð“"
+  ],
+  "videos": [
+   {
+    "id": "vpTRDY5XkrY",
+    "title": "The Robots (Vélmennin)"
+   }
+  ],
+  "pop": [
+   "Nánast öll raftónlist sem þú heyrir í dag á rætur að rekja til Kraftwerk"
+  ],
+  "works": [
+   "The Robots",
+   "Autobahn",
+   "Trans-Europe Express"
+  ],
+  "ask": [
+   "Hvaða hljóð í laginu minna þig á vélmenni?"
+  ],
+  "connect": [
+   "donnasummer",
+   "daftpunk"
+  ]
+ },
+ {
+  "id": "mj",
+  "name": "Michael Jackson",
+  "short": "Michael Jackson",
+  "b": 1958,
+  "d": 2009,
+  "y": 1982,
+  "country": "Bandaríkin",
+  "era": "hipp",
+  "intro": "„Konungur poppsins“. Söngvari og dansari sem breytti tónlistarmyndböndum og dansi um allan heim.",
+  "facts": [
+   "Hann byrjaði að syngja barnungur með bræðrum sínum í hljómsveitinni Jackson 5",
+   "Thriller er söluhæsta plata allra tíma",
+   "Hann sýndi „moonwalk“-dansinn í fyrsta sinn þegar hann söng Billie Jean í sjónvarpi árið 1983",
+   "Hann var frægur fyrir einn glitrandi hanska"
+  ],
+  "videos": [
+   {
+    "id": "Zi_XLOBDo_Y",
+    "title": "Billie Jean"
+   }
+  ],
+  "pop": [
+   "Krakkar um allan heim reyna enn að læra „moonwalk“-dansinn hans"
+  ],
+  "works": [
+   "Billie Jean",
+   "Thriller",
+   "Beat It"
+  ],
+  "ask": [
+   "Byrjunin á Billie Jean er bara trommur og bassi. Hvaða hljóðfæri bætast svo við?"
+  ]
+ },
+ {
+  "id": "madonna",
+  "name": "Madonna",
+  "short": "Madonna",
+  "b": 1958,
+  "y": 1984,
+  "country": "Bandaríkin",
+  "era": "hipp",
+  "woman": true,
+  "intro": "„Drottning poppsins“. Hún var þekkt fyrir að breyta sífellt um stíl, útlit og tónlist.",
+  "facts": [
+   "Hún flutti til New York sem ung kona með nánast enga peninga og ætlaði að verða dansari",
+   "Hún er söluhæsta tónlistarkona sögunnar samkvæmt heimsmetabók Guinness",
+   "Í Vogue sýnir hún dansstíl sem varð til á dansleikjum í New York",
+   "Hún skipti svo oft um útlit að fólk beið spennt eftir að sjá hver hún yrði næst"
+  ],
+  "videos": [
+   {
+    "id": "GuJQSAiODqI",
+    "title": "Vogue"
+   }
+  ],
+  "pop": [
+   "Margar poppstjörnur í dag segja að Madonna hafi rutt brautina fyrir þær"
+  ],
+  "works": [
+   "Vogue",
+   "Like a Prayer",
+   "Material Girl"
+  ],
+  "ask": [
+   "Hvernig passar dansinn í myndbandinu við taktinn í laginu?"
+  ]
+ },
+ {
+  "id": "rundmc",
+  "name": "Run-DMC",
+  "short": "Run-DMC",
+  "b": 1981,
+  "d": 2002,
+  "y": 1986,
+  "band": true,
+  "country": "Bandaríkin",
+  "era": "hipp",
+  "intro": "Rapphópur frá New York sem kom hipphoppinu út til alls heimsins.",
+  "facts": [
+   "Þeir voru fyrsti rapphópurinn sem fékk myndbandið sitt reglulega sýnt á MTV",
+   "Í Walk This Way rappa þeir með rokkhljómsveitinni Aerosmith. Í myndbandinu brjóta þeir vegginn á milli rokks og rapps, bókstaflega!",
+   "Þeir sömdu lagið My Adidas og urðu fyrstu rappararnir með stóran auglýsingasamning",
+   "Plötusnúðurinn þeirra, Jam Master Jay, notaði plötuspilarana eins og hljóðfæri"
+  ],
+  "videos": [
+   {
+    "id": "4B_UYYPb-Gk",
+    "title": "Walk This Way (með Aerosmith)"
+   }
+  ],
+  "pop": [
+   "Adidas-skór án reima og svartir hattar urðu tískan sem fylgdi hipphoppinu"
+  ],
+  "works": [
+   "Walk This Way",
+   "It's Tricky",
+   "My Adidas"
+  ],
+  "ask": [
+   "Í laginu mætast rokk og rapp. Hvaða hlutar eru rokk og hvaða hlutar eru rapp?"
+  ],
+  "connect": [
+   "jamesbrown"
+  ]
+ },
+ {
+  "id": "nirvana",
+  "name": "Nirvana",
+  "short": "Nirvana",
+  "b": 1987,
+  "d": 1994,
+  "y": 1991,
+  "band": true,
+  "country": "Bandaríkin",
+  "era": "hipp",
+  "intro": "Hljómsveit frá Seattle sem gerði gruggrokk (grunge) heimsfrægt.",
+  "facts": [
+   "Platan Nevermind ýtti sjálfum Michael Jackson úr efsta sæti vinsældalistans í janúar 1992",
+   "Smells Like Teen Spirit skiptist á milli lágværra erinda og hávaðasamra viðlaga",
+   "Trommarinn Dave Grohl stofnaði seinna hljómsveitina Foo Fighters",
+   "Á plötuumslaginu er ungbarn að synda á eftir peningaseðli"
+  ],
+  "videos": [
+   {
+    "id": "hTWKbfoikeg",
+    "title": "Smells Like Teen Spirit"
+   }
+  ],
+  "pop": [
+   "Gítarriffið í Smells Like Teen Spirit er eitt það fyrsta sem margir læra á rafgítar"
+  ],
+  "works": [
+   "Smells Like Teen Spirit",
+   "Come as You Are"
+  ],
+  "ask": [
+   "Hlustaðu eftir styrkleikabreytingunum. Hvenær er lagið lágvært og hvenær hávært?"
+  ]
+ },
+ {
+  "id": "daftpunk",
+  "name": "Daft Punk",
+  "short": "Daft Punk",
+  "b": 1993,
+  "d": 2021,
+  "y": 1997,
+  "band": true,
+  "country": "Frakkland",
+  "era": "hipp",
+  "intro": "Franskur raftónlistardúett sem faldi andlitin sín á bak við vélmennahjálma.",
+  "facts": [
+   "Thomas Bangalter og Guy-Manuel de Homem-Christo komu nánast aldrei fram án hjálmanna",
+   "Í Around the World eru orðin „around the world“ endurtekin 144 sinnum í lengri útgáfunni",
+   "Í myndbandinu táknar hver hópur dansara eitt hljóðfæri: beinagrindur eru gítarinn, íþróttamenn bassinn og vélmennin söngurinn",
+   "Þeir sömdu tónlistina við kvikmyndina Tron: Legacy"
+  ],
+  "videos": [
+   {
+    "id": "K0HSD_i2DvA",
+    "title": "Around the World"
+   }
+  ],
+  "pop": [
+   "Get Lucky frá 2013 var spilað alls staðar og vann Grammy-verðlaun sem upptaka ársins"
+  ],
+  "works": [
+   "Around the World",
+   "One More Time",
+   "Get Lucky"
+  ],
+  "ask": [
+   "Fylgstu með dönsurunum. Hvaða hópur fylgir bassanum og hvaða hópur trommunum?"
+  ],
+  "connect": [
+   "kraftwerk"
+  ]
+ },
+ {
+  "id": "beyonce",
+  "name": "Beyoncé",
+  "short": "Beyoncé",
+  "b": 1981,
+  "y": 2008,
+  "country": "Bandaríkin",
+  "era": "nyold",
+  "woman": true,
+  "intro": "Söngkona, dansari og lagahöfundur frá Texas, ein stærsta stjarna 21. aldarinnar.",
+  "facts": [
+   "Hún varð fyrst fræg með stúlknasveitinni Destiny's Child",
+   "Hún hefur unnið fleiri Grammy-verðlaun en nokkur annar tónlistarmaður",
+   "Hún æfir dansinn og sönginn svo mikið að hún getur hlaupið á bretti og sungið á sama tíma"
+  ],
+  "videos": [
+   {
+    "id": "4m1EFMoRFvY",
+    "title": "Single Ladies (Put a Ring on It)"
+   }
+  ],
+  "pop": [
+   "Dansinn í Single Ladies hefur verið hermdur eftir af milljónum manna á netinu"
+  ],
+  "works": [
+   "Single Ladies",
+   "Crazy in Love",
+   "Halo"
+  ],
+  "ask": [
+   "Hvernig passa danshreyfingarnar við taktinn? Getur þú fundið hvar dansinn stoppar í laginu?"
+  ]
+ },
+ {
+  "id": "swift",
+  "name": "Taylor Swift",
+  "short": "Taylor Swift",
+  "b": 1989,
+  "y": 2014,
+  "country": "Bandaríkin",
+  "era": "nyold",
+  "woman": true,
+  "intro": "Lagahöfundur og söngkona sem byrjaði í kántrítónlist og varð ein stærsta poppstjarna heims.",
+  "facts": [
+   "Fjölskyldan hennar flutti til Nashville þegar hún var 14 ára svo hún gæti reynt fyrir sér í tónlist",
+   "Hún semur eða er meðhöfundur að nánast öllum lögunum sínum",
+   "Eras-tónleikaferðin hennar er tekjuhæsta tónleikaferð sögunnar",
+   "Hún tók gömlu plöturnar sínar upp aftur, „Taylor's Version“, til að eiga sjálf tónlistina sína"
+  ],
+  "videos": [
+   {
+    "id": "nfWlot6h_JM",
+    "title": "Shake It Off"
+   }
+  ],
+  "pop": [
+   "Á tónleikum hennar í Seattle 2023 hoppuðu aðdáendurnir svo mikið að jarðskjálftamælar námu hreyfinguna"
+  ],
+  "works": [
+   "Shake It Off",
+   "Love Story",
+   "Anti-Hero"
+  ],
+  "ask": [
+   "Shake It Off þýðir að hrista eitthvað af sér. Um hvað heldur þú að lagið fjalli?"
+  ]
+ },
+ {
+  "id": "sheeran",
+  "name": "Ed Sheeran",
+  "short": "Ed Sheeran",
+  "b": 1991,
+  "y": 2017,
+  "country": "England",
+  "era": "nyold",
+  "intro": "Enskur söngvari og lagahöfundur sem getur fyllt risastóra leikvanga einn með gítar og lykkjupedal.",
+  "facts": [
+   "Með lykkjupedala (loop pedal) tekur hann upp klapp, gítar og raddir á sviðinu og byggir heilt lag einn síns liðs",
+   "Sem unglingur spilaði hann á götum úti og svaf stundum í sófum hjá vinum sínum í London",
+   "Shape of You var fyrsta lagið sem náði þremur milljörðum spilana á Spotify",
+   "Fimm af plötunum hans heita eftir stærðfræðitáknum: +, ×, ÷, = og −"
+  ],
+  "videos": [
+   {
+    "id": "JGwWNGJdvx8",
+    "title": "Shape of You"
+   }
+  ],
+  "pop": [
+   "Shape of You er eitt mest spilaða lag í sögu streymisveitna"
+  ],
+  "works": [
+   "Shape of You",
+   "Perfect",
+   "Thinking Out Loud"
+  ],
+  "ask": [
+   "Taktinn í Shape of You er hægt að slá á borðið. Getur þú fundið hann?"
+  ]
+ },
+ {
+  "id": "billie",
+  "name": "Billie Eilish",
+  "short": "Billie Eilish",
+  "b": 2001,
+  "y": 2019,
+  "country": "Bandaríkin",
+  "era": "nyold",
+  "woman": true,
+  "intro": "Söngkona sem bjó til tónlistina sína með bróður sínum, Finneas, í svefnherberginu hans heima.",
+  "facts": [
+   "Fyrsta lagið hennar, Ocean Eyes, setti hún á netið 13 ára og það sló óvænt í gegn",
+   "Árið 2020, 18 ára, vann hún öll fjögur stærstu Grammy-verðlaunin sama kvöldið, sú yngsta til þess",
+   "Hún samdi titillag James Bond-myndarinnar No Time to Die og vann Óskarsverðlaun fyrir",
+   "Hún hefur unnið tvenn Óskarsverðlaun, líka fyrir lag úr kvikmyndinni Barbie"
+  ],
+  "videos": [
+   {
+    "id": "DyDfgMOUjCI",
+    "title": "bad guy"
+   }
+  ],
+  "pop": [
+   "bad guy sýndi að það þarf ekki stórt hljóðver til að búa til heimsfrægt lag"
+  ],
+  "works": [
+   "bad guy",
+   "Ocean Eyes",
+   "What Was I Made For?"
+  ],
+  "ask": [
+   "Lagið er tekið upp í svefnherbergi. Hvaða hljóð gætir þú búið til heima hjá þér?"
+  ]
+ },
+ {
+  "id": "bts",
+  "name": "BTS",
+  "short": "BTS",
+  "b": 2013,
+  "y": 2020,
+  "band": true,
+  "country": "Suður-Kórea",
+  "era": "nyold",
+  "intro": "Sjö manna strákasveit frá Suður-Kóreu sem gerði K-popp að alheimsæði.",
+  "facts": [
+   "Dynamite var fyrsta lag kóreskrar hljómsveitar til að ná efsta sæti bandaríska vinsældalistans",
+   "Þeir hafa haldið ræðu hjá Sameinuðu þjóðunum",
+   "Aðdáendurnir kallast ARMY og eru milljónir um allan heim",
+   "Í K-poppi æfa hljómsveitirnar dans og söng í mörg ár áður en þær byrja"
+  ],
+  "videos": [
+   {
+    "id": "gdZLi9oWNZg",
+    "title": "Dynamite"
+   }
+  ],
+  "pop": [
+   "Dansinn í Dynamite hefur verið lærður og dansaður af fólki um allan heim"
+  ],
+  "works": [
+   "Dynamite",
+   "Butter"
+  ],
+  "ask": [
+   "Dynamite minnir á diskó frá 8. áratugnum. Heyrir þú líkindin við ABBA eða Donnu Summer?"
+  ],
+  "connect": [
+   "abba",
+   "donnasummer"
+  ]
+ },
+ {
+  "id": "haukur",
+  "name": "Haukur Morthens",
+  "short": "Haukur Morthens",
+  "about": "Hauk Morthens",
+  "b": 1924,
+  "d": 1992,
+  "y": 1955,
+  "country": "Ísland",
+  "era": "island",
+  "intro": "Einn vinsælasti dægurlagasöngvari Íslands um áratugaskeið. Lögin hans eru enn sungin um allt land.",
+  "facts": [
+   "Árið 1952 varð hann fyrsti íslenski dægurlagasöngvarinn sem gerði sönginn að aðalstarfi. Hann er líka sagður hafa fyrstur spilað Elvis Presley í íslensku útvarpi",
+   "Lagið Ó borg mín borg, um Reykjavík, samdi hann sjálfur",
+   "Hann tók Hæ mambó upp í Kaupmannahöfn árið 1955 með dönskum hljóðfæraleikurum",
+   "Tónlistarmaðurinn Bubbi Morthens er bróðursonur hans"
+  ],
+  "videos": [
+   {
+    "id": "oWGTr-wSYDA",
+    "title": "Hæ mambó"
+   },
+   {
+    "id": "6B5mZWQEAr0",
+    "title": "Til eru fræ"
+   }
+  ],
+  "pop": [
+   "Lögin hans eru sungin á mannamótum og í útilegum enn í dag"
+  ],
+  "works": [
+   "Hæ mambó",
+   "Til eru fræ",
+   "Ó borg mín borg"
+  ],
+  "ask": [
+   "Hvernig hljómar þessi tónlist í samanburði við rokkið sem kom nokkrum árum seinna?"
+  ]
+ },
+ {
+  "id": "hljomar",
+  "name": "Hljómar",
+  "short": "Hljómar",
+  "about": "Hljóma",
+  "b": 1963,
+  "d": 1969,
+  "y": 1965,
+  "band": true,
+  "country": "Ísland",
+  "era": "island",
+  "intro": "Bítlahljómsveit frá Keflavík sem var kölluð „Íslensku Bítlarnir“.",
+  "facts": [
+   "Í Keflavík heyrðu strákarnir rokk og ról í útvarpi bandarísku herstöðvarinnar áður en það barst til annarra Íslendinga",
+   "Gunnar Þórðarson, einn af stofnendunum, varð einn afkastamesti lagahöfundur Íslands",
+   "Þeir gáfu líka út plötu á ensku undir nafninu Thor's Hammer",
+   "Rúnar Júlíusson, bassaleikarinn, var kallaður „Herra rokk“"
+  ],
+  "videos": [
+   {
+    "id": "ROvbaQ_dUiQ",
+    "title": "Bláu augun þín"
+   }
+  ],
+  "pop": [
+   "Bláu augun þín eftir Gunnar Þórðarson er eitt þekktasta íslenska dægurlag allra tíma"
+  ],
+  "works": [
+   "Bláu augun þín",
+   "Fyrsti kossinn"
+  ],
+  "ask": [
+   "Hlustaðu á Bítlana og svo á Hljóma. Heyrir þú hvað þeir eiga sameiginlegt?"
+  ],
+  "connect": [
+   "beatles"
+  ]
+ },
+ {
+  "id": "studmenn",
+  "name": "Stuðmenn",
+  "short": "Stuðmenn",
+  "b": 1970,
+  "y": 1975,
+  "band": true,
+  "country": "Ísland",
+  "era": "island",
+  "intro": "Ein ástsælasta hljómsveit Íslands, full af húmor, glensi og grípandi lögum.",
+  "facts": [
+   "Hljómsveitin byrjaði sem nemendahljómsveit í Menntaskólanum við Hamrahlíð",
+   "Fyrsta platan þeirra, Sumar á Sýrlandi, kom út árið 1975",
+   "Kvikmyndin þeirra Með allt á hreinu frá 1982 er ein vinsælasta íslenska kvikmynd sögunnar",
+   "Í hljómsveitinni hafa verið margir af þekktustu tónlistarmönnum landsins, til dæmis Ragnhildur Gísladóttir og Egill Ólafsson"
+  ],
+  "videos": [
+   {
+    "id": "TAkfv8O4VMU",
+    "title": "Út á stoppistöð"
+   }
+  ],
+  "pop": [
+   "Margir Íslendingar kunna setningar úr Með allt á hreinu utanbókar"
+  ],
+  "works": [
+   "Út á stoppistöð",
+   "Ofboðslega frægur",
+   "Popplag í G-dúr"
+  ],
+  "ask": [
+   "Stuðmenn syngja oft um hversdagslega hluti. Um hvaða hversdagslega hlut myndir þú semja lag?"
+  ]
+ },
+ {
+  "id": "bjork",
+  "name": "Björk Guðmundsdóttir",
+  "short": "Björk",
+  "b": 1965,
+  "y": 1995,
+  "country": "Ísland",
+  "era": "island",
+  "woman": true,
+  "intro": "Frægasti tónlistarmaður Íslands. Hún er þekkt um allan heim fyrir einstaka rödd, tilraunir og ævintýraleg föt.",
+  "facts": [
+   "Hún gaf út sína fyrstu plötu aðeins 11 ára gömul",
+   "Hún sló fyrst í gegn erlendis með hljómsveitinni Sykurmolunum og laginu Birthday",
+   "Á Óskarsverðlaununum 2001 mætti hún í kjól sem leit út eins og svanur",
+   "Platan Biophilia var líka smáforrit, og út frá henni urðu til tónlistarsmiðjur fyrir börn í skólum"
+  ],
+  "videos": [
+   {
+    "id": "htobTBlCvUU",
+    "title": "It's Oh So Quiet"
+   }
+  ],
+  "pop": [
+   "It's Oh So Quiet er gamalt lag frá 1951 sem hún gerði heimsfrægt aftur"
+  ],
+  "works": [
+   "It's Oh So Quiet",
+   "Human Behaviour",
+   "Army of Me"
+  ],
+  "ask": [
+   "Lagið skiptist á milli hljóðlátra og hávaðasamra kafla. Réttu upp hönd í hvert sinn sem það verður hávært!"
+  ]
+ },
+ {
+  "id": "sigurros",
+  "name": "Sigur Rós",
+  "short": "Sigur Rós",
+  "b": 1994,
+  "y": 1999,
+  "band": true,
+  "country": "Ísland",
+  "era": "island",
+  "intro": "Íslensk hljómsveit sem býr til draumkennda tónlist sem fólk um allan heim tengir við íslenska náttúru.",
+  "facts": [
+   "Söngvarinn Jónsi spilar á rafmagnsgítar með sellóboga",
+   "Sum lögin þeirra eru sungin á „vonlensku“, bulltungumáli sem hljómar eins og íslenska",
+   "Hoppípolla þýðir að hoppa í pollum",
+   "Platan Ágætis byrjun frá 1999 gerði þá fræga um allan heim"
+  ],
+  "videos": [
+   {
+    "id": "JAYb8ZyjzD0",
+    "title": "Hoppípolla"
+   }
+  ],
+  "pop": [
+   "Hoppípolla var notað í kynningu á náttúrulífsþáttunum Planet Earth og í ótal auglýsingum"
+  ],
+  "works": [
+   "Hoppípolla",
+   "Svefn-g-englar",
+   "Glósóli"
+  ],
+  "ask": [
+   "Hvernig náttúru sérð þú fyrir þér þegar þú hlustar?"
+  ]
+ },
+ {
+  "id": "omam",
+  "name": "Of Monsters and Men",
+  "short": "Of Monsters and Men",
+  "b": 2010,
+  "y": 2011,
+  "band": true,
+  "country": "Ísland",
+  "era": "island",
+  "intro": "Íslensk þjóðlagapopp-hljómsveit sem vann Músíktilraunir og sló svo í gegn um allan heim.",
+  "facts": [
+   "Hljómsveitin vann Músíktilraunir árið 2010",
+   "Little Talks náði efsta sæti á jaðarrokkslista Billboard í Bandaríkjunum",
+   "Í laginu syngja Nanna Bryndís og Ragnar eins og þau séu að tala saman",
+   "Lúðrarnir og „hey!“-hrópin gera lagið að algjöru samsöngslagi"
+  ],
+  "videos": [
+   {
+    "id": "_adqP8Ks4iU",
+    "title": "Little Talks"
+   }
+  ],
+  "pop": [
+   "Little Talks hefur verið spilað milljónir sinnum og heyrist í auglýsingum og sjónvarpsþáttum"
+  ],
+  "works": [
+   "Little Talks",
+   "Dirty Paws",
+   "King and Lionheart"
+  ],
+  "ask": [
+   "Tvær raddir skiptast á. Getur þú heyrt hvenær hvor syngur?"
+  ]
+ },
+ {
+  "id": "laufey",
+  "name": "Laufey",
+  "short": "Laufey",
+  "about": "Laufeyju",
+  "b": 1999,
+  "y": 2023,
+  "country": "Ísland",
+  "era": "island",
+  "woman": true,
+  "intro": "Íslensk söngkona, sellóleikari og lagahöfundur sem blandar saman djassi, klassík og poppi.",
+  "facts": [
+   "Hún lék einleik á selló með Sinfóníuhljómsveit Íslands sem unglingur",
+   "Faðir hennar er íslenskur og móðir hennar er kínversk og fiðluleikari",
+   "Hún vann Grammy-verðlaun árið 2024 fyrir plötuna Bewitched",
+   "Stórar fyrirmyndir hennar eru gömlu djasssöngkonurnar, eins og Ella Fitzgerald"
+  ],
+  "videos": [
+   {
+    "id": "lSD_L-xic9o",
+    "title": "From The Start"
+   }
+  ],
+  "pop": [
+   "Hún hefur fengið milljónir ungs fólks til að hlusta á djass og klassíska tónlist"
+  ],
+  "works": [
+   "From The Start",
+   "Valentine",
+   "Falling Behind"
+  ],
+  "ask": [
+   "From The Start er í bossanóva-takti frá Brasilíu. Hvernig er hann ólíkur poppi?"
+  ],
+  "connect": [
+   "ella"
+  ]
+ }
 ];
 
 
@@ -1816,3 +4163,6 @@ try{ const s=localStorage.getItem("tss-tl"); if(s==="daegur"){ TL="daegur"; docu
 buildStory();
 route();
 </script>
+
+</body>
+</html>
