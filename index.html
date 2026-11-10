@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 </head>
 <body>
-<meta name="description" content="Tónsögusmiðjan: tónlistarsaga fyrir tónmennt og tónfræði. Tímalína tónskálda frá miðöldum til okkar daga, með fróðleik og tóndæmum.">
 <title>Tónsögusmiðjan</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -95,11 +94,9 @@ html{scroll-behavior:smooth}
 .results small{display:block;color:var(--muted);font-size:.8rem}
 .results .none{padding:10px;color:var(--muted)}
 .eras-jump{display:flex;gap:6px;flex-wrap:wrap}
-.eras-jump a{text-decoration:none;font-size:.85rem;font-weight:600;color:var(--ink);background:var(--chip-soft);border:1.5px solid color-mix(in srgb,var(--chip) 50%,transparent);border-radius:999px;padding:6px 12px;display:inline-flex;align-items:center;gap:6px}
+.eras-jump a{text-decoration:none;font-size:.85rem;font-weight:600;color:var(--ink);background:var(--chip-soft);border-radius:999px;padding:6px 12px;display:inline-flex;align-items:center;gap:6px}
 .eras-jump a .dot{width:9px;height:9px;border-radius:50%;background:var(--chip)}
-.eras-jump a.active{background:var(--chip);color:var(--bar-ink);border-color:var(--chip)}
-@media (pointer:coarse){.eras-jump{gap:8px}.eras-jump a{min-height:40px}}
-.note:focus-visible{outline:3px solid var(--ink);outline-offset:4px;z-index:6}
+.eras-jump a.active{background:var(--chip);color:var(--bar-ink)}
 .eras-jump a.active .dot{background:var(--bar-ink)}
 @media (max-width:700px){.namebar .wrap{gap:8px;padding-block:8px}.eras-jump{width:100%;order:3;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.eras-jump a{flex:none;padding:4px 10px}.search{min-width:0;flex:1 1 0}.pick{flex:1 1 0;min-width:0;width:0}.pick,.search input{min-height:38px;font-size:.88rem;padding-block:6px}.search input{padding-left:34px}.search svg{left:11px}}
 
@@ -287,10 +284,6 @@ body.on-tl{--axh:74px}
 .peers{display:flex;flex-wrap:wrap;gap:6px}
 .peer{font:inherit;font-size:.85rem;font-weight:500;border:0;border-radius:999px;padding:4px 10px;cursor:pointer;color:var(--ink)}
 .dlg-nav{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
-
-/* texti á tímabilalitum: hvítur eða dökkur eftir birtu litarins (WCAG) */
-@supports (color:oklch(from red l c h)){.face{color:oklch(from var(--fc,var(--ink)) clamp(.27,(.6 - l)*999,1) calc(c*.35) h)}.chap .badge,.pill,.bw .btn{color:oklch(from var(--col) clamp(.27,(.6 - l)*999,1) calc(c*.35) h)}.eras-jump a.active{color:oklch(from var(--chip) clamp(.27,(.6 - l)*999,1) calc(c*.35) h)}.ax-seg.on{color:oklch(from var(--k) clamp(.27,(.6 - l)*999,1) calc(c*.35) h)}}
-.wtag{color:color-mix(in srgb,var(--col) 60%,var(--ink))}
 </style>
 
 <header class="top"><div class="wrap">
@@ -3830,7 +3823,7 @@ const yrs = c => c.d ? (c.approx?"um ":"")+c.b+"–"+c.d : (c.band?"frá ":"f. "
 const about = c => c.about||c.short;
 const eraShort = k => ERAS[k].short||ERAS[k].name;
 const initials = c => c.short.replace(/^C\.P\.E\. /,"CPE ").replace(/^The /,"").split(/[\s-]+/).map(w=>w[0]).join("").slice(0,3);
-const faceHtml = c => `<span class="face" style="--fc:${eraVar(c.era)};background:var(--fc)">${esc(initials(c))}${c.img?`<img src="${esc(c.img)}" alt="Mynd af ${esc(c.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`:""}</span>`;
+const faceHtml = c => `<span class="face" style="background:${eraVar(c.era)}">${esc(initials(c))}${c.img?`<img src="${esc(c.img)}" alt="Mynd af ${esc(c.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`:""}</span>`;
 
 function vidHtml(v, col, small, extra=""){
   return `<a class="vid${small?" small":""}" href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener" data-yt="${v.id}" style="--vcol:${col}" ${extra}>${v.si?'<span class="sib">Sinfóníuhljómsveit Íslands</span>':""}
@@ -3937,6 +3930,13 @@ function drawLinks(){
     d+=`<path stroke="${col}" d="M${a.bx.toFixed(1)},${a.by.toFixed(1)} C${(a.bx+bend).toFixed(1)},${(a.by+dy*0.55).toFixed(1)} ${(b.tx-bend).toFixed(1)},${(b.ty-dy*0.55).toFixed(1)} ${b.tx.toFixed(1)},${(b.ty-4).toFixed(1)}"/>`;
   }
   svg.innerHTML=d;
+}
+/* Teiknar tengiþræðina aftur á hverjum ramma á meðan miði hreyfist, svo þeir elti hann */
+let linkAnimUntil=0;
+function followLinks(ms=650){
+  const go=!linkAnimUntil; linkAnimUntil=performance.now()+ms;
+  if(!go) return;
+  (function step(){ drawLinks(); if(performance.now()<linkAnimUntil) requestAnimationFrame(step); else { linkAnimUntil=0; drawLinks(); } })();
 }
 let ticking=false, lastActive="", lastEra="";
 function onScroll(){
@@ -4159,6 +4159,7 @@ function selectNote(id){
   const it=onTL && story.querySelector(`.it[data-id="${id}"]`);
   if(!it) return;
   it.classList.add("sel");
+  followLinks();
   if(selectNote.last===id) return; selectNote.last=id;
   const r=it.getBoundingClientRect(), mobile=matchMedia("(max-width:820px)").matches;
   const top = mobile ? r.top + scrollY - stickPx() - 14
@@ -4170,6 +4171,7 @@ function closePanel(){
   if(!dlg.open) return;
   dlg.classList.remove("in"); document.body.classList.remove("panel-open");
   document.querySelectorAll(".it.sel").forEach(e=>e.classList.remove("sel"));
+  followLinks();
   openId=null; selectNote.last=null;
   setTimeout(()=>{ if(!dlg.classList.contains("in") && dlg.open) dlg.close(); },460);
 }
